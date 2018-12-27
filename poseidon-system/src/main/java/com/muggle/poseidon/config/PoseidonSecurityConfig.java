@@ -1,6 +1,8 @@
 package com.muggle.poseidon.config;
 
 import com.muggle.poseidon.filter.PoseidonTokenFilter;
+import com.muggle.poseidon.handler.PoseidonAuthenticationFailureHandler;
+import com.muggle.poseidon.handler.PoseidonAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -33,19 +35,42 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
 */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+        web.ignoring().antMatchers("/*.html", "/**/*.jsp", "/**/*.css", "/**/*.js",
+                "/**/*.bmp", "/**/*.gif", "/**/*.png", "/**/*.jpg", "/**/*.ico");
+//        super.configure(web);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.addFilterAt(this.customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        super.configure(http);
+        http.authorizeRequests().antMatchers("/test/**").permitAll()
+                // user权限可以访问的请求
+                .antMatchers("/security/user").hasRole("user")
+                // admin权限可以访问的请求
+                .antMatchers("/security/admin").hasRole("admin")
+                //SpEL表达式:需要拥有user权限，且进行了完全认证
+                .antMatchers("/user/account").access("hasRole('user') and isFullyAuthenticated()")
+                // 其他地址的访问均需验证权限（需要登录）
+                .anyRequest().authenticated().and()
+                // 添加验证码验证
+                // 指定登录页面的请求路径
+                .formLogin().loginPage("/login_page")
+                // 登陆处理路径
+                .loginProcessingUrl("/auth_login").permitAll().and()
+                //退出请求的默认路径为logout，下面改为signout， 成功退出登录后的url可以用logoutSuccessUrl设置
+                .logout().logoutUrl("/signout").logoutSuccessUrl("/login_page").permitAll().and()
+                // 开启rememberMe，设置一个私钥专供testall项目使用，注意与下面TokenBasedRememberMeServices的key保持一致
+                .rememberMe().key("testallKey").and()
+                // 关闭csrf
+                .csrf().disable();
+        http.addFilterAt(this.customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//        super.configure(http);
     }
     PoseidonTokenFilter customAuthenticationFilter() throws Exception {
         PoseidonTokenFilter filter = new PoseidonTokenFilter();
-//        filter.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler);
-//        filter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+        filter.setAuthenticationSuccessHandler(new PoseidonAuthenticationSuccessHandler());
+        filter.setAuthenticationFailureHandler(new PoseidonAuthenticationFailureHandler());
         filter.setAuthenticationManager(authenticationManagerBean());//加入这一行才会正常执行Filter中的 Handler
         return filter;
     }
+
 }

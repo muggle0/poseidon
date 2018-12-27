@@ -23,16 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
 
-
-    @Value("${token.header}")
+/*    @Value("${token.header}")
     private String tokenHeader;
-
     @Value("${token.name}")
-    private String tokenName;
+    private String tokenName;*/
 
 
     public PoseidonTokenFilter() {
-        super.setFilterProcessesUrl("/auth/login");
+        super.setFilterProcessesUrl("/auth_login");
     }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {

@@ -4,6 +4,8 @@ import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: poseidon
@@ -21,5 +23,10 @@ public class TestController {
         redisService.set("a","b");
         String a =(String) redisService.get("a");
         return a;
+    }
+    @GetMapping("/login_page")
+    public String getLogin(){
+        System.out.println("test");
+        return "/login.html";
     }
 }

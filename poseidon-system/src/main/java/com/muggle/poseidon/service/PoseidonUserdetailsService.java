@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author: muggle
  * @create: 2018-12-24 21:01
  **/
-@Service
+//@Service
 public class PoseidonUserdetailsService implements UserDetailsService{
 
 
