@@ -1,7 +1,6 @@
 package com.muggle.poseidon.filter;
 
 import com.muggle.poseidon.exception.BadTokenException;
-import com.muggle.poseidon.exception.NoTokenException;
 import com.muggle.poseidon.properties.TokenProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,7 +67,6 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         try{
 //            执行过程 filter---AuthenticationProvider--successHander
             authenticate = this.getAuthenticationManager().authenticate(authRequest);
-
         }catch (BadCredentialsException e){
             throw new BadTokenException(TokenProperties.BAD_TOKEN_MSG,TokenProperties.BAD_TOKEN_CODE);
         }
