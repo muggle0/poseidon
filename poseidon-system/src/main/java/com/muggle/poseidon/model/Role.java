@@ -6,7 +6,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import java.util.Date;
 /**
- * poseidon_granted_authority实体类
+ * role实体类
  *
  * @author muggle
  *
@@ -15,29 +15,31 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 @ToString
-public class PoseidonGrantedAuthority {
+public class Role {
 	/***/
 	private Long id;
 	/***/
-	private String authority;
-	/***/
-	private String permissionName;
-	/***/
-	private Boolean enable;
+	private String roleCode;
 	/***/
 	private String hashCode;
 	/***/
-	private Long createId;
+	private String name;
+	/***/
+	private Integer sort;
 	/***/
 	private Date createTime;
 	/***/
-	private Long updateId;
-	/***/
 	private Date updateTime;
+	/***/
+	private Date deleteTime;
+	/***/
+	private Long createId;
 	/***/
 	private Long deleteId;
 	/***/
-	private Date deleteTime;
+	private Long updateId;
+
+	private boolean enable;
 
 	
 }

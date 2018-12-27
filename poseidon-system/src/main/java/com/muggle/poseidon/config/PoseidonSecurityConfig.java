@@ -38,7 +38,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterAt(this.customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterAt(this.customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         super.configure(http);
     }
     PoseidonTokenFilter customAuthenticationFilter() throws Exception {

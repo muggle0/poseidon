@@ -8,7 +8,7 @@ import lombok.Data;
  * @author: muggle
  * @create: 2018-12-22 13:32
  **/
-@Data
+
 public class PoseidonSystemException extends RuntimeException {
     private String msg;
     private int code;

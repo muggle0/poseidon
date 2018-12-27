@@ -9,7 +9,6 @@ import org.springframework.security.core.AuthenticationException;
  * @author: muggle
  * @create: 2018-12-24 15:06
  **/
-@Data
 public class BadTokenException extends AuthenticationException {
     private String code;
     private String msg;
