@@ -3,6 +3,7 @@ package com.muggle.poseidon.core.filter;
 import com.muggle.poseidon.core.exception.BadTokenException;
 import com.muggle.poseidon.core.exception.PoseidonSystemException;
 import com.muggle.poseidon.core.properties.TokenProperties;
+import com.muggle.poseidon.model.MessagePrincipal;
 import com.muggle.poseidon.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +46,12 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         }
 //        从form-data中把值拿出来
 
-
         String username = this.obtainUsername(request);
         String password = this.obtainPassword(request);
         if (username == null) {
             username = "";
         }
+        String isMessage = request.getParameter("isMessage");
         if (password == null) {
             password = "";
         }
@@ -62,10 +63,15 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         }
         logger.info("username:"+username);
         logger.info("password:"+password);
-
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
-                username, password);
-
+        UsernamePasswordAuthenticationToken authRequest =null;
+        if ("true".equals(isMessage)){
+            MessagePrincipal message = new MessagePrincipal();
+            message.setCode(2);
+            message.setPrincipal(username);
+            authRequest=new UsernamePasswordAuthenticationToken(message,password);
+        }else {
+            authRequest=new UsernamePasswordAuthenticationToken(username, password);
+        }
         // Allow subclasses to set the "details" property
         setDetails(request, authRequest);
 
