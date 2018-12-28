@@ -2,15 +2,12 @@ package com.muggle.poseidon.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.muggle.poseidon.service.PoseidonIdservice;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -24,9 +21,8 @@ import java.util.*;
 @Accessors(chain = true)
 @Entity
 @DynamicUpdate
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@ToString
 @Table(name = "poseidon_user_detail")
 public class PoseidonUserDetail  implements Serializable ,UserDetails {
 
@@ -150,8 +146,10 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
         HashSet<PoseidonGrantedAuthority> authorities=new HashSet<>();
         if (roles.size()>0){
             roles.forEach(role -> {
-                Set<PoseidonGrantedAuthority> temp = role.getAuthorities();
-                authorities.addAll(temp);
+                if (role.isEnable()){
+                    Set<PoseidonGrantedAuthority> temp = role.getAuthorities();
+                    authorities.addAll(temp);
+                }
             });
         }
         return authorities;
