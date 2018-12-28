@@ -1,6 +1,10 @@
 package com.muggle.poseidon.core.config;
 
 import com.muggle.poseidon.core.exception.BadTokenException;
+import com.muggle.poseidon.model.MessagePrincipal;
+import com.muggle.poseidon.model.PoseidonSign;
+import com.muggle.poseidon.service.PoseidonSignService;
+import com.muggle.poseidon.service.PoseidonUserdetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +29,7 @@ import java.util.Collection;
 @Slf4j
 public class PoseidonAuthenticationProvider implements AuthenticationProvider {
    private UserDetailsService userDetailsService;
+   private PoseidonSignService poseidonSignService;
    private BCryptPasswordEncoder bCryptPasswordEncoder;
    public PoseidonAuthenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder,UserDetailsService userDetailsServices){
        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
@@ -32,6 +37,17 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
    }
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+       if (!(authentication.getPrincipal() instanceof MessagePrincipal)){
+           return null;
+       }
+       MessagePrincipal principal= (MessagePrincipal) authentication.getPrincipal();
+        if (!(principal.getCode().equals(2))){
+            return null;
+        }
+        final PoseidonSign poseidonSign = poseidonSignService.loadByPrincipal(principal.getPrincipal());
+        UserDetails one = ((PoseidonUserdetailsService) userDetailsService).findOne(poseidonSign.getUserId());
+
         log.info("验证用户");
        throw new BadTokenException("测试》》》》》","ssssssssssssssssssssss");
     }

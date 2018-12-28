@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * @program: poseidon
  * @description:
@@ -35,5 +37,9 @@ public class PoseidonUserdetailsService implements UserDetailsService{
         String w = passwordEncoder.encode("ww");
         userDetail.setUsername("ww").setGender(0).setNickname("wos").setImgUrl("hah").setPassword(w);
         repository.save(userDetail);
+    }
+    public UserDetails findOne(String id){
+        Optional<PoseidonUserDetail> userDetail=repository.findById(id);
+        return userDetail.get();
     }
 }

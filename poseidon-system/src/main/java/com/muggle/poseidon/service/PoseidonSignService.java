@@ -1,6 +1,7 @@
 package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.model.PoseidonSign;
+import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,13 @@ import org.springframework.stereotype.Service;
 public class PoseidonSignService {
     @Autowired
     PoseidonSignRepository repository;
+    @Autowired
+    OauthService oauthService;
 
-    public PoseidonSign loadByPrincipal(){
-        repository.findOne()
+    public PoseidonSign loadByPrincipal(String principal){
+         PoseidonSign poseidonSign = repository.findByPrincipal(principal);
+         String credentials = oauthService.getCredentialsByPrincipal(principal);
+        poseidonSign.setCredentials(credentials);
+         return poseidonSign;
     }
 }

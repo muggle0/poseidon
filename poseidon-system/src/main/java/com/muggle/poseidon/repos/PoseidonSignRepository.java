@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PoseidonSignRepository extends CrudRepository<PoseidonSign, String>, JpaSpecificationExecutor<PoseidonSign> {
     PoseidonSign findDistinctByUserId(String userid);
+    PoseidonSign findByPrincipal(String principal);
 }
