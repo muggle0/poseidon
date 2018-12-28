@@ -20,6 +20,7 @@ public class PoseidonAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         ServletOutputStream outputStream = response.getOutputStream();
-        outputStream.print("无权限");
+//        outputStream.print("无权限");https://blog.csdn.net/neweastsun/article/details/80633421
+//        https://www.cnblogs.com/visoncheng/p/3335768.html
     }
 }
