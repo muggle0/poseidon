@@ -1,20 +1,32 @@
 package com.muggle.poseidon.model;
 
+import com.muggle.poseidon.service.PoseidonIdservice;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author muggle
  */
-@Data
+
 @Accessors(chain = true)
-public class PoseidonUserDetail implements Serializable {
+@Entity
+@DynamicUpdate
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "poseidon_user_detail")
+public class PoseidonUserDetail  implements Serializable ,UserDetails {
 
     private static final long serialVersionUID = 1545900520305L;
 
@@ -24,6 +36,10 @@ public class PoseidonUserDetail implements Serializable {
      * user_detail
      * isNullAble:0
      */
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(generator  = "myIdStrategy")
+    @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdservice.TYPE)
     private Long id;
 
     /**
@@ -47,25 +63,25 @@ public class PoseidonUserDetail implements Serializable {
      * 账户未过期
      * isNullAble:1,defaultVal:1
      */
-    private Integer accountNonExpired;
+    private boolean accountNonExpired;
 
     /**
      * 账户未上锁
      * isNullAble:1
      */
-    private Integer accountNonLocked;
+    private boolean accountNonLocked;
 
     /**
      * 凭证未过期
      * isNullAble:1,defaultVal:1
      */
-    private Integer credentiaIsNonExpired;
+    private boolean CredentialsNonExpired;
 
     /**
      * 激活
      * isNullAble:1,defaultVal:1
      */
-    private Integer enabled;
+    private boolean enabled;
 
     /**
      * isNullAble:1
@@ -85,8 +101,8 @@ public class PoseidonUserDetail implements Serializable {
     /**
      * isNullAble:1
      */
-    private Integer
-            gender;
+    @Column(name = "gender")
+    private Integer gender;
 
     /**
      * isNullAble:1
@@ -118,5 +134,14 @@ public class PoseidonUserDetail implements Serializable {
      * isNullAble:1
      */
     private java.time.LocalDateTime deleteTime;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+
+
 
 }

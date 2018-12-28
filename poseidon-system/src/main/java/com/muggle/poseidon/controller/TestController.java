@@ -1,10 +1,11 @@
 package com.muggle.poseidon.controller;
 
+import com.muggle.poseidon.model.PoseidonUserDetail;
+import com.muggle.poseidon.service.PoseidonUserdetailsService;
 import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,20 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: muggle
  * @create: 2018-12-21 17:06
  **/
-@Controller
+@RestController
 public class TestController {
     @Autowired
-    RedisService redisService;
+    PoseidonUserdetailsService poseidonUserdetailsService;
 
-    @GetMapping("/poseidon/test")
-    public String testRedis(){
-        redisService.set("a","b");
-        String a =(String) redisService.get("a");
-        return a;
-    }
     @GetMapping("/login_page")
     public String getLogin(){
         System.out.println("test");
-        return "/login.html";
+        return "/static/login.html";
+    }
+
+    @GetMapping("/sign_in")
+    public String toSignIn(PoseidonUserDetail userDetail){
+        poseidonUserdetailsService.toSignIn(userDetail);
+        return "ss";
     }
 }

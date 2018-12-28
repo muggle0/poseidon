@@ -19,7 +19,15 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.muggle.poseidon</groupId>
+            <artifactId>poseidon-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

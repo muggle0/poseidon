@@ -1,6 +1,6 @@
 package com.muggle.poseidon.base;
 
-import com.muggle.poseidon.properties.BeanProperties;
+import com.muggle.poseidon.core.properties.BeanProperties;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
