@@ -18,5 +18,7 @@ public class PoseidonSignService {
     @Autowired
     PoseidonSignRepository repository;
 
-    public PoseidonSign loadBy
+    public PoseidonSign loadByPrincipal(){
+        repository.findOne()
+    }
 }
