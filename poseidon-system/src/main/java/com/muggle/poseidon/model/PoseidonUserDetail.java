@@ -40,7 +40,7 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
     @Column(name = "id")
     @GeneratedValue(generator  = "myIdStrategy")
     @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdservice.TYPE)
-    private Long id;
+    private String id;
 
     /**
      * 用户名

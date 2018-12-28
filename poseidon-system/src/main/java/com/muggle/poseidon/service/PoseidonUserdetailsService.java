@@ -29,6 +29,8 @@ public class PoseidonUserdetailsService implements UserDetailsService{
     }
 
     public void toSignIn(PoseidonUserDetail userDetail) {
-        passwordEncoder.encode("my_");
+        String w = passwordEncoder.encode("ww");
+        userDetail.setUsername("ww").setGender(0).setNickname("wos").setImgUrl("hah").setPassword(w);
+        repository.save(userDetail);
     }
 }

@@ -1,8 +1,6 @@
 package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.core.generater.IdWorker;
-import com.muggle.poseidon.core.generater.service.impl.IdServiceImpl;
-import com.muggle.poseidon.core.generater.service.intf.IdService;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;

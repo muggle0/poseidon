@@ -2,9 +2,7 @@ package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.service.PoseidonUserdetailsService;
-import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +20,7 @@ public class TestController {
     @GetMapping("/login_page")
     public String getLogin(){
         System.out.println("test");
-        return "/static/login.html";
+        return "/static/resources/login.html";
     }
 
     @GetMapping("/sign_in")

@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author: muggle
  * @create: 2018-12-27 19:07
  **/
-@Component
+//@Component
 public class PoseidonAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

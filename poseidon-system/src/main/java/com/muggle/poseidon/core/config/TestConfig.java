@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  **/
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class TestConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -33,13 +35,17 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-        super.configure(web);
+        web.ignoring().antMatchers("/resources/**/*.html");
+//        super.configure(web);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/sign_in").permitAll();
-        super.configure(http);
+        http.authorizeRequests().antMatchers("/sign_in","/public/**").permitAll()
+                .antMatchers("/**").authenticated().and()
+                .formLogin().usernameParameter("username").passwordParameter("password").loginPage("/sign_up").loginProcessingUrl("/login_posei")
+                .permitAll().and().csrf().disable();
+//        super.configure(http);
     }
     @Bean
     public BCryptPasswordEncoder getPasswordEncoder(){
