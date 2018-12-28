@@ -29,7 +29,6 @@ import java.util.Collection;
 @Slf4j
 public class PoseidonAuthenticationProvider implements AuthenticationProvider {
    private UserDetailsService userDetailsService;
-   private PoseidonSignService poseidonSignService;
    private BCryptPasswordEncoder bCryptPasswordEncoder;
    public PoseidonAuthenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder,UserDetailsService userDetailsServices){
        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
@@ -45,11 +44,15 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         if (!(principal.getCode().equals(2))){
             return null;
         }
-        final PoseidonSign poseidonSign = poseidonSignService.loadByPrincipal(principal.getPrincipal());
-        UserDetails one = ((PoseidonUserdetailsService) userDetailsService).findOne(poseidonSign.getUserId());
-
+        PoseidonUserdetailsService poseidonUserdetailsService = (PoseidonUserdetailsService) userDetailsService;
+        final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getPrincipal());
+        if (poseidonSign!=null&&!poseidonSign.getCredentials().equals(authentication.getCredentials())){
+            return null;
+        }
         log.info("验证用户");
-       throw new BadTokenException("测试》》》》》","ssssssssssssssssssssss");
+        final UserDetails one = poseidonUserdetailsService.findOne(poseidonSign.getUserId());
+        Authentication token=new UsernamePasswordAuthenticationToken(one.getUsername(),one.getPassword(),one.getAuthorities());
+        return token;
     }
     @Override
     public boolean supports(Class<?> aClass) {

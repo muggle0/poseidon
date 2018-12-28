@@ -1,6 +1,8 @@
 package com.muggle.poseidon.service;
 
+import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.model.PoseidonUserDetail;
+import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,10 @@ public class PoseidonUserdetailsService implements UserDetailsService{
     PoseidonUserDetailsRepository repository;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    PoseidonSignRepository signRepository;
+    @Autowired
+    OauthService oauthService;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         PoseidonUserDetail userDetail=repository.findDistinctByUsername(s);
@@ -41,5 +47,11 @@ public class PoseidonUserdetailsService implements UserDetailsService{
     public UserDetails findOne(String id){
         Optional<PoseidonUserDetail> userDetail=repository.findById(id);
         return userDetail.get();
+    }
+    public PoseidonSign loadByPrincipal(String principal){
+        PoseidonSign poseidonSign = signRepository.findByPrincipal(principal);
+        String credentials = oauthService.getCredentialsByPrincipal(principal);
+        poseidonSign.setCredentials(credentials);
+        return poseidonSign;
     }
 }
