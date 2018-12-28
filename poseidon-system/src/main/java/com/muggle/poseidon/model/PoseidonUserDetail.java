@@ -1,13 +1,15 @@
 package com.muggle.poseidon.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.muggle.poseidon.service.PoseidonIdservice;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -136,12 +138,24 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
     private java.time.LocalDateTime deleteTime;
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+
+    @JSONField(serialize = false)
+    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role", inverseJoinColumns = {@JoinColumn(name = "role_id")}, joinColumns = {@JoinColumn(name = "user_id")}, foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Set<Role> roles;
+
+    public Set<PoseidonGrantedAuthority> getAuthorities() {
+        HashSet<PoseidonGrantedAuthority> authorities=new HashSet<>();
+        if (roles.size()>0){
+            roles.forEach(role -> {
+                Set<PoseidonGrantedAuthority> temp = role.getAuthorities();
+                authorities.addAll(temp);
+            });
+        }
+        return authorities;
     }
-
-
 
 
 }

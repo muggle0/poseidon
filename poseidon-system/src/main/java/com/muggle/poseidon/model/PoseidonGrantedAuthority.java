@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Date;
 
@@ -16,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 @ToString
-public class PoseidonGrantedAuthority {
+public class PoseidonGrantedAuthority implements GrantedAuthority {
     /***/
     private Long id;
     /***/

@@ -6,6 +6,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * role实体类
@@ -41,6 +42,8 @@ public class Role {
     private Long updateId;
 
     private boolean enable;
+
+    private Set<PoseidonGrantedAuthority> authorities;
 
 
 }
