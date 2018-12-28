@@ -3,6 +3,7 @@ package com.muggle.poseidon.controller;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.service.PoseidonUserdetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: muggle
  * @create: 2018-12-21 17:06
  **/
-@RestController
+@Controller
 public class TestController {
     @Autowired
     PoseidonUserdetailsService poseidonUserdetailsService;
@@ -20,7 +21,7 @@ public class TestController {
     @GetMapping("/login_page")
     public String getLogin(){
         System.out.println("test");
-        return "/static/resources/login.html";
+        return "/resources/login.html";
     }
 
     @GetMapping("/sign_in")
