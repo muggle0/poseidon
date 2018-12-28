@@ -20,7 +20,6 @@ import java.io.IOException;
 public class PoseidonAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
         ServletOutputStream outputStream = response.getOutputStream();
         outputStream.print("登录成功");
         outputStream.close();

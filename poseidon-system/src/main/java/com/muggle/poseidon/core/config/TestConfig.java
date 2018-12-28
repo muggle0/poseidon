@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,7 +26,6 @@ import java.util.Arrays;
  **/
 @Configuration
 @EnableWebSecurity
-@Order(1)
 public class TestConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -53,19 +53,27 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").authenticated().and()
                 .formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login_page").loginProcessingUrl("/sign_in")
                 .permitAll().and().csrf().disable();
+//        http.addFilter()
 //        super.configure(http);
     }
 
-    @Bean
-    public BCryptPasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
-        ProviderManager authenticationManager = new ProviderManager(Arrays.asList(inMemoryAuthenticationProvider, daoAuthenticationProvider()));
+        ProviderManager authenticationManager = new ProviderManager(Arrays.asList(poseidonAuthenticationProvider(),daoAuthenticationProvider()));
         //不擦除认证密码，擦除会导致TokenBasedRememberMeServices因为找不到Credentials再调用UserDetailsService而抛出UsernameNotFoundException
         authenticationManager.setEraseCredentialsAfterAuthentication(false);
         return authenticationManager;
+    }
+
+    DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        return daoAuthenticationProvider;
+    }
+    PoseidonAuthenticationProvider poseidonAuthenticationProvider(){
+        PoseidonAuthenticationProvider poseidonAuthenticationProvider=new PoseidonAuthenticationProvider(bCryptPasswordEncoder,userDetailsService);
+        return poseidonAuthenticationProvider;
     }
 }
