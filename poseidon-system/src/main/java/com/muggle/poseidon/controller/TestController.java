@@ -7,6 +7,9 @@ import com.muggle.poseidon.service.PoseidonUserdetailsService;
 import com.muggle.poseidon.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,9 +41,11 @@ public class TestController {
         poseidonUserdetailsService.toSignIn(userDetail);
         return "ss";
     }
+    @Secured("ROLE_TELLER")
     @GetMapping("/test/role")
     @ResponseBody
     public ResoultBean setRole(){
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Role role = new Role();
         role.setEnable(true).setRoleCode("admin").setName("超级管理员").setSort(1);
         final ResoultBean resoultBean = roleService.setRole(role);

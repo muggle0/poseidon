@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +33,7 @@ import java.util.Arrays;
  **/
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class TestConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -59,6 +61,7 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/sign_up", "/public/**").permitAll()
+                .antMatchers("/test/role").hasRole("test")
                 .antMatchers("/**").authenticated().and()
                 .formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login_page").loginProcessingUrl("/sign_in")
                 .permitAll().and().csrf().disable();
@@ -67,9 +70,8 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
 //        http.addFilter()
 //        super.configure(http);
     }
-
-
-    protected AuthenticationManager setAuthenticationManager()  {
+    @Override
+    protected AuthenticationManager authenticationManager()  {
         ProviderManager authenticationManager = new ProviderManager(Arrays.asList(poseidonAuthenticationProvider(),daoAuthenticationProvider()));
         //不擦除认证密码，擦除会导致TokenBasedRememberMeServices因为找不到Credentials再调用UserDetailsService而抛出UsernameNotFoundException
         authenticationManager.setEraseCredentialsAfterAuthentication(false);
@@ -90,7 +92,7 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
         final PoseidonTokenFilter poseidonTokenFilter = new PoseidonTokenFilter(redisService);
         poseidonTokenFilter.setAuthenticationSuccessHandler(new PoseidonAuthenticationSuccessHandler());
         poseidonTokenFilter.setAuthenticationFailureHandler(new PoseidonAuthenticationFailureHandler());
-        poseidonTokenFilter.setAuthenticationManager(setAuthenticationManager());
+        poseidonTokenFilter.setAuthenticationManager(authenticationManager());
         return poseidonTokenFilter;
     }
 

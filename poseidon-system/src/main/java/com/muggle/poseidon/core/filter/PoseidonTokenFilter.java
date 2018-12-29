@@ -59,9 +59,9 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         username = username.trim();
         String verification = request.getParameter("verification");
         final String s = redisService.get(username);
-        if (verification==null){
+       /* if (verification==null){
             throw new AuthenticationServiceException("验证码错误");
-        }
+        }*/
         logger.info("username:"+username);
         logger.info("password:"+password);
         UsernamePasswordAuthenticationToken authRequest =null;
