@@ -1,23 +1,16 @@
 package com.muggle.poseidon.core.config;
 
-import com.muggle.poseidon.core.exception.BadTokenException;
 import com.muggle.poseidon.model.MessagePrincipal;
 import com.muggle.poseidon.model.PoseidonSign;
-import com.muggle.poseidon.service.PoseidonSignService;
 import com.muggle.poseidon.service.PoseidonUserdetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.Assert;
-
-import java.util.Collection;
 
 /**
  * @program: workspace

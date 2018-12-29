@@ -26,20 +26,21 @@ import javax.servlet.http.HttpServletResponse;
  * @create: 2018-12-22 12:04
  **/
 @Slf4j
-@Component
+//@Component
 public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
 
 /*    @Value("${token.header}")
     private String tokenHeader;
     @Value("${token.name}")
     private String tokenName;*/
-    @Autowired
     private RedisService redisService;
-//    public PoseidonTokenFilter() {
-//        super.setFilterProcessesUrl("/auth_login");
-//    }
+    public PoseidonTokenFilter(RedisService redisService) {
+        this.redisService=redisService;
+        super.setFilterProcessesUrl("/sign_in");
+    }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        final String method = request.getMethod();
         if (!request.getMethod().equalsIgnoreCase("POST")) {
             throw new AuthenticationServiceException(
                     "Authentication method not supported: " + request.getMethod());
@@ -59,7 +60,7 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         String verification = request.getParameter("verification");
         final String s = redisService.get(username);
         if (verification==null){
-            throw new PoseidonSystemException("验证码错误",500);
+            throw new AuthenticationServiceException("验证码错误");
         }
         logger.info("username:"+username);
         logger.info("password:"+password);

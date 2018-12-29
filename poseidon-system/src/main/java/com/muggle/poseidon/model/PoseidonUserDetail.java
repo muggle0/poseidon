@@ -137,11 +137,11 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
 
 
     @JSONField(serialize = false)
-    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", inverseJoinColumns = {@JoinColumn(name = "role_id")}, joinColumns = {@JoinColumn(name = "user_id")}, foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<Role> roles;
-
+    @Override
     public Set<PoseidonGrantedAuthority> getAuthorities() {
         HashSet<PoseidonGrantedAuthority> authorities=new HashSet<>();
         if (roles.size()>0){

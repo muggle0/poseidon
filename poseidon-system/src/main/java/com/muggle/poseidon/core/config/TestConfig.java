@@ -1,5 +1,9 @@
 package com.muggle.poseidon.core.config;
 
+import com.muggle.poseidon.core.filter.PoseidonTokenFilter;
+import com.muggle.poseidon.core.handler.PoseidonAuthenticationFailureHandler;
+import com.muggle.poseidon.core.handler.PoseidonAuthenticationSuccessHandler;
+import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Arrays;
 
@@ -32,6 +37,9 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService userDetailsService;
+    @Autowired
+    RedisService redisService;
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,17 +57,17 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/sign_in", "/public/**").permitAll()
+        http.authorizeRequests().antMatchers("/sign_up", "/public/**").permitAll()
                 .antMatchers("/**").authenticated().and()
                 .formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login_page").loginProcessingUrl("/sign_in")
                 .permitAll().and().csrf().disable();
+        http.addFilterAt(poseidonTokenFilter(),UsernamePasswordAuthenticationFilter.class);
 //        http.addFilter()
 //        super.configure(http);
     }
 
 
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
+    protected AuthenticationManager setAuthenticationManager()  {
         ProviderManager authenticationManager = new ProviderManager(Arrays.asList(poseidonAuthenticationProvider(),daoAuthenticationProvider()));
         //不擦除认证密码，擦除会导致TokenBasedRememberMeServices因为找不到Credentials再调用UserDetailsService而抛出UsernameNotFoundException
         authenticationManager.setEraseCredentialsAfterAuthentication(false);
@@ -75,5 +83,12 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
     PoseidonAuthenticationProvider poseidonAuthenticationProvider(){
         PoseidonAuthenticationProvider poseidonAuthenticationProvider=new PoseidonAuthenticationProvider(bCryptPasswordEncoder,userDetailsService);
         return poseidonAuthenticationProvider;
+    }
+    PoseidonTokenFilter poseidonTokenFilter(){
+        final PoseidonTokenFilter poseidonTokenFilter = new PoseidonTokenFilter(redisService);
+        poseidonTokenFilter.setAuthenticationSuccessHandler(new PoseidonAuthenticationSuccessHandler());
+        poseidonTokenFilter.setAuthenticationFailureHandler(new PoseidonAuthenticationFailureHandler());
+        poseidonTokenFilter.setAuthenticationManager(setAuthenticationManager());
+        return poseidonTokenFilter;
     }
 }

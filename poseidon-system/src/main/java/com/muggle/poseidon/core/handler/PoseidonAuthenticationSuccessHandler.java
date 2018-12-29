@@ -9,6 +9,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @program: poseidon
@@ -20,8 +21,8 @@ import java.io.IOException;
 public class PoseidonAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        ServletOutputStream outputStream = response.getOutputStream();
-        outputStream.print("登录成功");
-        outputStream.close();
+        response.setContentType("application/json;charset=UTF-8");
+        final PrintWriter writer = response.getWriter();
+        writer.write("登录成功  ");
     }
 }

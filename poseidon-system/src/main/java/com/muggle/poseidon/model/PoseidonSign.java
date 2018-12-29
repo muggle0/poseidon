@@ -24,7 +24,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "poseidon_user_detail")
+@Table(name = "poseidon_sign")
 public class PoseidonSign implements Serializable {
 
     private static final long serialVersionUID = 1545995920333L;
