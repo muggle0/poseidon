@@ -2,6 +2,7 @@ package com.muggle.poseidon.core.handler;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -17,11 +18,12 @@ import java.io.PrintWriter;
  * @create: 2018-12-27 19:08
  **/
 //@Component
-public class PoseidonAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class PoseidonAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
         final PrintWriter writer = response.getWriter();
-        writer.write("登录失败");
+        writer.write("登录失败"+exception.getMessage());
+        writer.close();
     }
 }

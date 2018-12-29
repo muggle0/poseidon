@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Arrays;
@@ -62,6 +63,7 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login_page").loginProcessingUrl("/sign_in")
                 .permitAll().and().csrf().disable();
         http.addFilterAt(poseidonTokenFilter(),UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint());
 //        http.addFilter()
 //        super.configure(http);
     }
@@ -90,5 +92,9 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
         poseidonTokenFilter.setAuthenticationFailureHandler(new PoseidonAuthenticationFailureHandler());
         poseidonTokenFilter.setAuthenticationManager(setAuthenticationManager());
         return poseidonTokenFilter;
+    }
+
+    public AuthenticationEntryPoint macLoginUrlAuthenticationEntryPoint() {
+        return new PoseidonLoginUrlAuthenticationEntryPoint("/login_page");
     }
 }

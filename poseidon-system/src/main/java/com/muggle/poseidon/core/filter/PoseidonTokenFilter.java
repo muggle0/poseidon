@@ -43,7 +43,7 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         final String method = request.getMethod();
         if (!request.getMethod().equalsIgnoreCase("POST")) {
             throw new AuthenticationServiceException(
-                    "Authentication method not supported: " + request.getMethod());
+                    "请求非法 " );
         }
 //        从form-data中把值拿出来
 

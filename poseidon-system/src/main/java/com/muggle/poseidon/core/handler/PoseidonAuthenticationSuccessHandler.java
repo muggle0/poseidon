@@ -24,5 +24,6 @@ public class PoseidonAuthenticationSuccessHandler extends SimpleUrlAuthenticatio
         response.setContentType("application/json;charset=UTF-8");
         final PrintWriter writer = response.getWriter();
         writer.write("登录成功  ");
+        writer.close();
     }
 }
