@@ -2,10 +2,7 @@
 package com.muggle.poseidon.core.config;
 
 import com.muggle.poseidon.core.filter.PoseidonTokenFilter;
-import com.muggle.poseidon.core.handler.PoseidonAccessDeniedHandler;
-import com.muggle.poseidon.core.handler.PoseidonAuthenticationFailureHandler;
-import com.muggle.poseidon.core.handler.PoseidonAuthenticationSuccessHandler;
-import com.muggle.poseidon.core.handler.PoseidonLoginUrlAuthenticationEntryPoint;
+import com.muggle.poseidon.core.handler.*;
 import com.muggle.poseidon.core.properties.SecurityProperties;
 import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,10 +68,12 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/sign_up", "/public/**").permitAll()
+        http.authorizeRequests().antMatchers("/sign_up", "/public/**","/sign_page").permitAll()
                 .antMatchers("/test/role").hasRole("test")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
-                .and().formLogin().usernameParameter(properties.getUsername()).passwordParameter(properties.getPassword()).loginPage(properties.getPage()).loginProcessingUrl(properties.getProcesses())
+                .and().formLogin().usernameParameter(properties.getUsername()).passwordParameter(properties.getPassword())
+                .loginPage(properties.getPage()).loginProcessingUrl(properties.getProcesses()).permitAll()
+                .and().logout().logoutUrl("/logout?good-bye").logoutSuccessHandler(new PoseidonLogoutSuccessHandler())
                 .permitAll().and().csrf().disable();
         http.addFilterAt(poseidonTokenFilter(),UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint()).accessDeniedHandler(new PoseidonAccessDeniedHandler());

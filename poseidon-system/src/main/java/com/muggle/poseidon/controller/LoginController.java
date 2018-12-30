@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -21,10 +22,14 @@ public class LoginController {
         return "/resources/login.html";
     }
 
-    @GetMapping("/sign_up")
+    @PostMapping("/sign_up")
     @ResponseBody
     public ResultBean toSignUp(@Validated PoseidonUserDetail userDetail){
         ResultBean resultBean = poseidonUserdetailsService.toSignUp(userDetail);
         return resultBean;
+    }
+    @GetMapping("/sign_page")
+    public String signPage(){
+        return "/resources/sign.html";
     }
 }
