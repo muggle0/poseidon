@@ -49,6 +49,8 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
     @Autowired
     RedisService redisService;
+    @Autowired
+    SecurityProperties properties;
 
 
     @Override
@@ -69,7 +71,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/sign_up", "/public/**").permitAll()
                 .antMatchers("/test/role").hasRole("test")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
-                .and().formLogin().usernameParameter(SecurityProperties.USERNAME).passwordParameter(SecurityProperties.PASSWORD).loginPage(SecurityProperties.LOGIN_PAGE).loginProcessingUrl(SecurityProperties.PROCESSES_URL)
+                .and().formLogin().usernameParameter(properties.getUsername()).passwordParameter(properties.getPassword()).loginPage(properties.getPage()).loginProcessingUrl(properties.getProcesses())
                 .permitAll().and().csrf().disable();
         http.addFilterAt(poseidonTokenFilter(),UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint()).accessDeniedHandler(new PoseidonAccessDeniedHandler());
@@ -95,12 +97,12 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
         poseidonTokenFilter.setAuthenticationSuccessHandler(new PoseidonAuthenticationSuccessHandler());
         poseidonTokenFilter.setAuthenticationFailureHandler(new PoseidonAuthenticationFailureHandler());
         poseidonTokenFilter.setAuthenticationManager(getAuthenticationManager());
-        poseidonTokenFilter.setFilterProcessesUrl(SecurityProperties.PROCESSES_URL);
+        poseidonTokenFilter.setFilterProcessesUrl(properties.getProcesses());
         return poseidonTokenFilter;
     }
 
     public AuthenticationEntryPoint macLoginUrlAuthenticationEntryPoint() {
-        return new PoseidonLoginUrlAuthenticationEntryPoint(SecurityProperties.LOGIN_PAGE);
+        return new PoseidonLoginUrlAuthenticationEntryPoint(properties.getProcesses());
     }
 
     public AccessDecisionManager accessDecisionManager(){
