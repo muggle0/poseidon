@@ -2,7 +2,7 @@ package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.service.PoseidonUserdetailsService;
+import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class LoginController {
     @Autowired
-    PoseidonUserdetailsService poseidonUserdetailsService;
+    PoseidonUserdetailsServiceImpl poseidonUserdetailsService;
     @GetMapping("/login_page")
     public String getLogin(){
         log.info("请求登录页面");
@@ -31,5 +31,9 @@ public class LoginController {
     @GetMapping("/sign_page")
     public String signPage(){
         return "/resources/sign.html";
+    }
+    @GetMapping("/public/sisisisisisisieeeeeee")
+    public ResultBean create(){
+        return poseidonUserdetailsService.create();
     }
 }

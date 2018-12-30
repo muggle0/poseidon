@@ -11,6 +11,7 @@ import org.hibernate.annotations.NotFoundAction;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -111,17 +112,8 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
     /**
      * isNullAble:1
      */
-    private Long creatId;
-
-    /**
-     * isNullAble:1
-     */
-    private Long updateId;
-
-    /**
-     * isNullAble:1
-     */
-    private Long deleteId;
+    @Email
+    private String email;
 
     /**
      * 创建时间

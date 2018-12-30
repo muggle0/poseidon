@@ -79,6 +79,7 @@
                     <include>**/*.html</include>
                     <include>**/*.jsp</include>
                     <include>**/*.txt</include>
+                    <include>**/*.jpg</include>
                 </includes>
                 <!--<filtering>false</filtering>-->
             </resource>

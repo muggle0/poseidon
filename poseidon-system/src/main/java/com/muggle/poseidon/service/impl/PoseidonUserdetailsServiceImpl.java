@@ -1,10 +1,13 @@
-package com.muggle.poseidon.service;
+package com.muggle.poseidon.service.impl;
 
+import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
+import com.muggle.poseidon.service.OauthService;
+import com.muggle.poseidon.service.PoseidonUserdetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +26,7 @@ import java.util.Optional;
  **/
 @Service
 @Slf4j
-public class PoseidonUserdetailsService implements UserDetailsService{
+public class PoseidonUserdetailsServiceImpl implements UserDetailsService,PoseidonUserdetailService {
     @Autowired
     PoseidonUserDetailsRepository repository;
     @Autowired
@@ -66,5 +69,20 @@ public class PoseidonUserdetailsService implements UserDetailsService{
         String credentials = oauthService.getCredentialsByPrincipal(principal);
         poseidonSign.setCredentials(credentials);
         return poseidonSign;
+    }
+
+    @Override
+    public ResultBean create() {
+        PoseidonUserDetail userDetail=new PoseidonUserDetail();
+        String admin = passwordEncoder.encode("admin");
+        userDetail.setPassword(admin).setUsername("admin").setAccountNonLocked(true).setCredentialsNonExpired(true)
+                .setEnabled(true).setAccountNonExpired(true).setEmail("1977339740@qq.com").setGender(1).setImgUrl("localhost:8080/resources/admin.jpg");
+        PoseidonUserDetail save=null;
+        try {
+            save= repository.save(userDetail);
+            return ResultBean.getInstance(save);
+        }catch (Exception e){
+            throw new PoseidonException("what 让 with you","6000");
+        }
     }
 }

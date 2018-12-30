@@ -8,7 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+/**
+ * @program: poseidon
+ * @description: 未登录处理
+ * @author: muggle
+ * @create: 2018-12-31
+ **/
 public class PoseidonLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
     public PoseidonLoginUrlAuthenticationEntryPoint(String loginFormUrl) {
         super(loginFormUrl);

@@ -8,7 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+/**
+ * @program: poseidon
+ * @description: 登出成功处理器
+ * @author: muggle
+ * @create: 2018-12-31
+ **/
 public class PoseidonLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

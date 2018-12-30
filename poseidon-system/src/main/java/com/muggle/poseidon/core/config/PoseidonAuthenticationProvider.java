@@ -3,7 +3,7 @@ package com.muggle.poseidon.core.config;
 import com.muggle.poseidon.core.exception.BadTokenException;
 import com.muggle.poseidon.model.MessagePrincipal;
 import com.muggle.poseidon.model.PoseidonSign;
-import com.muggle.poseidon.service.PoseidonUserdetailsService;
+import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -39,7 +39,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         if (!(principal.getCode().equals(TokenProperties.MESSAGE_CODE))){
             return null;
         }
-        PoseidonUserdetailsService poseidonUserdetailsService = (PoseidonUserdetailsService) userDetailsService;
+        PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
         final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getPrincipal());
         if (poseidonSign!=null&&!poseidonSign.getCredentials().equals(authentication.getCredentials())){
             return null;
