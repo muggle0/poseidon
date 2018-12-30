@@ -34,6 +34,9 @@ public class PoseidonUserdetailsService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         PoseidonUserDetail userDetail=repository.findDistinctByUsername(s);
+        if (userDetail==null){
+            throw  new UsernameNotFoundException("用户名不存在");
+        }
         log.info("用户登录验证："+userDetail.toString());
         return  userDetail;
     }

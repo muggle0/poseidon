@@ -1,11 +1,11 @@
 package com.muggle.poseidon.core.config;
 
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 
 /**
  * @program: poseidon
@@ -14,8 +14,22 @@ import java.util.LinkedHashMap;
  * @create: 2018-12-30 11:39
  **/
 
-public class PoseidonFilterInvocationSecurityMetadataSource extends DefaultFilterInvocationSecurityMetadataSource {
-    public PoseidonFilterInvocationSecurityMetadataSource(LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap) {
-        super(requestMap);
+public class PoseidonFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+
+
+    @Override
+    public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+        final HttpServletRequest httpRequest = ((FilterInvocation) object).getHttpRequest();
+        return null;
+    }
+
+    @Override
+    public Collection<ConfigAttribute> getAllConfigAttributes() {
+        return null;
+    }
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return true;
     }
 }

@@ -8,6 +8,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @program: poseidon
@@ -19,8 +20,11 @@ import java.io.IOException;
 public class PoseidonAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
-        ServletOutputStream outputStream = response.getOutputStream();
-//        outputStream.print("无权限");https://blog.csdn.net/neweastsun/article/details/80633421
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.write("没有权限");
+        writer.close();
+        //        outputStream.print("无权限");https://blog.csdn.net/neweastsun/article/details/80633421
 //        https://www.cnblogs.com/visoncheng/p/3335768.html
     }
 }

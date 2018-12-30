@@ -3,7 +3,7 @@ package com.muggle.poseidon.core.generater;
 import java.util.Random;
 
 /**
- * @program: workspace
+ * @program: poseidon
  * @description:
  * @author: muggle
  * @create: 2018-09-30 15:05

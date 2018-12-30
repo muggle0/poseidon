@@ -1,18 +1,14 @@
 package com.muggle.poseidon.core.config;
 
 import com.muggle.poseidon.model.PoseidonGrantedAuthority;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+
 public class PoseidonExpressionVoter extends WebExpressionVoter {
 
     @Override
@@ -21,24 +17,30 @@ public class PoseidonExpressionVoter extends WebExpressionVoter {
         assert fi != null;
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         assert authorities != null;
-        if (authorities.size()==0){
-            return  ACCESS_ABSTAIN;
-        }
-        try {
-            Iterator<PoseidonGrantedAuthority> iterator = ((HashSet<PoseidonGrantedAuthority>) authorities).iterator();
-            String requestUrl = fi.getRequestUrl();
-            while (iterator.hasNext()){
-                if (iterator.next().getAuthority().equals(requestUrl)){
-                    return ACCESS_GRANTED;
-                }
+        int size = attributes.size();
+        Object[] objects = new Object[size];
+        attributes.toArray(objects);
+        if (size>0){
+            if (!(objects[0] instanceof PoseidonGrantedAuthority)){
+                return ACCESS_ABSTAIN;
             }
-            return ACCESS_DENIED;
-        }catch (Exception e){
-            return ACCESS_ABSTAIN;
+        }else {
+            return ACCESS_DENIED ;
         }
-//       throw new AccessDeniedException("无权限");
-       /* String requestUrl = fi.getRequestUrl();
+        for (int i=0;i<size;i++){
 
-       return ACCESS_GRANTED;*/
+        }
+        String requestUrl = fi.getRequestUrl();
+        String method = fi.getHttpRequest().getMethod();
+        for(int i=0;i<size;i++){
+            PoseidonGrantedAuthority value=(PoseidonGrantedAuthority)objects[i];
+            boolean bool=value.getEnable()!=null&&value.getEnable()&& requestUrl.equals(value.getUrl())&& method.equals(value.getUrl());
+           if (bool){
+               return ACCESS_GRANTED;
+           }
+
+        }
+
+        return ACCESS_DENIED;
     }
 }

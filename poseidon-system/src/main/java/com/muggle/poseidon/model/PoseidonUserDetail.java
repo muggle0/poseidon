@@ -151,9 +151,9 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
                     authorities.addAll(temp);
                 }
             });
-            return authorities;
         }
-        return null;
+        authorities.add(new PoseidonGrantedAuthority().setAuthority("ROLE_test"));
+        return authorities;
     }
 
 

@@ -1,20 +1,18 @@
 package com.muggle.poseidon.controller;
 
-import com.muggle.poseidon.base.ResoultBean;
+import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.Role;
 import com.muggle.poseidon.service.PoseidonUserdetailsService;
 import com.muggle.poseidon.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: poseidon
@@ -44,18 +42,21 @@ public class TestController {
     }
     @GetMapping("/test/role")
     @ResponseBody
-    public ResoultBean setRole(){
+    public ResultBean setRole(){
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Role role = new Role();
         role.setEnable(true).setRoleCode("admin").setName("超级管理员").setSort(1);
-        final ResoultBean resoultBean = roleService.setRole(role);
-        return resoultBean;
+        final ResultBean resultBean = roleService.setRole(role);
+        return resultBean;
     }
     @GetMapping("/public/test")
-    public ResoultBean getUserdetail(UserDetails userDetails){
-        System.out.println("sssssssssssssssssssss");
-        UserDetails userDetails1 = poseidonUserdetailsService.loadUserByUsername(userDetails.getUsername());
-        ResoultBean resoultBean=new ResoultBean();
-        return resoultBean.setDate(userDetails).setMsg("成功").setCode("200");
+    @ResponseBody
+    public ResultBean getUserdetail(PoseidonUserDetail userDetails){//一个这么小小的毛病踩了一下午坑，不知道当时怎么想的
+        throw new NullPointerException();
+       /* System.out.println("sssssssssssssssssssss");
+        UserDetails test = poseidonUserdetailsService.loadUserByUsername("w");
+        ResultBean resultBean=new ResultBean();
+        resultBean.setDate(test).setMsg("成功").setCode("200");
+        return resultBean;*/
     }
 }

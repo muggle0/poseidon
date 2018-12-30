@@ -25,25 +25,13 @@
             <artifactId>poseidon-core</artifactId>
             <version>0.1.0.BUILD</version>
         </dependency>
-        <dependency>
-            <groupId>com.muggle.poseidon</groupId>
-            <artifactId>poseidon-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
 
         <!--########-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -54,10 +42,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -75,6 +60,13 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.muggle.poseidon</groupId>
+            <artifactId>poseidon-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -95,7 +87,6 @@
                 <includes>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
-
                 </includes>
                 <!--<filtering>false</filtering>-->
             </resource>

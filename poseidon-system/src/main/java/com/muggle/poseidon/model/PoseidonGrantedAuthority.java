@@ -52,5 +52,9 @@ public class PoseidonGrantedAuthority implements GrantedAuthority {
     /***/
     private Date deleteTime;
 
+    private String url;
+
+    private String method;
+
 
 }

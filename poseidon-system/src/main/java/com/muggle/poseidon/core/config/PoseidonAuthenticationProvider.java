@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * @program: workspace
+ * @program: poseidon
  * @description: ProviderManager把工作委托给AuthenticationProvider集合。ProviderManager将所有AuthenticationProvider进行循环，直到运行返回一个完整的Authentication，不符合条件或者不能认证当前Authentication，返回AuthenticationException异常或者null。
  * @author: muggle
  * @create: 2018-09-18 19:27

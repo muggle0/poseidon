@@ -1,19 +1,16 @@
 package com.muggle.poseidon.core.filter;
 
 import com.muggle.poseidon.core.exception.BadTokenException;
-import com.muggle.poseidon.core.exception.PoseidonSystemException;
 import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.MessagePrincipal;
 import com.muggle.poseidon.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +32,7 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
     private String tokenName;*/
     private RedisService redisService;
     public PoseidonTokenFilter(RedisService redisService) {
-        this.redisService=redisService;
+        this.redisService = redisService;
         super.setFilterProcessesUrl("/sign_in");
     }
     @Override
