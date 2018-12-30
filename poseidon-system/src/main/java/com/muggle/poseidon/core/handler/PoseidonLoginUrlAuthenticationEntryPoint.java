@@ -1,4 +1,4 @@
-package com.muggle.poseidon.core.config;
+package com.muggle.poseidon.core.handler;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -18,7 +18,7 @@ public class PoseidonLoginUrlAuthenticationEntryPoint extends LoginUrlAuthentica
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
         final PrintWriter writer = response.getWriter();
-        writer.write("用户未登录");
+        writer.write("登录异常："+authException.getMessage());
         writer.close();
     }
 }
