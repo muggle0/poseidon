@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,7 +42,6 @@ public class TestController {
         poseidonUserdetailsService.toSignIn(userDetail);
         return "ss";
     }
-    @Secured("ROLE_TELLER")
     @GetMapping("/test/role")
     @ResponseBody
     public ResoultBean setRole(){
@@ -50,5 +50,12 @@ public class TestController {
         role.setEnable(true).setRoleCode("admin").setName("超级管理员").setSort(1);
         final ResoultBean resoultBean = roleService.setRole(role);
         return resoultBean;
+    }
+    @GetMapping("/public/test")
+    public ResoultBean getUserdetail(UserDetails userDetails){
+        System.out.println("sssssssssssssssssssss");
+        UserDetails userDetails1 = poseidonUserdetailsService.loadUserByUsername(userDetails.getUsername());
+        ResoultBean resoultBean=new ResoultBean();
+        return resoultBean.setDate(userDetails).setMsg("成功").setCode("200");
     }
 }

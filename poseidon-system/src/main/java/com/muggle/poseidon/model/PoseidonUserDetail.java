@@ -151,8 +151,9 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
                     authorities.addAll(temp);
                 }
             });
+            return authorities;
         }
-        return authorities;
+        return null;
     }
 
 
