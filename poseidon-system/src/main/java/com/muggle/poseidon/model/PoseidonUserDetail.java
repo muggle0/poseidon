@@ -61,7 +61,7 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
      * isNullAble:1
      */
     @NotNull(message = "密码不能为空")
-    @Pattern(regexp = "/^[a-zA-Z0-9_-]{6,16}$/",message = "密码必须为6到16位（字母，数字，下划线，减号）")
+//    @Pattern(regexp = "^.{3,16}$",message = "密码必须为6到16位（字母，数字，下划线，减号）")
     private String password;
 
     /**

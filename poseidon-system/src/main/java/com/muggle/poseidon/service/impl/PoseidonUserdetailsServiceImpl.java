@@ -74,15 +74,17 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService,Poseid
     @Override
     public ResultBean create() {
         PoseidonUserDetail userDetail=new PoseidonUserDetail();
-        String admin = passwordEncoder.encode("admin");
-        userDetail.setPassword(admin).setUsername("admin").setAccountNonLocked(true).setCredentialsNonExpired(true)
+        String admin = passwordEncoder.encode("admin-muggle");
+        userDetail.setPassword(admin).setUsername("admin").setAccountNonLocked(true).setCredentialsNonExpired(true).setNickname("muggle")
                 .setEnabled(true).setAccountNonExpired(true).setEmail("1977339740@qq.com").setGender(1).setImgUrl("localhost:8080/resources/admin.jpg");
         PoseidonUserDetail save=null;
         try {
+
             save= repository.save(userDetail);
             return ResultBean.getInstance(save);
         }catch (Exception e){
             throw new PoseidonException("what 让 with you","6000");
+//            throw new RuntimeException("ss>>>>>>");
         }
     }
 }

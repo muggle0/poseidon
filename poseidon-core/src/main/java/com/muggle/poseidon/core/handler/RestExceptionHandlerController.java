@@ -26,7 +26,6 @@ public class RestExceptionHandlerController {
     @ExceptionHandler(value = {Exception.class})
     public ResultBean exceptionHandler(Exception e, HttpServletRequest req){
         log.error("系统异常："+req.getMethod()+req.getRequestURI(),e);
-
         return new ResultBean().setMsg("系统异常，请联系管理员").setCode("500");
     }
 }

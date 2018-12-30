@@ -23,3 +23,4 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+/poseidon-system/src/main/resources/static/resources/test.txt
