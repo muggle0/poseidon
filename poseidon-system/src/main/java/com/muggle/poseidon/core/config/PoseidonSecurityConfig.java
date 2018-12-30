@@ -28,6 +28,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.util.AntPathMatcher;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,13 +45,14 @@ import java.util.List;
 public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
     UserDetailsService userDetailsService;
     @Autowired
     RedisService redisService;
     @Autowired
     SecurityProperties properties;
+    @Autowired
+    AntPathMatcher antPathMatcher;
 
 
     @Override
@@ -108,7 +110,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
     public AccessDecisionManager accessDecisionManager(){
         List<AccessDecisionVoter<? extends Object>> decisionVoters
                 = Arrays.asList(
-                new PoseidonExpressionVoter(),
+                new PoseidonExpressionVoter(antPathMatcher),
                 new WebExpressionVoter(),
                 new RoleVoter(),
                 new AuthenticatedVoter());

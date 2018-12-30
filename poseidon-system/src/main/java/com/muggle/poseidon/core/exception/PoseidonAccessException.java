@@ -9,10 +9,10 @@ import org.springframework.security.access.AccessDeniedException;
  * @create: 2018-12-22 13:32
  **/
 
-public class PoseidonSystemException extends AccessDeniedException {
+public class PoseidonAccessException extends AccessDeniedException {
     private String msg;
     private int code;
-    public PoseidonSystemException(String msg ,int code){
+    public PoseidonAccessException(String msg , int code){
         super(msg);
         this.msg=msg;
         this.code=code;

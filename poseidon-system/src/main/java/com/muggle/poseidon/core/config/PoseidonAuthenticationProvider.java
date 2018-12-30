@@ -1,5 +1,6 @@
 package com.muggle.poseidon.core.config;
 
+import com.muggle.poseidon.core.exception.BadTokenException;
 import com.muggle.poseidon.model.MessagePrincipal;
 import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.service.PoseidonUserdetailsService;
@@ -11,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.muggle.poseidon.core.properties.TokenProperties;
 
 /**
  * @program: poseidon
@@ -34,7 +36,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
            return null;
        }
        MessagePrincipal principal= (MessagePrincipal) authentication.getPrincipal();
-        if (!(principal.getCode().equals(2))){
+        if (!(principal.getCode().equals(TokenProperties.MESSAGE_CODE))){
             return null;
         }
         PoseidonUserdetailsService poseidonUserdetailsService = (PoseidonUserdetailsService) userDetailsService;
@@ -42,8 +44,12 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         if (poseidonSign!=null&&!poseidonSign.getCredentials().equals(authentication.getCredentials())){
             return null;
         }
-        log.info("验证用户");
+        log.info("验证用户登录："+principal);
         final UserDetails one = poseidonUserdetailsService.findOne(poseidonSign.getUserId());
+        boolean bool=one.isAccountNonExpired()&&one.isEnabled()&&one.isAccountNonLocked();
+        if(!bool){
+            throw new BadTokenException(TokenProperties.ABNORMAL_ACCOUNT,TokenProperties.BAD_TOKEN_CODE);
+        }
         Authentication token=new UsernamePasswordAuthenticationToken(one.getUsername(),one.getPassword(),one.getAuthorities());
         return token;
     }

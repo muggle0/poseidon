@@ -13,9 +13,9 @@ import org.springframework.security.core.AuthenticationException;
 public class BadTokenException extends AuthenticationException {
     private String code;
     private String msg;
-    public BadTokenException(){
-        super(TokenProperties.BAD_TOKEN_MSG);
-        this.msg=TokenProperties.BAD_TOKEN_MSG;
-        this.code=TokenProperties.BAD_TOKEN_CODE;
+    public BadTokenException(String msg,String code){
+        super(msg);
+        this.msg=msg;
+        this.code=code;
     }
 }

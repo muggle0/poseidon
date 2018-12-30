@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -77,5 +78,9 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RequestLockInterceptor(expireTime,new RedisTool(redisTemplate))).addPathPatterns("/**");
         registry.addInterceptor(new RequestLogInterceptor()).addPathPatterns("/**");
+    }
+    @Bean
+    public AntPathMatcher antPathMatcher(){
+       return new AntPathMatcher();
     }
 }

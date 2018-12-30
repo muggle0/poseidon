@@ -6,10 +6,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
+import org.springframework.util.AntPathMatcher;
 
 import java.util.Collection;
 
 public class PoseidonExpressionVoter extends WebExpressionVoter {
+    private AntPathMatcher antPathMatcher;
+
+    public  PoseidonExpressionVoter(AntPathMatcher antPathMatcher){
+        this.antPathMatcher=antPathMatcher;
+    }
 
     @Override
     public int vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes) {
@@ -34,7 +40,8 @@ public class PoseidonExpressionVoter extends WebExpressionVoter {
         String method = fi.getHttpRequest().getMethod();
         for(int i=0;i<size;i++){
             PoseidonGrantedAuthority value=(PoseidonGrantedAuthority)objects[i];
-            boolean bool=value.getEnable()!=null&&value.getEnable()&& requestUrl.equals(value.getUrl())&& method.equals(value.getUrl());
+            boolean math="ALL".equalsIgnoreCase(value.getMethod())? true: method.equals(value.getUrl());
+            boolean bool=value.getEnable()!=null&&value.getEnable()&& antPathMatcher.match(value.getUrl(),requestUrl)&& math;
            if (bool){
                return ACCESS_GRANTED;
            }
