@@ -24,7 +24,7 @@ public class PoseidonAccessDeniedHandler implements AccessDeniedHandler {
         PrintWriter writer = response.getWriter();
         writer.write("没有权限");
         writer.close();
-        //        outputStream.print("无权限");https://blog.csdn.net/neweastsun/article/details/80633421
+        // https://blog.csdn.net/neweastsun/article/details/80633421
 //        https://www.cnblogs.com/visoncheng/p/3335768.html
     }
 }

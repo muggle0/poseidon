@@ -17,7 +17,6 @@ import java.io.PrintWriter;
  * @author: muggle
  * @create: 2018-12-27 19:08
  **/
-//@Component
 public class PoseidonAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
