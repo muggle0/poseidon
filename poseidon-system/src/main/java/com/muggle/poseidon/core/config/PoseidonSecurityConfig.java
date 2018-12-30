@@ -5,6 +5,7 @@ import com.muggle.poseidon.core.filter.PoseidonTokenFilter;
 import com.muggle.poseidon.core.handler.PoseidonAccessDeniedHandler;
 import com.muggle.poseidon.core.handler.PoseidonAuthenticationFailureHandler;
 import com.muggle.poseidon.core.handler.PoseidonAuthenticationSuccessHandler;
+import com.muggle.poseidon.core.properties.SecurityProperties;
 import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -68,7 +69,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/sign_up", "/public/**").permitAll()
                 .antMatchers("/test/role").hasRole("test")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
-                .and().formLogin().usernameParameter("username").passwordParameter("password").loginPage("/login_page").loginProcessingUrl("/sign_in")
+                .and().formLogin().usernameParameter(SecurityProperties.USERNAME).passwordParameter(SecurityProperties.PASSWORD).loginPage(SecurityProperties.LOGIN_PAGE).loginProcessingUrl(SecurityProperties.PROCESSES_URL)
                 .permitAll().and().csrf().disable();
         http.addFilterAt(poseidonTokenFilter(),UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint()).accessDeniedHandler(new PoseidonAccessDeniedHandler());
@@ -94,11 +95,12 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
         poseidonTokenFilter.setAuthenticationSuccessHandler(new PoseidonAuthenticationSuccessHandler());
         poseidonTokenFilter.setAuthenticationFailureHandler(new PoseidonAuthenticationFailureHandler());
         poseidonTokenFilter.setAuthenticationManager(getAuthenticationManager());
+        poseidonTokenFilter.setFilterProcessesUrl(SecurityProperties.PROCESSES_URL);
         return poseidonTokenFilter;
     }
 
     public AuthenticationEntryPoint macLoginUrlAuthenticationEntryPoint() {
-        return new PoseidonLoginUrlAuthenticationEntryPoint("/login_page");
+        return new PoseidonLoginUrlAuthenticationEntryPoint(SecurityProperties.LOGIN_PAGE);
     }
 
     public AccessDecisionManager accessDecisionManager(){

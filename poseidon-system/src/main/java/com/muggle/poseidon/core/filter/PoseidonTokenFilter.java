@@ -1,9 +1,11 @@
 package com.muggle.poseidon.core.filter;
 
 import com.muggle.poseidon.core.exception.BadTokenException;
+import com.muggle.poseidon.core.properties.SecurityProperties;
 import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.MessagePrincipal;
 import com.muggle.poseidon.service.RedisService;
+import com.muggle.poseidon.service.impl.RedisServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -33,7 +35,6 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
     private RedisService redisService;
     public PoseidonTokenFilter(RedisService redisService) {
         this.redisService = redisService;
-        super.setFilterProcessesUrl("/sign_in");
     }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -78,7 +79,7 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
 //            执行过程 filter---AuthenticationProvider--successHander
             authenticate = this.getAuthenticationManager().authenticate(authRequest);
         }catch (BadCredentialsException e){
-            throw new BadTokenException(TokenProperties.BAD_TOKEN_MSG,TokenProperties.BAD_TOKEN_CODE);
+            throw new BadTokenException();
         }
         return authenticate;
     }

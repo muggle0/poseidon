@@ -3,10 +3,13 @@ package com.muggle.poseidon.core.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.muggle.poseidon.core.properties.SecurityProperties;
 import com.muggle.poseidon.interceptor.RequestLockInterceptor;
+import com.muggle.poseidon.interceptor.RequestLogInterceptor;
 import com.muggle.poseidon.utils.RedisTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -32,6 +35,11 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
     @Value("${lock.time}")
     int expireTime;
 
+    @Bean
+    @ConfigurationProperties(prefix="poseidon.security")
+    public SecurityProperties getModel(){
+        return new SecurityProperties();
+    }
 
    /* @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -68,5 +76,6 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RequestLockInterceptor(expireTime,new RedisTool(redisTemplate))).addPathPatterns("/**");
+        registry.addInterceptor(new RequestLogInterceptor()).addPathPatterns("/**");
     }
 }
