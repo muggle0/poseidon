@@ -1,11 +1,11 @@
-package com.muggle.poseidon.interceptor;
+package com.muggle.poseidon.core.interceptor;
 
-import com.muggle.poseidon.utils.RedisTool;
+import com.muggle.poseidon.service.RedisLock;
+import com.muggle.poseidon.service.impl.RedislockImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  **/
 @Slf4j
 public class RequestLockInterceptor implements HandlerInterceptor {
-    RedisTool redisTool;
+    RedisLock redisTool;
     private int expireTime;
 
-    public RequestLockInterceptor(int expireTime, RedisTool redisTool) {
+    public RequestLockInterceptor(int expireTime, RedislockImpl redisTool) {
         this.expireTime = expireTime;
         this.redisTool = redisTool;
     }

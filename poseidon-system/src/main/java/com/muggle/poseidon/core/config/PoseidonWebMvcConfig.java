@@ -4,9 +4,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.muggle.poseidon.core.properties.SecurityProperties;
-import com.muggle.poseidon.interceptor.RequestLockInterceptor;
-import com.muggle.poseidon.interceptor.RequestLogInterceptor;
-import com.muggle.poseidon.utils.RedisTool;
+import com.muggle.poseidon.core.interceptor.RequestLockInterceptor;
+import com.muggle.poseidon.core.interceptor.RequestLogInterceptor;
+import com.muggle.poseidon.service.impl.RedislockImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -76,7 +76,7 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestLockInterceptor(expireTime,new RedisTool(redisTemplate))).addPathPatterns("/**");
+        registry.addInterceptor(new RequestLockInterceptor(expireTime,new RedislockImpl(redisTemplate))).addPathPatterns("/**");
         registry.addInterceptor(new RequestLogInterceptor()).addPathPatterns("/**");
     }
     @Bean

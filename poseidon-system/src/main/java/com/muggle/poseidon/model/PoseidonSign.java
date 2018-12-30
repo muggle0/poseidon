@@ -1,5 +1,5 @@
 package com.muggle.poseidon.model;
-import com.muggle.poseidon.service.PoseidonIdservice;
+import com.muggle.poseidon.core.generater.PoseidonIdGener;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+
 /**
 *
 *  @author muggle
@@ -38,7 +35,7 @@ public class PoseidonSign implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator  = "myIdStrategy")
-    @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdservice.TYPE)
+    @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdGener.TYPE)
     private String id;
 
     /**

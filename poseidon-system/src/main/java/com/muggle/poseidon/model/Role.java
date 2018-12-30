@@ -1,7 +1,7 @@
 package com.muggle.poseidon.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.muggle.poseidon.service.PoseidonIdservice;
+import com.muggle.poseidon.core.generater.PoseidonIdGener;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -32,7 +32,7 @@ public class Role {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator  = "myIdStrategy")
-    @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdservice.TYPE)
+    @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdGener.TYPE)
     private String id;
     /***/
     private String roleCode;

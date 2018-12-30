@@ -28,11 +28,7 @@ public class TestController {
     @Autowired
     RoleService roleService;
 
-    @GetMapping("/login_page")
-    public String getLogin(){
-        log.info("请求登录页面");
-        return "/resources/login.html";
-    }
+
 
     @GetMapping("/sign_up")
     @ResponseBody

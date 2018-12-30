@@ -1,4 +1,4 @@
-package com.muggle.poseidon.annontation;
+package com.muggle.poseidon.core.annontation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

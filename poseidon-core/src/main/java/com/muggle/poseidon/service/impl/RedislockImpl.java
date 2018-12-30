@@ -1,5 +1,6 @@
-package com.muggle.poseidon.utils;
+package com.muggle.poseidon.service.impl;
 
+import com.muggle.poseidon.service.RedisLock;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.concurrent.TimeUnit;
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @author: muggle
  * @create: 2018-12-06 14:32
  **/
-public class RedisTool {
+public class RedislockImpl implements RedisLock {
     private RedisTemplate<String,String> redisTemplate;
    /* private static RedisTemplate redisTemplate;
 
@@ -58,7 +59,7 @@ public class RedisTool {
 
     }
 
-    public RedisTool(RedisTemplate redisTemplate) {
+    public RedislockImpl(RedisTemplate redisTemplate) {
         RedisSerializer stringSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(stringSerializer);
         redisTemplate.setValueSerializer(stringSerializer);
@@ -70,9 +71,12 @@ public class RedisTool {
         resultSerializer = new StringRedisSerializer();
         this.redisTemplate = redisTemplate;
     }*/
-   public RedisTool(RedisTemplate redisTemplate) {
+   public RedislockImpl(RedisTemplate redisTemplate) {
        this.redisTemplate=redisTemplate;
    }
+
+
+    @Override
     public boolean lock(String lockKey, String requestId, int expireTime) {
        try{
            String request = redisTemplate.opsForValue().get(lockKey);
@@ -92,6 +96,7 @@ public class RedisTool {
        }
 
     }
+    @Override
     public boolean unlock(String lockKey, String requestId) {
        try {
            String request = redisTemplate.opsForValue().get(lockKey);
@@ -102,7 +107,7 @@ public class RedisTool {
            return true;
        }catch (Exception e){
            redisTemplate.delete(lockKey);
-           return true;
+           return false;
        }
     }
 }

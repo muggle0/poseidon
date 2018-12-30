@@ -1,5 +1,6 @@
 package com.muggle.poseidon.service;
 
+import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
@@ -41,16 +42,25 @@ public class PoseidonUserdetailsService implements UserDetailsService{
         return  userDetail;
     }
 
-    public void toSignIn(PoseidonUserDetail userDetail) {
+    public ResultBean toSignUp(PoseidonUserDetail userDetail) {
         log.info("创建用户："+ userDetail.toString());
-        String w = passwordEncoder.encode("ww");
-        userDetail.setUsername("ww").setGender(0).setNickname("wos").setImgUrl("hah").setPassword(w);
-        repository.save(userDetail);
+        String value=userDetail.getPassword();
+        String password = passwordEncoder.encode(userDetail.getPassword());
+        userDetail.setPassword(password);
+         PoseidonUserDetail save = repository.save(userDetail);
+         save.setPassword(value);
+         if (save!=null){
+             log.info("新增用户：{}",save.toString());
+             return ResultBean.getInstance(save);
+         }
+         return ResultBean.getInstance("500","系统异常");
     }
+
     public UserDetails findOne(String id){
         Optional<PoseidonUserDetail> userDetail=repository.findById(id);
         return userDetail.get();
     }
+
     public PoseidonSign loadByPrincipal(String principal){
         PoseidonSign poseidonSign = signRepository.findByPrincipal(principal);
         String credentials = oauthService.getCredentialsByPrincipal(principal);

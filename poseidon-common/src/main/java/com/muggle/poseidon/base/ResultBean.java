@@ -15,11 +15,11 @@ import lombok.experimental.Accessors;
 public class ResultBean {
     private String code;
     private String msg;
-    private Object date;
+    private Object data;
 
     public ResultBean success(String msg, Object date){
         ResultBean resultBean = new ResultBean()
-                .setCode(BeanProperties.SUCCESS_CODE).setDate(date).setMsg(msg);
+                .setCode(BeanProperties.SUCCESS_CODE).setData(date).setMsg(msg);
         return resultBean;
     }
 
@@ -29,6 +29,28 @@ public class ResultBean {
     }
     public ResultBean success(String msg){
         ResultBean resultBean = new ResultBean().setCode(BeanProperties.SUCCESS_CODE).setMsg(msg);
+        return resultBean;
+    }
+    public static ResultBean getInstance(){
+        ResultBean resultBean=new ResultBean();
+        resultBean.setCode("200").setMsg("操作成功");
+        return resultBean;
+    }
+    public static ResultBean getInstance(String code,String msg,Object data){
+        ResultBean resultBean=new ResultBean();
+        resultBean.setCode(code).setMsg(msg);
+        resultBean.setData(data);
+        return resultBean;
+    }
+    public static ResultBean getInstance(Object data){
+        ResultBean resultBean=new ResultBean();
+        resultBean.setCode("200").setMsg("操作成功");
+        resultBean.setData(data);
+        return resultBean;
+    }
+    public static ResultBean getInstance(String code,String msg){
+        ResultBean resultBean=new ResultBean();
+        resultBean.setCode("200").setMsg("操作成功");
         return resultBean;
     }
 }

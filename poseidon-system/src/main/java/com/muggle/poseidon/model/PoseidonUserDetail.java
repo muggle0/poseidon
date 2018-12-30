@@ -1,7 +1,7 @@
 package com.muggle.poseidon.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.muggle.poseidon.service.PoseidonIdservice;
+import com.muggle.poseidon.core.generater.PoseidonIdGener;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
@@ -11,6 +11,8 @@ import org.hibernate.annotations.NotFoundAction;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.*;
 
@@ -37,24 +39,28 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator  = "myIdStrategy")
-    @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdservice.TYPE)
+    @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdGener.TYPE)
     private String id;
 
     /**
      * 用户名
      * isNullAble:1
      */
+    @NotNull(message = "用户名不能为空")
     private String username;
 
     /**
      * 昵称
      * isNullAble:1
      */
+    @NotNull(message = "昵称不能为空")
     private String nickname;
 
     /**
      * isNullAble:1
      */
+    @NotNull(message = "密码不能为空")
+    @Pattern(regexp = "/^[a-zA-Z0-9_-]{6,16}$/",message = "密码必须为6到16位（字母，数字，下划线，减号）")
     private String password;
 
     /**

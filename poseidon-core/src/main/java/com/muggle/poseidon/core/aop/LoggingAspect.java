@@ -1,4 +1,4 @@
-package com.muggle.poseidon.aop;
+package com.muggle.poseidon.core.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,7 +17,7 @@ public class LoggingAspect {
 
     private final static Logger log = LoggerFactory.getLogger("runningTime");
 
-    @Pointcut("@annotation(com.muggle.poseidon.annontation.ElapedTime)")
+    @Pointcut("@annotation(com.muggle.poseidon.core.annontation.ElapedTime)")
     public void loggable() {
     }
 
