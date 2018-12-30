@@ -22,7 +22,7 @@ public class PoseidonAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.write("没有权限");
+        writer.write("没有权限; "+e.getMessage());
         writer.close();
         // https://blog.csdn.net/neweastsun/article/details/80633421
 //        https://www.cnblogs.com/visoncheng/p/3335768.html
