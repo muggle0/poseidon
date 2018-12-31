@@ -64,7 +64,7 @@ public class AdminServiceImpl implements AdminService {
             roleGranted.setGrantedId(authority.getId());
             roleGranted.setRoleId(role.getId());
             roleGrantedRepository.save(roleGranted);
-            userSave.setPassword("muggle");
+//            userSave.setPassword("muggle");
             return ResultBean.getInstance(userSave);
         } catch (Exception e) {
             throw new PoseidonException("what's wrong with you hahahahahahahah", "6000");
@@ -76,7 +76,9 @@ public class AdminServiceImpl implements AdminService {
         String key = TokenProperties.VERIFICATION + "-" + poseidonUserDetail.getPassword() + "-" + poseidonUserDetail.getUsername();
         String randonString = VerificationUtils.getRandonString(4);
         log.info("验证码: {}", randonString);
-        redisService.setForTimeMIN(key, randonString, 2);
+        redisService.setForTimeMIN(key, randonString, 5);
+        final String s = redisService.get(key);
+        System.out.println(s);
         return ResultBean.getInstance(randonString);
     }
 }

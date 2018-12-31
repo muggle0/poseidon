@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @create: 2018-12-28 17:52
  **/
 @RestController
-@RequestMapping(value = "/public")
 public class ApiController {
     @Autowired
     AdminService adminservice;
@@ -53,6 +52,7 @@ public class ApiController {
     @GetMapping("/admin/role")
     @ResponseBody
     public ResultBean setRole(@Validated PoseidonUserDetail poseidonUserDetail){
-        return adminservice.getVerification(poseidonUserDetail);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>");
+        return ResultBean.getInstance();
     }
 }
