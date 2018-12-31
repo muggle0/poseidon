@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.muggle.poseidon</groupId>
     <artifactId>poseidon-common</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0.BUILD</version>
     <name>poseidon-common</name>
     <description>Demo project for Spring Boot</description>
 
@@ -19,10 +19,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

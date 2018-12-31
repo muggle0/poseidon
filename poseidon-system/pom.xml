@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.muggle.poseidon</groupId>
     <artifactId>poseidon-system</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0.BUILD</version>
     <name>poseidon-system</name>
     <description>波塞冬</description>
 
@@ -25,47 +25,13 @@
             <artifactId>poseidon-core</artifactId>
             <version>0.1.0.BUILD</version>
         </dependency>
-
-
-        <!--########-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!--########-->
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.12</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
 
     </dependencies>
 

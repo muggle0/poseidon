@@ -16,14 +16,30 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <poseidon.version>0.1.0.BUILD</poseidon.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>com.muggle.poseidon</groupId>
+            <artifactId>poseidon-system</artifactId>
+            <version>${poseidon.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.muggle.poseidon</groupId>
+            <artifactId>poseidon-core</artifactId>
+            <version>0.1.0.BUILD</version>
+        </dependency>
+        <dependency>
+            <groupId>com.muggle.poseidon</groupId>
+            <artifactId>poseidon-common</artifactId>
+            <version>${poseidon.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.muggle.poseidon</groupId>
+            <artifactId>poseidon-web</artifactId>
+            <version>${poseidon.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -32,6 +48,28 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.html</include>
+                    <include>**/*.jsp</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.jpg</include>
+                </includes>
+                <!--<filtering>false</filtering>-->
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <!--<filtering>false</filtering>-->
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
