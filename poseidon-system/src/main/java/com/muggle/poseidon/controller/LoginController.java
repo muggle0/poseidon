@@ -17,27 +17,43 @@ public class LoginController {
     @Autowired
     PoseidonUserdetailsServiceImpl poseidonUserdetailsService;
 
-    
+    /**
+     * description: 登录请求视图接口
+     *
+     */
     @GetMapping("/login_page")
     public String getLogin(){
         log.info("请求登录页面");
         return "/resources/login.html";
     }
 
+    /**
+     * description: 注册
+     */
     @PostMapping("/sign_up")
     @ResponseBody
     public ResultBean toSignUp(@Validated PoseidonUserDetail userDetail){
         ResultBean resultBean = poseidonUserdetailsService.toSignUp(userDetail);
         return resultBean;
     }
+
+    /**
+     * description: 注册页
+     *
+     */
     @GetMapping("/sign_page")
     public String signPage(){
         return "/resources/sign.html";
     }
+
+    /**
+     * description: 获取验证码
+     *
+     */
     @GetMapping("/public/verification")
     @ResponseBody
-    public ResultBean setVerification(String username){
-        return poseidonUserdetailsService.create();
+    public ResultBean getVerification(@Validated PoseidonUserDetail poseidonUserDetail){
+        return poseidonUserdetailsService.getVerification(poseidonUserDetail);
     }
 
 //    初始化数据库 生成一个超级管理员超级

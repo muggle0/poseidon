@@ -70,7 +70,7 @@ public class RedisServiceImpl implements RedisService {
      * 设置 String 类型 key-value 并添加过期时间 (分钟单位)
      * @param key
      * @param value
-     * @param time 过期时间,分钟单位
+     * @param time 过期时间,其他单位
      */
     @Override
     public void setForTimeCustom(String key, String value, long time, TimeUnit type){

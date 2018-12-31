@@ -8,6 +8,8 @@ import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.service.OauthService;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
+import com.muggle.poseidon.service.RedisService;
+import com.muggle.poseidon.utils.VerificationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
@@ -38,6 +40,8 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     PoseidonSignRepository signRepository;
     @Autowired
     OauthService oauthService;
+    @Autowired
+    RedisService redisService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -83,14 +87,24 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     public ResultBean create() {
         PoseidonUserDetail userDetail = new PoseidonUserDetail();
         String admin = passwordEncoder.encode("admin-muggle");
-        userDetail.setPassword(admin).setUsername("test").setAccountNonLocked(true).setCredentialsNonExpired(true).setNickname("muggle")
+        userDetail.setPassword(admin).setUsername("admin").setAccountNonLocked(true).setCredentialsNonExpired(true).setNickname("muggle")
                 .setEnabled(true).setAccountNonExpired(true).setEmail("1977339740@qq.com").setGender(1).setImgUrl("localhost:8080/resources/admin.jpg");
         PoseidonUserDetail save = null;
         try {
             save = repository.save(userDetail);
+            save.setPassword("admin-muggle");
             return ResultBean.getInstance(save);
         } catch (Exception e) {
             throw new PoseidonException("what's wrong with you hahahahahahahah","6000");
         }
+    }
+
+    @Override
+    public ResultBean getVerification(PoseidonUserDetail poseidonUserDetail) {
+        String key=poseidonUserDetail.getPassword()+poseidonUserDetail.getUsername();
+        String randonString = VerificationUtils.getRandonString(4);
+        log.info("验证码: {}",randonString);
+        redisService.setForTimeMIN(key,randonString,1);
+        return null;
     }
 }

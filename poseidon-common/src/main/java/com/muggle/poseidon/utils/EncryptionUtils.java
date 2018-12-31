@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @create: 2018-12-22 15:28
  **/
 
-public class EncryptionUtil {
+public class EncryptionUtils {
     private static final String KEY_AES = "POSEIDON";
 
     public static String encrypt(String src, String key) throws Exception {
