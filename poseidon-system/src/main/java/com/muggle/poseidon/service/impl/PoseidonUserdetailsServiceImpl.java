@@ -83,8 +83,8 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService,Poseid
             save= repository.save(userDetail);
             return ResultBean.getInstance(save);
         }catch (Exception e){
-            throw new PoseidonException("what 让 with you","6000");
-//            throw new RuntimeException("ss>>>>>>");
+//            throw new PoseidonException("what 让 with you","6000");
+            throw new RuntimeException("ss>>>>>>");
         }
     }
 }
