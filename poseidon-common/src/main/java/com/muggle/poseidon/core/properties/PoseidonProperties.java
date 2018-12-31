@@ -8,4 +8,5 @@ public interface PoseidonProperties {
     String TOO_NUMBER_REQUEST="5001";
 //    提交数据未通过校验
     String COMMIT_DATA_ERROR="5002";
+    String NOT_SUPPORT_METHOD="5003";
 }

@@ -2,6 +2,7 @@ package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
@@ -18,7 +19,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
+import com.muggle.poseidon.core.properties.PoseidonProperties;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
@@ -43,6 +45,8 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     @Autowired
     RedisService redisService;
 
+
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         PoseidonUserDetail userDetail = repository.findDistinctByUsername(s);
@@ -53,21 +57,31 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         return userDetail;
     }
 
-    @Transient
-    public ResultBean toSignUp(PoseidonUserDetail userDetail) {
+    @Transactional()
+    public ResultBean toSignUp(PoseidonUserDetail userDetail,String verification) {
+        String key=TokenProperties.VERIFICATION + "-"+userDetail.getPassword()+"-"+userDetail.getUsername();
+        String s = redisService.get(key);
+        if (s==null){
+            throw new PoseidonException("验证码过期",PoseidonProperties.COMMIT_DATA_ERROR);
+        }
+        if (!verification.equals(s)){
+            throw new PoseidonException("验证码错误",PoseidonProperties.COMMIT_DATA_ERROR);
+        }
+
         log.info("创建用户：" + userDetail.toString());
         String value = userDetail.getPassword();
         String password = passwordEncoder.encode(userDetail.getPassword());
         userDetail.setPassword(password);
         userDetail.setCreatTime(LocalDateTime.now()).setEnabled(true)
                 .setAccountNonExpired(true).setAccountNonLocked(true).setCredentialsNonExpired(true);
-        PoseidonUserDetail save = repository.save(userDetail);
-        save.setPassword(value);
-        if (save != null) {
-            log.info("新增用户：{}", save.toString());
-            return ResultBean.getInstance(save);
+        try {
+            PoseidonUserDetail save = repository.save(userDetail);
+            save.setPassword(value);
+                log.info("新增用户：{}", save.toString());
+                return ResultBean.getInstance(save);
+        }catch (Exception e){
+            return ResultBean.getInstance(PoseidonProperties.COMMIT_DATA_ERROR, "用户名已存在");
         }
-        return ResultBean.getInstance("500", "系统异常");
     }
 
     public UserDetails findOne(String id) {
@@ -82,29 +96,5 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         return poseidonSign;
     }
 
-    @Transient
-    @Override
-    public ResultBean create() {
-        PoseidonUserDetail userDetail = new PoseidonUserDetail();
-        String admin = passwordEncoder.encode("admin-muggle");
-        userDetail.setPassword(admin).setUsername("admin").setAccountNonLocked(true).setCredentialsNonExpired(true).setNickname("muggle")
-                .setEnabled(true).setAccountNonExpired(true).setEmail("1977339740@qq.com").setGender(1).setImgUrl("localhost:8080/resources/admin.jpg");
-        PoseidonUserDetail save = null;
-        try {
-            save = repository.save(userDetail);
-            save.setPassword("admin-muggle");
-            return ResultBean.getInstance(save);
-        } catch (Exception e) {
-            throw new PoseidonException("what's wrong with you hahahahahahahah","6000");
-        }
-    }
 
-    @Override
-    public ResultBean getVerification(PoseidonUserDetail poseidonUserDetail) {
-        String key=poseidonUserDetail.getPassword()+poseidonUserDetail.getUsername();
-        String randonString = VerificationUtils.getRandonString(4);
-        log.info("验证码: {}",randonString);
-        redisService.setForTimeMIN(key,randonString,1);
-        return null;
-    }
 }

@@ -8,6 +8,7 @@ import com.muggle.poseidon.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import  com.muggle.poseidon.core.properties.PoseidonProperties;
@@ -27,11 +28,11 @@ public class RestExceptionHandlerController {
     EmailService emailService;
 
     @ExceptionHandler(value = {PoseidonException.class})
-    public ResultBean PoseidonExceptionHandler(PoseidonException e, HttpServletRequest req) {
+    public ResultBean poseidonExceptionHandler(PoseidonException e, HttpServletRequest req) {
         return new ResultBean().setMsg(e.getMsg()).setCode(e.getCode());
     }
     @ExceptionHandler(value = {BindException.class})
-    public ResultBean BindExceptionHandler(BindException e, HttpServletRequest req) {
+    public ResultBean bindExceptionHandler(BindException e, HttpServletRequest req) {
         return new ResultBean().setMsg("数据未通过校验").setCode(PoseidonProperties.COMMIT_DATA_ERROR);
     }
 
@@ -48,5 +49,10 @@ public class RestExceptionHandlerController {
         } finally {
             return new ResultBean().setMsg("系统异常，请联系管理员").setCode("500");
         }
+    }
+
+    @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
+    public ResultBean notsupported(Exception e, HttpServletRequest req) {
+        return new ResultBean().setMsg("不支持的请求方式").setCode(PoseidonProperties.NOT_SUPPORT_METHOD);
     }
 }

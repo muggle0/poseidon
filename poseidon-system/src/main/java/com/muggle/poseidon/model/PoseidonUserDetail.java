@@ -130,8 +130,8 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
      * isNullAble:1
      */
     private java.time.LocalDateTime deleteTime;
-
-
+    @Transient
+    private Set<PoseidonGrantedAuthority> authorities;
 
 
     @JSONField(serialize = false)
@@ -139,8 +139,8 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
     @JoinTable(name = "user_role", inverseJoinColumns = {@JoinColumn(name = "role_id")}, joinColumns = {@JoinColumn(name = "user_id")}, foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<Role> roles;
-    @Override
-    public Set<PoseidonGrantedAuthority> getAuthorities() {
+//    @Override
+   /* public Set<PoseidonGrantedAuthority> getAuthorities() {
         HashSet<PoseidonGrantedAuthority> authorities=new HashSet<>();
         if (roles.size()>0){
             roles.forEach(role -> {
@@ -152,7 +152,7 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
         }
         authorities.add(new PoseidonGrantedAuthority().setAuthority("ROLE_test"));
         return authorities;
-    }
+    }*/
 
 
 }

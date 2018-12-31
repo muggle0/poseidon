@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * poseidon_granted_authority实体类
@@ -56,5 +57,20 @@ public class PoseidonGrantedAuthority implements GrantedAuthority {
 
     private String method;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PoseidonGrantedAuthority that = (PoseidonGrantedAuthority) o;
+        return Objects.equals(authority, that.authority) &&
+                Objects.equals(permissionName, that.permissionName) &&
+                Objects.equals(enable, that.enable) &&
+                Objects.equals(url, that.url) &&
+                Objects.equals(method, that.method);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(authority, permissionName, enable, url, method);
+    }
 }

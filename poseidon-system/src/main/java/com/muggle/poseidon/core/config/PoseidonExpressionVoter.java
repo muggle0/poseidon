@@ -40,12 +40,11 @@ public class PoseidonExpressionVoter extends WebExpressionVoter {
         String method = fi.getHttpRequest().getMethod();
         for(int i=0;i<size;i++){
             PoseidonGrantedAuthority value=(PoseidonGrantedAuthority)objects[i];
-            boolean math="ALL".equalsIgnoreCase(value.getMethod())? true: method.equals(value.getUrl());
+            boolean math="ALL".equalsIgnoreCase(value.getMethod())? true: method.equals(value.getMethod());
             boolean bool=value.getEnable()!=null&&value.getEnable()&& antPathMatcher.match(value.getUrl(),requestUrl)&& math;
            if (bool){
                return ACCESS_GRANTED;
            }
-
         }
 
         return ACCESS_DENIED;

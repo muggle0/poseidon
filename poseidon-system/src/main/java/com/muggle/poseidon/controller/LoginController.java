@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.constraints.NotNull;
+
 @Controller
 @Slf4j
 public class LoginController {
@@ -32,8 +34,8 @@ public class LoginController {
      */
     @PostMapping("/sign_up")
     @ResponseBody
-    public ResultBean toSignUp(@Validated PoseidonUserDetail userDetail){
-        ResultBean resultBean = poseidonUserdetailsService.toSignUp(userDetail);
+    public ResultBean toSignUp(@Validated PoseidonUserDetail userDetail,@NotNull String verification){
+        ResultBean resultBean = poseidonUserdetailsService.toSignUp(userDetail, verification);
         return resultBean;
     }
 
@@ -46,20 +48,7 @@ public class LoginController {
         return "/resources/sign.html";
     }
 
-    /**
-     * description: 获取验证码
-     *
-     */
-    @GetMapping("/public/verification")
-    @ResponseBody
-    public ResultBean getVerification(@Validated PoseidonUserDetail poseidonUserDetail){
-        return poseidonUserdetailsService.getVerification(poseidonUserDetail);
-    }
 
-//    初始化数据库 生成一个超级管理员超级
-    @GetMapping("/public/wer34retrty-asdfwsdfsd")
-    @ResponseBody
-    public ResultBean create(){
-        return poseidonUserdetailsService.create();
-    }
+
+
 }
