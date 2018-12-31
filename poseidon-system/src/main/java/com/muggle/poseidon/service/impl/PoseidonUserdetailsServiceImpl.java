@@ -10,13 +10,13 @@ import com.muggle.poseidon.service.OauthService;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
@@ -78,20 +78,19 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         return poseidonSign;
     }
 
+    @Transient
     @Override
     public ResultBean create() {
         PoseidonUserDetail userDetail = new PoseidonUserDetail();
         String admin = passwordEncoder.encode("admin-muggle");
-        userDetail.setPassword(admin).setUsername("admin").setAccountNonLocked(true).setCredentialsNonExpired(true).setNickname("muggle")
+        userDetail.setPassword(admin).setUsername("test").setAccountNonLocked(true).setCredentialsNonExpired(true).setNickname("muggle")
                 .setEnabled(true).setAccountNonExpired(true).setEmail("1977339740@qq.com").setGender(1).setImgUrl("localhost:8080/resources/admin.jpg");
         PoseidonUserDetail save = null;
         try {
-
             save = repository.save(userDetail);
             return ResultBean.getInstance(save);
         } catch (Exception e) {
-//            throw new PoseidonException("what 让 with you","6000");
-            throw new RuntimeException("ss>>>>>>");
+            throw new PoseidonException("what's wrong with you hahahahahahahah","6000");
         }
     }
 }

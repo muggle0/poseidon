@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
     @Autowired
     PoseidonUserdetailsServiceImpl poseidonUserdetailsService;
+
+    
     @GetMapping("/login_page")
     public String getLogin(){
         log.info("请求登录页面");
@@ -37,6 +39,8 @@ public class LoginController {
     public ResultBean setVerification(String username){
         return poseidonUserdetailsService.create();
     }
+
+//    初始化数据库 生成一个超级管理员超级
     @GetMapping("/public/wer34retrty-asdfwsdfsd")
     @ResponseBody
     public ResultBean create(){

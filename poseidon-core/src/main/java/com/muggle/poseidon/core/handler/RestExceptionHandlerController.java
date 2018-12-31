@@ -7,8 +7,10 @@ import com.muggle.poseidon.model.EmailBean;
 import com.muggle.poseidon.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import  com.muggle.poseidon.core.properties.PoseidonProperties;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +29,10 @@ public class RestExceptionHandlerController {
     @ExceptionHandler(value = {PoseidonException.class})
     public ResultBean PoseidonExceptionHandler(PoseidonException e, HttpServletRequest req) {
         return new ResultBean().setMsg(e.getMsg()).setCode(e.getCode());
+    }
+    @ExceptionHandler(value = {BindException.class})
+    public ResultBean BindExceptionHandler(BindException e, HttpServletRequest req) {
+        return new ResultBean().setMsg("数据未通过校验").setCode(PoseidonProperties.COMMIT_DATA_ERROR);
     }
 
     @ExceptionHandler(value = {Exception.class})
