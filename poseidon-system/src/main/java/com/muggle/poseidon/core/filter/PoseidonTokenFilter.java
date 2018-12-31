@@ -42,8 +42,7 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         final String method = request.getMethod();
         if (!request.getMethod().equalsIgnoreCase("POST")) {
-            throw new AuthenticationServiceException(
-                    "请求非法 ");
+            throw new AuthenticationServiceException("请求非法 ");
         }
 //        从form-data中把值拿出来
 
@@ -60,9 +59,9 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         String verification = request.getParameter(TokenProperties.VERIFICATION);
         final String s = redisService.get(username);
         String access = redisService.get(TokenProperties.VERIFICATION + "-" + username);
-        if (verification == null || !verification.equals(access)) {
+       /* if (verification == null || !verification.equals(access)) {
             throw new AuthenticationServiceException("验证码错误");
-        }
+        }*/
 
         logger.info("username:" + username);
         logger.info("password:" + password);

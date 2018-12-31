@@ -16,6 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -26,7 +29,7 @@ import java.util.Optional;
  **/
 @Service
 @Slf4j
-public class PoseidonUserdetailsServiceImpl implements UserDetailsService,PoseidonUserdetailService {
+public class PoseidonUserdetailsServiceImpl implements UserDetailsService, PoseidonUserdetailService {
     @Autowired
     PoseidonUserDetailsRepository repository;
     @Autowired
@@ -35,36 +38,40 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService,Poseid
     PoseidonSignRepository signRepository;
     @Autowired
     OauthService oauthService;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        PoseidonUserDetail userDetail=repository.findDistinctByUsername(s);
-        if (userDetail==null){
-            throw  new UsernameNotFoundException("用户名不存在");
+        PoseidonUserDetail userDetail = repository.findDistinctByUsername(s);
+        if (userDetail == null) {
+            throw new UsernameNotFoundException("用户名不存在");
         }
-        log.info("用户登录验证："+userDetail.toString());
-        return  userDetail;
+        log.info("用户登录验证：" + userDetail.toString());
+        return userDetail;
     }
 
+    @Transient
     public ResultBean toSignUp(PoseidonUserDetail userDetail) {
-        log.info("创建用户："+ userDetail.toString());
-        String value=userDetail.getPassword();
+        log.info("创建用户：" + userDetail.toString());
+        String value = userDetail.getPassword();
         String password = passwordEncoder.encode(userDetail.getPassword());
         userDetail.setPassword(password);
-         PoseidonUserDetail save = repository.save(userDetail);
-         save.setPassword(value);
-         if (save!=null){
-             log.info("新增用户：{}",save.toString());
-             return ResultBean.getInstance(save);
-         }
-         return ResultBean.getInstance("500","系统异常");
+        userDetail.setCreatTime(LocalDateTime.now()).setEnabled(true)
+                .setAccountNonExpired(true).setAccountNonLocked(true).setCredentialsNonExpired(true);
+        PoseidonUserDetail save = repository.save(userDetail);
+        save.setPassword(value);
+        if (save != null) {
+            log.info("新增用户：{}", save.toString());
+            return ResultBean.getInstance(save);
+        }
+        return ResultBean.getInstance("500", "系统异常");
     }
 
-    public UserDetails findOne(String id){
-        Optional<PoseidonUserDetail> userDetail=repository.findById(id);
+    public UserDetails findOne(String id) {
+        Optional<PoseidonUserDetail> userDetail = repository.findById(id);
         return userDetail.get();
     }
 
-    public PoseidonSign loadByPrincipal(String principal){
+    public PoseidonSign loadByPrincipal(String principal) {
         PoseidonSign poseidonSign = signRepository.findByPrincipal(principal);
         String credentials = oauthService.getCredentialsByPrincipal(principal);
         poseidonSign.setCredentials(credentials);
@@ -73,16 +80,16 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService,Poseid
 
     @Override
     public ResultBean create() {
-        PoseidonUserDetail userDetail=new PoseidonUserDetail();
+        PoseidonUserDetail userDetail = new PoseidonUserDetail();
         String admin = passwordEncoder.encode("admin-muggle");
         userDetail.setPassword(admin).setUsername("admin").setAccountNonLocked(true).setCredentialsNonExpired(true).setNickname("muggle")
                 .setEnabled(true).setAccountNonExpired(true).setEmail("1977339740@qq.com").setGender(1).setImgUrl("localhost:8080/resources/admin.jpg");
-        PoseidonUserDetail save=null;
+        PoseidonUserDetail save = null;
         try {
 
-            save= repository.save(userDetail);
+            save = repository.save(userDetail);
             return ResultBean.getInstance(save);
-        }catch (Exception e){
+        } catch (Exception e) {
 //            throw new PoseidonException("what 让 with you","6000");
             throw new RuntimeException("ss>>>>>>");
         }

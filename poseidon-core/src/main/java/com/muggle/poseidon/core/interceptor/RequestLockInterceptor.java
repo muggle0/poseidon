@@ -1,11 +1,12 @@
 package com.muggle.poseidon.core.interceptor;
 
+import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.service.RedisLock;
 import com.muggle.poseidon.service.impl.RedislockImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.muggle.poseidon.core.properties.PoseidonProperties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,20 +28,17 @@ public class RequestLockInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String lockKey = request.getRequestURI() + "_" + getIpAddr(request);
+        String token=request.getParameter("access_token")+request.getCookies();
+        String lockKey = request.getRequestURI() + "_" + getIpAddr(request)+"_"+token;
         String requestId = getIpAddr(request);
-        if("get".equalsIgnoreCase(request.getMethod())){
+        /*if("get".equalsIgnoreCase(request.getMethod())){
             return true;
-        }
+        }*/
         boolean lock = redisTool.lock(lockKey, requestId, expireTime);
-        if (!lock) {
-//            todo 返回一个状态码，表示请求太频繁
-
+        if (!lock) {//            todo 返回一个状态码，表示请求太频繁
             log.error("拦截表单重复提交");
-            response.setStatus(500);
-
-
-            return false;
+            throw new PoseidonException("请求太频繁",PoseidonProperties.TOO_NUMBER_REQUEST);
+//            return false;
         }
         return true;
     }

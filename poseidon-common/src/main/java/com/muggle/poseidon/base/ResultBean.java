@@ -1,6 +1,6 @@
 package com.muggle.poseidon.base;
 
-import com.muggle.poseidon.core.properties.BeanProperties;
+import com.muggle.poseidon.core.properties.PoseidonProperties;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -19,16 +19,16 @@ public class ResultBean {
 
     public ResultBean success(String msg, Object date){
         ResultBean resultBean = new ResultBean()
-                .setCode(BeanProperties.SUCCESS_CODE).setData(date).setMsg(msg);
+                .setCode(PoseidonProperties.SUCCESS_CODE).setData(date).setMsg(msg);
         return resultBean;
     }
 
     public ResultBean error(String msg){
-        ResultBean resultBean = new ResultBean().setCode(BeanProperties.ERROR_CODE).setMsg(msg);
+        ResultBean resultBean = new ResultBean().setCode(PoseidonProperties.ERROR_CODE).setMsg(msg);
         return resultBean;
     }
     public ResultBean success(String msg){
-        ResultBean resultBean = new ResultBean().setCode(BeanProperties.SUCCESS_CODE).setMsg(msg);
+        ResultBean resultBean = new ResultBean().setCode(PoseidonProperties.SUCCESS_CODE).setMsg(msg);
         return resultBean;
     }
     public static ResultBean getInstance(){

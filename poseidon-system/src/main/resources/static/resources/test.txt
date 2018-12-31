@@ -1,34 +1,4 @@
-
-mybatis 操作sqlsession
-     @Test
-    public void testInsertBatch2() throws Exception {
-
-        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
-        try {
-            long start = System.currentTimeMillis();
-            DocCustomerMapper mapper = sqlSession.getMapper(DocCustomerMapper.class);
-            ArrayList<DocCustomerDTO> objects = new ArrayList<>();
-            int s = 0;
-            ResourceDTO resourceDTO = new ResourceDTO();
-            resourceDTO.setGroupId(1L).setCompanyId(2l);
-            while (s < 100) {
-                for (int i = 0; i < 100; i++) {
-                    DocCustomerDTO user = new DocCustomerDTO();
-                    user.setCorpId(1l).setCustomerId(i + 10L).setRowNum(10).setCustomerId(i + 1L);
-                    objects.add(user);
-                }
-                mapper.insertList(resourceDTO, objects);
-                s++;
-            }
-
-            sqlSession.commit();
-            long end = System.currentTimeMillis();
-            System.out.println("---------------" + (start - end) + "---------------");
-
-        } catch (Exception e){
-            e.printStackTrace();
-            sqlSession.rollback();
-        }finally {
-            sqlSession.close();
-        }
-    }
+-springsecurity 逻辑部分未完成
+-定时框架未完成
+-验证框架未完成
+-开发模型未确定

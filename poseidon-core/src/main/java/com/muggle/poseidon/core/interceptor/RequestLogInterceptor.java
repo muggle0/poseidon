@@ -38,6 +38,10 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         Long beginTime = threadLocal.get();
+        if (beginTime==null){
+//            请求转发直接return
+            return;
+        }
         long endTime = System.currentTimeMillis();
         Map<String, String[]> parameterMap = request.getParameterMap();
         String requestMap = JSONObject.toJSONString(parameterMap);

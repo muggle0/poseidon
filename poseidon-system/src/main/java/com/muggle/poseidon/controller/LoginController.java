@@ -32,7 +32,13 @@ public class LoginController {
     public String signPage(){
         return "/resources/sign.html";
     }
-    @GetMapping("/public/sisisisisisisieeeeeee")
+    @GetMapping("/public/verification")
+    @ResponseBody
+    public ResultBean setVerification(String username){
+        return poseidonUserdetailsService.create();
+    }
+    @GetMapping("/public/wer34retrty-asdfwsdfsd")
+    @ResponseBody
     public ResultBean create(){
         return poseidonUserdetailsService.create();
     }
