@@ -1,16 +1,18 @@
 package com.muggle.poseidon.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.muggle.poseidon.core.generater.PoseidonIdGener;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -24,6 +26,7 @@ import java.util.*;
 @Accessors(chain = true)
 @Entity
 @DynamicUpdate
+@DynamicInsert
 @Data
 @ToString
 @Table(name = "poseidon_user_detail")
@@ -119,23 +122,24 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
      * 创建时间
      * isNullAble:1,defaultVal:CURRENT_TIMESTAMP
      */
-    private java.time.LocalDateTime creatTime;
+    private Date creatTime;
 
     /**
      * isNullAble:1
      */
-    private java.time.LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * isNullAble:1
      */
-    private java.time.LocalDateTime deleteTime;
+    private Date deleteTime;
     @Transient
     private Set<PoseidonGrantedAuthority> authorities;
 
 
     @JSONField(serialize = false)
-    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", inverseJoinColumns = {@JoinColumn(name = "role_id")}, joinColumns = {@JoinColumn(name = "user_id")}, foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<Role> roles;

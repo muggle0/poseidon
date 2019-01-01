@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @author ：muggle
  * @date ：Created in 2018/12/31
@@ -51,13 +53,13 @@ public class AdminServiceImpl implements AdminService {
         PoseidonUserDetail userSave = null;
         try {
             userSave = repository.save(userDetail);
-            Role role = new Role().setSort(0).setName("超级管理员").setRoleCode("admin:").setEnable(true);
+            Role role = new Role().setSort(0).setName("超级管理员").setRoleCode("admin:").setEnable(true).setCreateTime(new Date());
             role = roleRepository.save(role);
             UserRole userRole = new UserRole().setRoleId(role.getId()).setUserId(userSave.getId());
             userRole = userRoleRepository.save(userRole);
             PoseidonGrantedAuthority authority = new PoseidonGrantedAuthority();
             authority.setAuthority("ROLE_admin").setMethod("ALL").setUrl("/**").setEnable(true)
-                    .setPermissionName("超级管理员");
+                    .setPermissionName("超级管理员").setCreateTime(new Date());
             authority.setHashCode(String.valueOf(authority.hashCode()));
             authority = authorityRepository.save(authority);
             RoleGranted roleGranted = new RoleGranted();

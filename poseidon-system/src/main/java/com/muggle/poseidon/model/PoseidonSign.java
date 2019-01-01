@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
 *
@@ -66,19 +67,19 @@ public class PoseidonSign implements Serializable {
     * 
     * isNullAble:1,defaultVal:CURRENT_TIMESTAMP
     */
-    private java.time.LocalDateTime createTime;
+    private Date createTime;
 
     /**
     * 
     * isNullAble:1
     */
-    private java.time.LocalDateTime deleteTime;
+    private Date deleteTime;
 
     /**
     * 
     * isNullAble:1
     */
-    private java.time.LocalDateTime updateTime;
+    private Date updateTime;
 
     private String userId;
 

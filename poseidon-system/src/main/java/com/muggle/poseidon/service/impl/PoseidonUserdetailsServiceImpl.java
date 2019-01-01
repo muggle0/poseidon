@@ -3,8 +3,10 @@ package com.muggle.poseidon.service.impl;
 import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.core.properties.TokenProperties;
+import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.model.PoseidonUserDetail;
+import com.muggle.poseidon.model.Role;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.service.OauthService;
@@ -14,6 +16,7 @@ import com.muggle.poseidon.utils.VerificationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,9 +24,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.muggle.poseidon.core.properties.PoseidonProperties;
+
+import javax.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @program: poseidon
@@ -46,40 +50,48 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     RedisService redisService;
 
 
-
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         PoseidonUserDetail userDetail = repository.findDistinctByUsername(s);
         if (userDetail == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
+        Set<Role> roles = userDetail.getRoles();
         log.info("用户登录验证：" + userDetail.toString());
+        if (roles==null){
+            return userDetail;
+        }
+        Iterator<Role> iterator = roles.iterator();
+        Set<PoseidonGrantedAuthority> authorities=new HashSet<>();
+        while (iterator.hasNext()){
+            authorities.addAll(iterator.next().getAuthorities());
+        }
         return userDetail;
     }
 
-    @Transactional()
-    public ResultBean toSignUp(PoseidonUserDetail userDetail,String verification) {
-        String key=TokenProperties.VERIFICATION + "-"+userDetail.getPassword()+"-"+userDetail.getUsername();
+    @Transactional
+    public ResultBean toSignUp(PoseidonUserDetail userDetail, String verification) {
+        String key = TokenProperties.VERIFICATION + "-" + userDetail.getPassword() + "-" + userDetail.getUsername();
         String s = redisService.get(key);
-        if (s==null){
-            throw new PoseidonException("验证码过期",PoseidonProperties.COMMIT_DATA_ERROR);
+        if (s == null) {
+            throw new PoseidonException("验证码过期", PoseidonProperties.COMMIT_DATA_ERROR);
         }
-        if (!verification.equals(s)){
-            throw new PoseidonException("验证码错误",PoseidonProperties.COMMIT_DATA_ERROR);
+        if (!verification.equals(s)) {
+            throw new PoseidonException("验证码错误", PoseidonProperties.COMMIT_DATA_ERROR);
         }
 
         log.info("创建用户：" + userDetail.toString());
         String value = userDetail.getPassword();
         String password = passwordEncoder.encode(userDetail.getPassword());
         userDetail.setPassword(password);
-        userDetail.setCreatTime(LocalDateTime.now()).setEnabled(true)
+        userDetail.setCreatTime(new Date()).setEnabled(true)
                 .setAccountNonExpired(true).setAccountNonLocked(true).setCredentialsNonExpired(true);
         try {
             PoseidonUserDetail save = repository.save(userDetail);
-            save.setPassword(value);
-                log.info("新增用户：{}", save.toString());
-                return ResultBean.getInstance(save);
-        }catch (Exception e){
+            log.info("新增用户：{}", save.toString());
+            return ResultBean.getInstance(save);
+        } catch (Exception e) {
             return ResultBean.getInstance(PoseidonProperties.COMMIT_DATA_ERROR, "用户名已存在");
         }
     }
@@ -97,4 +109,27 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     }
 
 
+    public Long count(PoseidonUserDetail userDetail) {
+        final long count = repository.count((root, criteriaQuery, criteriaBuilder) -> {
+            Predicate predicate = criteriaBuilder.isNull(root.get("deleteTime"));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("enabled"), true));
+            if (userDetail.getUsername() != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("username"), userDetail.getUsername()));
+            }
+            if (userDetail.getNickname() != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("nickname"), userDetail.getNickname()));
+            }
+            if (userDetail.getPhone() != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("phone"), userDetail.getPhone()));
+            }
+            if (userDetail.getEmail() != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("email"), userDetail.getEmail()));
+            }
+            if (userDetail.getGender() != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("gender"), userDetail.getGender()));
+            }
+            return criteriaQuery.where(predicate).getRestriction();
+        });
+        return count;
+    }
 }

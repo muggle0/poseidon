@@ -64,13 +64,12 @@ public class PoseidonGrantedAuthority implements GrantedAuthority {
         PoseidonGrantedAuthority that = (PoseidonGrantedAuthority) o;
         return Objects.equals(authority, that.authority) &&
                 Objects.equals(permissionName, that.permissionName) &&
-                Objects.equals(enable, that.enable) &&
                 Objects.equals(url, that.url) &&
                 Objects.equals(method, that.method);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authority, permissionName, enable, url, method);
+        return Objects.hash(authority, permissionName, url, method);
     }
 }
