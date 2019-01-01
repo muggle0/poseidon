@@ -2,12 +2,10 @@ package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.service.AdminService;
-import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
+import com.muggle.poseidon.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiController {
     @Autowired
-    AdminService adminservice;
+    OauthService oauthService;
 
 
     @GetMapping("/hello")
@@ -32,7 +30,7 @@ public class ApiController {
     @GetMapping("/public/wer34retrty-asdfwsdfsd")
     @ResponseBody
     public ResultBean create(){
-        return adminservice.create();
+        return oauthService.create();
     }
 
     /**
@@ -42,7 +40,7 @@ public class ApiController {
     @GetMapping("/public/verification")
     @ResponseBody
     public ResultBean getVerification(@Validated PoseidonUserDetail poseidonUserDetail){
-        return adminservice.getVerification(poseidonUserDetail);
+        return oauthService.getVerification(poseidonUserDetail);
     }
 
     /**

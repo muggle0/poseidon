@@ -4,15 +4,13 @@ import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.core.exception.BadTokenException;
 import com.muggle.poseidon.core.properties.TokenProperties;
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
-import com.muggle.poseidon.model.PoseidonSign;
-import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.model.Role;
+import com.muggle.poseidon.model.*;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.service.OauthService;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
+import com.muggle.poseidon.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,7 +44,8 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     OauthService oauthService;
     @Autowired
     RedisService redisService;
-
+    @Autowired
+    RoleService roleService;
 
     @Transactional
     @Override
@@ -57,12 +56,12 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         }
         Set<Role> roles = userDetail.getRoles();
         log.info("用户登录验证：" + userDetail.toString());
-        if (roles==null){
+        if (roles == null) {
             return userDetail;
         }
         Iterator<Role> iterator = roles.iterator();
-        Set<PoseidonGrantedAuthority> authorities=new HashSet<>();
-        while (iterator.hasNext()){
+        Set<PoseidonGrantedAuthority> authorities = new HashSet<>();
+        while (iterator.hasNext()) {
             authorities.addAll(iterator.next().getAuthorities());
         }
         userDetail.setAuthorities(authorities);
@@ -88,6 +87,9 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
                 .setAccountNonExpired(true).setAccountNonLocked(true).setCredentialsNonExpired(true);
         try {
             PoseidonUserDetail save = repository.save(userDetail);
+            Role role = new Role().setRoleCode("base");
+            List<Role> all = roleService.findAll(role);
+            saveUserRole(all,save.getId());
             log.info("新增用户：{}", save.toString());
             return ResultBean.getInstance(save);
         } catch (Exception e) {
@@ -102,6 +104,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
 
     public PoseidonSign loadByPrincipal(String principal) {
         PoseidonSign poseidonSign = signRepository.findByPrincipal(principal);
+//        获取校验码
         String credentials = oauthService.getCredentialsByPrincipal(principal);
         poseidonSign.setCredentials(credentials);
         return poseidonSign;
@@ -131,17 +134,9 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         });
         return count;
     }
-
-    public String getVerification(String key){
-        String s = redisService.get(key);
-        if (s==null){
-            throw new BadTokenException(TokenProperties.BAD_VERIFICATION,"401");
-        }
-        return s;
+//  保存用户角色中间表
+    List<UserRole> saveUserRole(List<Role> roles, String id){
+//        TODO 睡觉了
     }
 
-    @Override
-    public ResultBean createUser(PoseidonUserDetail user) {
-        return null;
-    }
 }

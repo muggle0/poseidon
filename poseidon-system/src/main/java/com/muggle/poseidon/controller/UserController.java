@@ -4,6 +4,7 @@ import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     PoseidonUserdetailService userService;
-    @PostMapping("/public/create_user")
-    public ResultBean createUser(PoseidonUserDetail user){
-        return userService.createUser(user);
-    }
+
+
 }

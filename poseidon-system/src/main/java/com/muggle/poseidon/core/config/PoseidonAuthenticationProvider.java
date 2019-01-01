@@ -41,9 +41,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         }
         PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
         final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getPrincipal());
-//        todo 短信登录和email登录
-        final String verification = poseidonUserdetailsService.getVerification("message-" + principal.getPrincipal());
-        if (poseidonSign==null||!poseidonSign.getCredentials().equals(verification)){
+        if (poseidonSign==null||!poseidonSign.getCredentials().equals(authentication.getCredentials())){
             return null;
         }
         log.info("验证用户登录："+principal);
