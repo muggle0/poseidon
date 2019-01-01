@@ -58,7 +58,7 @@ public class Role {
     private boolean enable;
 
     @JSONField(serialize = false)
-    @ManyToMany(targetEntity = Role.class, cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = PoseidonGrantedAuthority.class, cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "role_granted", inverseJoinColumns = {@JoinColumn(name = "granted_id")}, joinColumns = {@JoinColumn(name = "role_id")}, foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     @NotFound(action = NotFoundAction.IGNORE)
     private Set<PoseidonGrantedAuthority> authorities;

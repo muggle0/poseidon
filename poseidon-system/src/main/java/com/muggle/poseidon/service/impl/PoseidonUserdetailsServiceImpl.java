@@ -67,6 +67,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         while (iterator.hasNext()){
             authorities.addAll(iterator.next().getAuthorities());
         }
+        userDetail.setAuthorities(authorities);
         return userDetail;
     }
 
