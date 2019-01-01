@@ -75,6 +75,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ResultBean getVerification(PoseidonUserDetail poseidonUserDetail) {
+//        todo 短信获取验证码 微信获取验证码
         String key = TokenProperties.VERIFICATION + "-" + poseidonUserDetail.getPassword() + "-" + poseidonUserDetail.getUsername();
         String randonString = VerificationUtils.getRandonString(4);
         log.info("验证码: {}", randonString);

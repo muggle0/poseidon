@@ -139,4 +139,9 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         }
         return s;
     }
+
+    @Override
+    public ResultBean createUser(PoseidonUserDetail user) {
+        return null;
+    }
 }
