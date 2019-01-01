@@ -13,22 +13,14 @@ import java.util.Collection;
 
 public class PoseidonExpressionVoter extends WebExpressionVoter {
     private static final AntPathMatcher antPathMatcher = new AntPathMatcher();
-    private PoseidonGrantedAuthorityService authorityService;
 
-    public PoseidonExpressionVoter(PoseidonGrantedAuthorityService authorityService) {
-        this.authorityService = authorityService;
-    }
+
 
     @Override
     public int vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes) {
         String requestUrl = fi.getRequestUrl();
         String method = fi.getHttpRequest().getMethod();
-        PoseidonGrantedAuthority poseidonGrantedAuthority = new PoseidonGrantedAuthority();
-        poseidonGrantedAuthority.setUrl(requestUrl).setMethod(method);
-        if (authorityService.count(poseidonGrantedAuthority)<=0){
-            return ACCESS_GRANTED;
-        }
-            assert authentication != null;
+        assert authentication != null;
         assert fi != null;
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         assert authorities != null;

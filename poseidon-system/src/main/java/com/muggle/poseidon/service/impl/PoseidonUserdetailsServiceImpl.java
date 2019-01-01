@@ -2,6 +2,7 @@ package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.core.exception.BadTokenException;
 import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonSign;
@@ -12,11 +13,8 @@ import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.service.OauthService;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
-import com.muggle.poseidon.utils.VerificationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -132,5 +130,13 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
             return criteriaQuery.where(predicate).getRestriction();
         });
         return count;
+    }
+
+    public String getVerification(String key){
+        String s = redisService.get(key);
+        if (s==null){
+            throw new BadTokenException(TokenProperties.BAD_VERIFICATION,"401");
+        }
+        return s;
     }
 }

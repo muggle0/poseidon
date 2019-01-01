@@ -66,13 +66,22 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         logger.info("username:" + username);
         logger.info("password:" + password);
         UsernamePasswordAuthenticationToken authRequest = null;
-        if ("true".equals(isMessage)) {
-            MessagePrincipal message = new MessagePrincipal();
-            message.setCode(TokenProperties.MESSAGE_CODE);
-            message.setPrincipal(username);
-            authRequest = new UsernamePasswordAuthenticationToken(message, password);
-        } else {
-            authRequest = new UsernamePasswordAuthenticationToken(username, password);
+//        这里本来想弄个短信登录，但由于经费问题只搞了个email登录，所以命名略显不协调
+        switch (isMessage){
+            case "phone":
+                MessagePrincipal message = new MessagePrincipal();
+                message.setCode(TokenProperties.MESSAGE_CODE);
+                message.setPrincipal(username);
+                authRequest = new UsernamePasswordAuthenticationToken(message, password);
+                break;
+            case "email":
+                MessagePrincipal email = new MessagePrincipal();
+                email.setCode(TokenProperties.EMAIL_CODE);
+                email.setPrincipal(username);
+                authRequest = new UsernamePasswordAuthenticationToken(email, password);
+                break;
+            default:
+                authRequest = new UsernamePasswordAuthenticationToken(username, password);
         }
         setDetails(request, authRequest);
 

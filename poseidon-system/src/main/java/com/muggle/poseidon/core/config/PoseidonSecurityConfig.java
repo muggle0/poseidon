@@ -4,7 +4,6 @@ package com.muggle.poseidon.core.config;
 import com.muggle.poseidon.core.filter.PoseidonTokenFilter;
 import com.muggle.poseidon.core.handler.*;
 import com.muggle.poseidon.core.properties.SecurityProperties;
-import com.muggle.poseidon.service.PoseidonGrantedAuthorityService;
 import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -50,8 +49,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
     RedisService redisService;
     @Autowired
     SecurityProperties properties;
-    @Autowired
-    PoseidonGrantedAuthorityService authorityService;
+
 
 
 
@@ -112,7 +110,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
     public AccessDecisionManager accessDecisionManager(){
         List<AccessDecisionVoter<? extends Object>> decisionVoters
                 = Arrays.asList(
-                new PoseidonExpressionVoter(authorityService),
+                new PoseidonExpressionVoter(),
                 new WebExpressionVoter(),
                 new RoleVoter(),
                 new AuthenticatedVoter());

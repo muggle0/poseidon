@@ -41,7 +41,8 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         }
         PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
         final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getPrincipal());
-        if (poseidonSign!=null&&!poseidonSign.getCredentials().equals(authentication.getCredentials())){
+        final String verification = poseidonUserdetailsService.getVerification("message-" + principal.getPrincipal());
+        if (poseidonSign==null||!poseidonSign.getCredentials().equals(verification)){
             return null;
         }
         log.info("验证用户登录："+principal);
@@ -50,7 +51,8 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         if(!bool){
             throw new BadTokenException(TokenProperties.ABNORMAL_ACCOUNT,TokenProperties.BAD_TOKEN_CODE);
         }
-        Authentication token=new UsernamePasswordAuthenticationToken(one.getUsername(),one.getPassword(),one.getAuthorities());
+        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(one.getUsername(),one.getPassword(),one.getAuthorities());
+        token.setDetails(one);
         return token;
     }
     @Override

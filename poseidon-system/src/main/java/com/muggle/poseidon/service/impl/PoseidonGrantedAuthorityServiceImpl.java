@@ -51,15 +51,17 @@ public class PoseidonGrantedAuthorityServiceImpl implements PoseidonGrantedAutho
     public Long count(PoseidonGrantedAuthority authority) {
         final long count = repository.count((root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.isNull(root.get("deleteTime"));
-            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("enabled"), true));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("enable"), true));
             if (authority.getUrl() != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("url"), authority.getUrl()));
             }
             if (authority.getMethod() != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("nickname"), authority.getMethod()));
+                Predicate where=criteriaBuilder.equal(root.get("method"), authority.getMethod());
+                where=criteriaBuilder.or(where,criteriaBuilder.equal(root.get("method"),"ALL"));
+                predicate=criteriaBuilder.and(predicate,where);
             }
             if (authority.getPermissionName() != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("phone"), authority.getPermissionName()));
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("permissionName"), authority.getPermissionName()));
             }
             return criteriaQuery.where(predicate).getRestriction();
         });
