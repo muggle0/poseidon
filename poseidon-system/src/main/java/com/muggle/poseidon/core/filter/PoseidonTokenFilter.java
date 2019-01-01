@@ -57,9 +57,10 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         }
         username = username.trim();
         String verification = request.getParameter(TokenProperties.VERIFICATION);
-        String access = redisService.get(TokenProperties.VERIFICATION + "-"+password+"-" + username);
+        String key=TokenProperties.VERIFICATION + "-"+password+"-" + username;
+        String access = redisService.get(key);
         if (verification == null || !verification.equals(access)) {
-            throw new AuthenticationServiceException("验证码错误");
+            throw new AuthenticationServiceException("验证码错误或过期");
         }
 
         logger.info("username:" + username);
@@ -78,7 +79,7 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         Authentication authenticate = null;
 //            执行过程 filter---AuthenticationProvider--successHander
         authenticate = this.getAuthenticationManager().authenticate(authRequest);
-
+        redisService.delete(key);
         return authenticate;
     }
 

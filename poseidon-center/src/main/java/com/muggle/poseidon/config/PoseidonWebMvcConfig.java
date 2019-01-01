@@ -79,8 +79,5 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new RequestLockInterceptor(expireTime,new RedislockImpl(redisTemplate))).addPathPatterns("/**");
         registry.addInterceptor(new RequestLogInterceptor()).addPathPatterns("/**");
     }
-    @Bean
-    public AntPathMatcher antPathMatcher(){
-       return new AntPathMatcher();
-    }
+
 }
