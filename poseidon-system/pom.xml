@@ -23,13 +23,11 @@
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-core</artifactId>
-            <version>0.1.0.BUILD</version>
         </dependency>
+
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
 
 

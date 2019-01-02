@@ -2,11 +2,11 @@ package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
+import com.muggle.poseidon.model.vo.VerifVO;
 
 public interface OauthService {
-    String getCredentialsByPrincipal(String principal );
 
-    ResultBean getVerification(PoseidonUserDetail poseidonUserDetail);
+    ResultBean getVerification(VerifVO verifVO);
 
     public ResultBean create();
 }

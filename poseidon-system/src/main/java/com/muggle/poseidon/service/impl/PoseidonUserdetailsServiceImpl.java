@@ -2,12 +2,10 @@ package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.core.exception.BadTokenException;
 import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.*;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
-import com.muggle.poseidon.service.OauthService;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
 import com.muggle.poseidon.service.RoleService;
@@ -22,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.muggle.poseidon.core.properties.PoseidonProperties;
 
 import javax.persistence.criteria.Predicate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -40,8 +37,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     BCryptPasswordEncoder passwordEncoder;
     @Autowired
     PoseidonSignRepository signRepository;
-    @Autowired
-    OauthService oauthService;
+
     @Autowired
     RedisService redisService;
     @Autowired
@@ -70,7 +66,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
 
     @Transactional
     public ResultBean toSignUp(PoseidonUserDetail userDetail, String verification) {
-        String key = TokenProperties.VERIFICATION + "-" + userDetail.getPassword() + "-" + userDetail.getUsername();
+        String key = TokenProperties.VERIFICATION +  "-" + userDetail.getUsername();
         String s = redisService.get(key);
         if (s == null) {
             throw new PoseidonException("验证码过期", PoseidonProperties.COMMIT_DATA_ERROR);
@@ -105,7 +101,9 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     public PoseidonSign loadByPrincipal(String principal) {
         PoseidonSign poseidonSign = signRepository.findByPrincipal(principal);
 //        获取校验码
-        String credentials = oauthService.getCredentialsByPrincipal(principal);
+//        String credentials = oauthService.getCredentialsByPrincipal(principal);
+        String key=TokenProperties.VERIFICATION + "-" + principal;
+        String credentials=redisService.get(key);
         poseidonSign.setCredentials(credentials);
         return poseidonSign;
     }
@@ -137,6 +135,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
 //  保存用户角色中间表
     List<UserRole> saveUserRole(List<Role> roles, String id){
 //        TODO 睡觉了
+        return null;
     }
 
 }

@@ -2,6 +2,7 @@ package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
+import com.muggle.poseidon.model.vo.VerifVO;
 import com.muggle.poseidon.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -39,8 +40,8 @@ public class ApiController {
      */
     @GetMapping("/public/verification")
     @ResponseBody
-    public ResultBean getVerification(@Validated PoseidonUserDetail poseidonUserDetail){
-        return oauthService.getVerification(poseidonUserDetail);
+    public ResultBean getVerification(@Validated VerifVO verifVO){
+        return oauthService.getVerification(verifVO);
     }
 
     /**

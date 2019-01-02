@@ -4,6 +4,7 @@ import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.*;
+import com.muggle.poseidon.model.vo.VerifVO;
 import com.muggle.poseidon.repos.*;
 import com.muggle.poseidon.service.OauthService;
 import com.muggle.poseidon.service.RedisService;
@@ -35,12 +36,6 @@ public class MessageOauthService implements OauthService {
     RoleGrantedRepository roleGrantedRepository;
 
 
-
-    //    获取email 验证码或手机验证码
-    @Override
-    public String getCredentialsByPrincipal(String principal) {
-        return "test";
-    }
 
     @Transactional
     @Override
@@ -77,14 +72,23 @@ public class MessageOauthService implements OauthService {
     }
 //    客户端获取验证码
     @Override
-    public ResultBean getVerification(PoseidonUserDetail poseidonUserDetail) {
-//        todo 短信获取验证码 微信获取验证码
-        String key = TokenProperties.VERIFICATION + "-" + poseidonUserDetail.getPassword() + "-" + poseidonUserDetail.getUsername();
-        String randonString = VerificationUtils.getRandonString(4);
-        log.info("验证码: {}", randonString);
-        redisService.setForTimeMIN(key, randonString, 5);
-        final String s = redisService.get(key);
-        System.out.println(s);
-        return ResultBean.getInstance(randonString);
+    public ResultBean getVerification(VerifVO verifVO) {
+        switch (verifVO.getCode()){
+            //        图片验证码
+            case 1:
+                String key = TokenProperties.VERIFICATION + "-"+verifVO.getUsername();
+                String randonString = VerificationUtils.getRandonString(4);
+                log.info("验证码: {}", randonString);
+                redisService.setForTimeMIN(key, randonString, 5);
+                final String s = redisService.get(key);
+                System.out.println(s);
+                return ResultBean.getInstance(randonString);
+//                TODO 手机验证码
+            case 2:
+                return null;
+//                TODO email 验证
+            default:
+                return null;
+        }
     }
 }

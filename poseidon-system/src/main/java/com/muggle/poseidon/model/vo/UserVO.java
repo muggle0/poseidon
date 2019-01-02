@@ -1,4 +1,4 @@
-package com.muggle.poseidon.model.dto;
+package com.muggle.poseidon.model.vo;
 
 /**
  * @author ：muggle
