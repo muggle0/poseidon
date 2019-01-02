@@ -28,4 +28,12 @@ public class EmailServiceImpl implements EmailService {
         simpleMailMessage.setText(mailBean.getContent());
         javaMailSender.send(simpleMailMessage);
     }
+    @Override
+    public void sendMailForHtml(EmailBean mailBean){
+        StringBuffer context=new StringBuffer();
+        context.append("<h3> 嗨，小伙伴,poseidon 给你回信了</h3><br>");
+        context.append(mailBean.getSubject());
+        mailBean.setSubject(context.toString());
+        sendSimpleMail(mailBean);
+    }
 }
