@@ -5,7 +5,9 @@ import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,9 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @version:
  */
 @RestController
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     PoseidonUserdetailService userService;
 
-
+    @GetMapping("/role_user")
+    public ResultBean getUsers(String roleId){
+        return userService.getUsersByRoleId(roleId);
+    }
 }

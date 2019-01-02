@@ -4,6 +4,7 @@ import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.*;
+import com.muggle.poseidon.model.vo.UserVO;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
@@ -11,6 +12,7 @@ import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
 import com.muggle.poseidon.service.RoleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -68,7 +70,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
 
     @Transactional
     public ResultBean toSignUp(PoseidonUserDetail userDetail, String verification) {
-        String key = TokenProperties.VERIFICATION +  "-" + userDetail.getUsername();
+        String key = TokenProperties.VERIFICATION + "-" + userDetail.getUsername();
         String s = redisService.get(key);
         if (s == null) {
             throw new PoseidonException("验证码过期", PoseidonProperties.COMMIT_DATA_ERROR);
@@ -87,7 +89,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
             PoseidonUserDetail save = repository.save(userDetail);
             Role role = new Role().setRoleCode("base");
             List<Role> all = roleServiceImpl.findAll(role);
-            saveUserRole(all,save.getId());
+            saveUserRole(all, save.getId());
             log.info("新增用户：{}", save.toString());
             return ResultBean.getInstance(save);
         } catch (Exception e) {
@@ -104,8 +106,8 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         PoseidonSign poseidonSign = signRepository.findByPrincipal(principal);
 //        获取校验码
 //        String credentials = oauthService.getCredentialsByPrincipal(principal);
-        String key=TokenProperties.VERIFICATION + "-" + principal;
-        String credentials=redisService.get(key);
+        String key = TokenProperties.VERIFICATION + "-" + principal;
+        String credentials = redisService.get(key);
         poseidonSign.setCredentials(credentials);
         return poseidonSign;
     }
@@ -134,9 +136,10 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         });
         return count;
     }
-//  保存用户角色中间表
-    void saveUserRole(List<Role> roles, String id){
-        List<UserRole> list=new ArrayList<>();
+
+    //  保存用户角色中间表
+    void saveUserRole(List<Role> roles, String id) {
+        List<UserRole> list = new ArrayList<>();
         roles.forEach(role -> {
             UserRole userRole = new UserRole();
             userRole.setAccreditId("0");
@@ -146,4 +149,16 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         userRoleRepository.saveAll(list);
     }
 
+    @Override
+    public ResultBean getUsersByRoleId(String roleId) {
+        List<UserRole> byRoleId = userRoleRepository.findByRoleId(roleId);
+        List<UserVO> userVOS=new ArrayList<>();
+        byRoleId.forEach(userRole -> {
+            UserVO userVO=new UserVO();
+            Optional<PoseidonUserDetail> byId = repository.findById(userRole.getUserId());
+            BeanUtils.copyProperties(byId.get(),userVO);
+            userVOS.add(userVO);
+        });
+        return ResultBean.getInstance(userVOS);
+    }
 }

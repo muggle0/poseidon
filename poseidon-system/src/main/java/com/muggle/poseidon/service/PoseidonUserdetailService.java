@@ -5,4 +5,5 @@ import com.muggle.poseidon.model.PoseidonUserDetail;
 
 public interface PoseidonUserdetailService {
 
+    ResultBean getUsersByRoleId(String roleId);
 }
