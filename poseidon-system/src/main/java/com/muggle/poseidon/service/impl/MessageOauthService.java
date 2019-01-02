@@ -54,7 +54,7 @@ public class MessageOauthService implements OauthService {
             Role role = new Role().setSort(0).setName("超级管理员").setRoleCode("admin:").setEnable(true).setCreateTime(new Date());
             role = roleRepository.save(role);
 //          新建一个普通用户角色 供新建用户登录
-            Role baesRole=new Role().setRoleCode("base").setCreateTime(new Date()).setEnable(true).setName("基础角色").setSort(1);
+            Role baesRole = new Role().setRoleCode("base").setCreateTime(new Date()).setEnable(true).setName("基础角色").setSort(1);
             UserRole userRole = new UserRole().setRoleId(role.getId()).setUserId(userSave.getId());
             userRole = userRoleRepository.save(userRole);
             PoseidonGrantedAuthority authority = new PoseidonGrantedAuthority();
@@ -72,13 +72,14 @@ public class MessageOauthService implements OauthService {
             throw new PoseidonException("what's wrong with you hahahahahahahah", "6000");
         }
     }
-//    客户端获取验证码
+
+    //    客户端获取验证码
     @Override
     public ResultBean getVerification(VerifVO verifVO) {
-        switch (verifVO.getCode()){
+        switch (verifVO.getCode()) {
             //        图片验证码
             case 1:
-                String key = TokenProperties.VERIFICATION + "-"+verifVO.getUsername();
+                String key = TokenProperties.VERIFICATION + "-" + verifVO.getUsername();
                 String randonString = VerificationUtils.getRandonString(4);
                 log.info("验证码: {}", randonString);
                 redisService.setForTimeMIN(key, randonString, 5);
@@ -88,14 +89,12 @@ public class MessageOauthService implements OauthService {
                 return null;
 //                TODO email 验证
             case 3:
-                String email = TokenProperties.VERIFICATION + "-"+verifVO.getEmail();
+                String email = TokenProperties.VERIFICATION + "-" + verifVO.getEmail();
                 String emailString = VerificationUtils.getRandonString(4);
                 log.info("验证码: {}", emailString);
                 redisService.setForTimeMIN(email, emailString, 5);
-                EmailBean emailBean=new EmailBean();
-                emailBean.setRecipient()
-                emailService.sendSimpleMail();
-                return null;
+                emailService.sendCode(verifVO.getEmail(), emailString);
+                return ResultBean.getInstance(emailString);
             default:
                 return null;
         }

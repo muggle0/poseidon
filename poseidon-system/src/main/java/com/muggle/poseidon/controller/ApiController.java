@@ -7,6 +7,7 @@ import com.muggle.poseidon.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,10 +49,12 @@ public class ApiController {
      * description: 测试
      *
      */
-    @GetMapping("/admin/role")
+    @PostMapping ("/admin/role")
     @ResponseBody
     public ResultBean setRole(@Validated PoseidonUserDetail poseidonUserDetail){
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>");
+//        todo
         return ResultBean.getInstance();
     }
+
 }

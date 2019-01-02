@@ -43,7 +43,7 @@ public class RestExceptionHandlerController {
             EmailBean emailBean = new EmailBean();
             emailBean.setRecipient("1977339740@qq.com");
             emailBean.setSubject("poseidon---系统异常");
-            emailBean.setContent("系统异常：" + req.getMethod() + req.getRequestURI());
+            emailBean.setContent("系统异常：" + req.getMethod() + req.getRequestURI()+e.getMessage());
             emailService.sendSimpleMail(emailBean);
             return new ResultBean().setMsg("系统异常，请联系管理员").setCode("500");
         } finally {

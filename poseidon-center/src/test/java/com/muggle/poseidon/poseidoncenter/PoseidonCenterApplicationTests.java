@@ -3,8 +3,7 @@ package com.muggle.poseidon.poseidoncenter;
 import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.Role;
-import com.muggle.poseidon.repos.PoseidonRoleRepository;
-import com.muggle.poseidon.service.RoleService;
+import com.muggle.poseidon.service.RoleServiceImpl;
 import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +22,7 @@ public class PoseidonCenterApplicationTests {
     @Autowired
     PoseidonUserdetailsServiceImpl poseidonUserdetailsService;
    @Autowired
-    RoleService roleService;
+   RoleServiceImpl roleServiceImpl;
 
 //    @Test
     public void contextLoads() {
@@ -43,7 +42,7 @@ public class PoseidonCenterApplicationTests {
     public void testRole(){
         final Role role = new Role();
         role.setName("超级管理员");
-        List<Role> one = roleService.findAll(role);
+        List<Role> one = roleServiceImpl.findAll(role);
         final Set<PoseidonGrantedAuthority> authorities = one.get(0).getAuthorities();
                 System.out.println(one);
     }

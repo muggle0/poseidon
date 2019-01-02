@@ -36,4 +36,14 @@ public class EmailServiceImpl implements EmailService {
         mailBean.setSubject(context.toString());
         sendSimpleMail(mailBean);
     }
+
+    @Override
+    public void sendCode(String recipient, String context) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom(server);
+        simpleMailMessage.setTo(recipient);
+        simpleMailMessage.setSubject("poseidon :验证码");
+        simpleMailMessage.setText("验证码是："+context+"   五分钟内有效");
+        javaMailSender.send(simpleMailMessage);
+    }
 }

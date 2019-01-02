@@ -41,7 +41,9 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         }
         PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
         final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getPrincipal());
-        if (poseidonSign==null||!poseidonSign.getCredentials().equals(authentication.getCredentials())){
+//        数据库无数据或者数据库密码不匹配 返回null
+        boolean isCredentials=poseidonSign!=null&&(poseidonSign.getCredentials()==null||poseidonSign.getCredentials().equals(authentication.getCredentials()));
+        if (!isCredentials){
             return null;
         }
         log.info("验证用户登录："+principal);

@@ -6,9 +6,10 @@ import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.*;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
+import com.muggle.poseidon.repos.UserRoleRepository;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
-import com.muggle.poseidon.service.RoleService;
+import com.muggle.poseidon.service.RoleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,11 +38,12 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     BCryptPasswordEncoder passwordEncoder;
     @Autowired
     PoseidonSignRepository signRepository;
-
     @Autowired
     RedisService redisService;
     @Autowired
-    RoleService roleService;
+    RoleServiceImpl roleServiceImpl;
+    @Autowired
+    UserRoleRepository userRoleRepository;
 
     @Transactional
     @Override
@@ -84,7 +86,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         try {
             PoseidonUserDetail save = repository.save(userDetail);
             Role role = new Role().setRoleCode("base");
-            List<Role> all = roleService.findAll(role);
+            List<Role> all = roleServiceImpl.findAll(role);
             saveUserRole(all,save.getId());
             log.info("新增用户：{}", save.toString());
             return ResultBean.getInstance(save);
@@ -133,9 +135,15 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         return count;
     }
 //  保存用户角色中间表
-    List<UserRole> saveUserRole(List<Role> roles, String id){
-//        TODO 睡觉了
-        return null;
+    void saveUserRole(List<Role> roles, String id){
+        List<UserRole> list=new ArrayList<>();
+        roles.forEach(role -> {
+            UserRole userRole = new UserRole();
+            userRole.setAccreditId("0");
+            userRole.setRoleId(role.getId()).setUserId(id);
+            list.add(userRole);
+        });
+        userRoleRepository.saveAll(list);
     }
 
 }

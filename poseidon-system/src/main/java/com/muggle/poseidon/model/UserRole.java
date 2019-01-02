@@ -38,4 +38,7 @@ public class UserRole implements Serializable {
     @Column(name = "user_id")
     private String userId;
 
+    @Column(name = "accredit_id")
+    private String accreditId;
+
 }
