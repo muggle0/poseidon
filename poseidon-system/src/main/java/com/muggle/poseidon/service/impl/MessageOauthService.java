@@ -6,6 +6,7 @@ import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.*;
 import com.muggle.poseidon.model.vo.VerifVO;
 import com.muggle.poseidon.repos.*;
+import com.muggle.poseidon.service.EmailService;
 import com.muggle.poseidon.service.OauthService;
 import com.muggle.poseidon.service.RedisService;
 import com.muggle.poseidon.utils.VerificationUtils;
@@ -34,7 +35,8 @@ public class MessageOauthService implements OauthService {
     PoseidonGrantedAuthorityRepository authorityRepository;
     @Autowired
     RoleGrantedRepository roleGrantedRepository;
-
+    @Autowired
+    EmailService emailService;
 
 
     @Transactional
@@ -80,13 +82,20 @@ public class MessageOauthService implements OauthService {
                 String randonString = VerificationUtils.getRandonString(4);
                 log.info("验证码: {}", randonString);
                 redisService.setForTimeMIN(key, randonString, 5);
-                final String s = redisService.get(key);
-                System.out.println(s);
                 return ResultBean.getInstance(randonString);
 //                TODO 手机验证码
             case 2:
                 return null;
 //                TODO email 验证
+            case 3:
+                String email = TokenProperties.VERIFICATION + "-"+verifVO.getEmail();
+                String emailString = VerificationUtils.getRandonString(4);
+                log.info("验证码: {}", emailString);
+                redisService.setForTimeMIN(email, emailString, 5);
+                EmailBean emailBean=new EmailBean();
+                emailBean.setRecipient()
+                emailService.sendSimpleMail();
+                return null;
             default:
                 return null;
         }
