@@ -3,7 +3,7 @@ package com.muggle.poseidon.poseidoncenter;
 import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.Role;
-import com.muggle.poseidon.service.RoleServiceImpl;
+import com.muggle.poseidon.service.impl.RoleServiceImpl;
 import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;

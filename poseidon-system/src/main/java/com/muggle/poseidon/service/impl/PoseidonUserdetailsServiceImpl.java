@@ -10,7 +10,6 @@ import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
-import com.muggle.poseidon.service.RoleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

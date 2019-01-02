@@ -1,10 +1,10 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.service.RoleServiceImpl;
+import com.muggle.poseidon.model.UserRole;
+import com.muggle.poseidon.service.impl.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ：muggle
@@ -13,11 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
  * @version: 1.0
  */
 @RestController
+@RequestMapping("/role")
 public class RoleController {
     @Autowired
     RoleServiceImpl roleService;
-    @GetMapping
+
+    @GetMapping("/find")
     public ResultBean getRoles(){
         return roleService.getRoles();
+    }
+
+    @GetMapping("/find/{id}")
+    public ResultBean getRoleByd(@PathVariable("id") String id){
+        return roleService.findOne(id);
+    }
+    @PostMapping("/insert/user_role")
+    public ResultBean insertUserRole(UserRole userRole){
+        return roleService.insertUserRole(userRole);
     }
 }
