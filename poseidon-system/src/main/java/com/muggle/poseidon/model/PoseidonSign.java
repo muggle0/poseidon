@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -43,12 +44,14 @@ public class PoseidonSign implements Serializable {
     * 
     * isNullAble:1
     */
+    @NotNull
     private String authType;
 
     /**
     * 
     * isNullAble:1
     */
+    @NotNull
     private String principal;
 
     /**
