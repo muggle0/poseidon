@@ -50,7 +50,7 @@ public class ResultBean {
     }
     public static ResultBean getInstance(String code,String msg){
         ResultBean resultBean=new ResultBean();
-        resultBean.setCode("200").setMsg("操作成功");
+        resultBean.setCode(code).setMsg(msg);
         return resultBean;
     }
 }

@@ -5,10 +5,7 @@ import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.service.PoseidonSignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -33,5 +30,14 @@ public class PoseidonSignController {
     @PostMapping("/insert")
     public ResultBean insertSign(@Validated  PoseidonSign poseidonSign,@NotNull String validata){
         return  signService.insert(poseidonSign,validata);
+    }
+
+    @PutMapping("/update")
+    public ResultBean updateSign(@Validated PoseidonSign poseidonSign,@NotNull String validata){
+        return signService.update(poseidonSign,validata);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResultBean delete(@PathVariable String id){
+        return signService.delete(id);
     }
 }

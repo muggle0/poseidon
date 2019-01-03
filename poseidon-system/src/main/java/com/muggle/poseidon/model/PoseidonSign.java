@@ -41,7 +41,7 @@ public class PoseidonSign implements Serializable {
     private String id;
 
     /**
-    * 
+    * 登录类型
     * isNullAble:1
     */
     @NotNull
@@ -84,6 +84,7 @@ public class PoseidonSign implements Serializable {
     */
     private Date updateTime;
 
+    @NotNull
     private String userId;
 
     /**

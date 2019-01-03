@@ -37,7 +37,7 @@ public class RoleServiceImpl {
 
     @Transactional
     public List<Role> findAll(Role role) {
-        final List<Role> all = poseidonRoleRepository.findAll((root, query, builder) -> {
+         List<Role> all = poseidonRoleRepository.findAll((root, query, builder) -> {
             Predicate predicate = builder.isNull(root.get("deleteTime"));
             if (role.getRoleCode() != null) {
                 predicate = builder.and(predicate, builder.equal(root.get("roleCode"), role.getRoleCode()));

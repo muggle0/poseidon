@@ -7,4 +7,8 @@ public interface PoseidonSignService {
     ResultBean getSigns();
 
     ResultBean insert(PoseidonSign poseidonSign, String validata);
+
+    ResultBean update(PoseidonSign poseidonSign, String validata);
+
+    ResultBean delete(String id);
 }
