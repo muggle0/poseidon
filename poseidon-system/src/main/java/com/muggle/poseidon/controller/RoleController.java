@@ -5,6 +5,7 @@ import com.muggle.poseidon.model.Role;
 import com.muggle.poseidon.model.UserRole;
 import com.muggle.poseidon.service.impl.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -34,7 +35,7 @@ public class RoleController {
     }
 
     @PostMapping("/insert/role")
-    public ResultBean insertRole(Role role){
+    public ResultBean insertRole(@Validated Role role){
         return roleService.insertRole(role);
     }
 }

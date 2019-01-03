@@ -12,6 +12,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -35,10 +36,12 @@ public class Role {
     @GenericGenerator(name = "myIdStrategy", strategy = PoseidonIdGener.TYPE)
     private String id;
     /***/
+    @NotNull
     private String roleCode;
     /***/
     private String hashCode;
     /***/
+    @NotNull
     private String name;
     /***/
     private Integer sort;
@@ -49,11 +52,11 @@ public class Role {
     /***/
     private Date deleteTime;
     /***/
-    private Long createId;
+    private String createId;
     /***/
-    private Long deleteId;
+    private String deleteId;
     /***/
-    private Long updateId;
+    private String updateId;
 
     private boolean enable;
 

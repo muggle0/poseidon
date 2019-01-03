@@ -1,7 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.Role;
 import com.muggle.poseidon.model.UserRole;
@@ -9,6 +8,7 @@ import com.muggle.poseidon.model.vo.RoleVO;
 import com.muggle.poseidon.repos.PoseidonRoleRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
+import com.muggle.poseidon.service.UserInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class RoleServiceImpl {
@@ -104,7 +105,22 @@ public class RoleServiceImpl {
     public ResultBean insertRole(Role role) {
 
         String roleCode = role.getRoleCode();
-
-        return null;
+        List<String> roleCodes = UserInfoService.getRoleCodes();
+        AtomicBoolean agree= new AtomicBoolean(false);
+        roleCodes.forEach(code->{
+            if (roleCode.contains(code)){
+                 String[] lowSplit = roleCode.split(":");
+                 String[] heightSplit = code.split(":");
+               if (heightSplit.length<lowSplit.length&&heightSplit.length<4){
+                    agree.set(true);
+               }
+            }
+        });
+        if (agree.get()){
+            role.setCreateTime(new Date()).setCreateId(UserInfoService.getUser().getId());
+            poseidonRoleRepository.save(role);
+            return ResultBean.getInstance(role);
+        }
+        return ResultBean.getInstance("500","无权限添加");
     }
 }
