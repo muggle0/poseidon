@@ -23,8 +23,8 @@ import java.util.Set;
 public class RoleServiceImpl {
     @Autowired
     PoseidonRoleRepository poseidonRoleRepository;
-    @Autowired
-    User
+   /* @Autowired
+    User*/
 
     public ResultBean setRole(Role role) {
         Role save = poseidonRoleRepository.save(role);

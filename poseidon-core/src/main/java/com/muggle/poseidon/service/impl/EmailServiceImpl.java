@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendCode(String recipient, String context) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom(server);
+        simpleMailMessage.setFrom("1977339740@qq.com(波塞冬)");
         simpleMailMessage.setTo(recipient);
         simpleMailMessage.setSubject("poseidon :验证码");
         simpleMailMessage.setText("验证码是："+context+"   五分钟内有效");

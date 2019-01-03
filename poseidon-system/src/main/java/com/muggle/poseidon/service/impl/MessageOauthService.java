@@ -87,7 +87,6 @@ public class MessageOauthService implements OauthService {
 //                TODO 手机验证码
             case 2:
                 return null;
-//                TODO email 验证
             case 3:
                 String email = TokenProperties.VERIFICATION + "-" + verifVO.getEmail();
                 String emailString = VerificationUtils.getRandonString(4);
