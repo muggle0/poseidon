@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @program: poseidon
  * @description:
@@ -13,6 +15,6 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public interface PoseidonSignRepository extends CrudRepository<PoseidonSign, String>, JpaSpecificationExecutor<PoseidonSign> {
-    PoseidonSign findDistinctByUserId(String userid);
+    List<PoseidonSign> findAllByUserId(String userid);
     PoseidonSign findByPrincipal(String principal);
 }
