@@ -34,8 +34,12 @@ public class RoleController {
         return roleService.insertUserRole(userRole);
     }
 
-    @PostMapping("/insert/role")
+    @PostMapping("/insert")
     public ResultBean insertRole(@Validated Role role){
         return roleService.insertRole(role);
+    }
+    @PutMapping("/update")
+    public ResultBean updateRole(@Validated Role role){
+        return roleService.update(role);
     }
 }

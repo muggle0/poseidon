@@ -52,6 +52,7 @@ public class RoleServiceImpl {
         });
         return all;
     }
+
     @Transactional
     public ResultBean getRoles() {
         Role role = new Role();
@@ -64,63 +65,81 @@ public class RoleServiceImpl {
                 roleVOList.add(roleVO);
             }
         });
-       return ResultBean.getInstance(roleVOList);
+        return ResultBean.getInstance(roleVOList);
     }
 
     public ResultBean findOne(String id) {
         final Optional<Role> byId = poseidonRoleRepository.findById(id);
         return ResultBean.getInstance(byId.get());
     }
+
     @Transactional
     public ResultBean insertUserRole(UserRole userRole) {
-        PoseidonUserDetail details = (PoseidonUserDetail)SecurityContextHolder.getContext().getAuthentication().getDetails();
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
         Set<Role> roles = details.getRoles();
-        String roleCode=null;
+        String roleCode = null;
         Iterator<Role> iterator = roles.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Role next = iterator.next();
-            if (next.getId().equals(userRole.getRoleId())){
-                roleCode=next.getRoleCode();
+            if (next.getId().equals(userRole.getRoleId())) {
+                roleCode = next.getRoleCode();
                 break;
             }
         }
-        if (roleCode==null){
-            return ResultBean.getInstance("500","分配失败，没有权限");
+        if (roleCode == null) {
+            return ResultBean.getInstance("500", "分配失败，没有权限");
         }
 
         Optional<PoseidonUserDetail> byId = userDetailsRepository.findById(userRole.getUserId());
         Set<Role> custRoles = byId.get().getRoles();
         String finalRoleCode = roleCode;
         Iterator<Role> cutsIterator = custRoles.iterator();
-        while (cutsIterator.hasNext()){
+        while (cutsIterator.hasNext()) {
 //            如果下级角色赋予上级角色权限
-            if (finalRoleCode.contains(cutsIterator.next().getRoleCode())){
-                return ResultBean.getInstance("500","对方已拥有该角色");
+            if (finalRoleCode.contains(cutsIterator.next().getRoleCode())) {
+                return ResultBean.getInstance("500", "对方已拥有该角色");
             }
         }
         UserRole save = userRoleRepository.save(userRole);
         return ResultBean.getInstance(save);
     }
-// 拥有某些特殊角色的人才能新添角色
+
+    // 拥有某些特殊角色的人才能新添角色
     public ResultBean insertRole(Role role) {
 
         String roleCode = role.getRoleCode();
         List<String> roleCodes = UserInfoService.getRoleCodes();
-        AtomicBoolean agree= new AtomicBoolean(false);
-        roleCodes.forEach(code->{
-            if (roleCode.contains(code)){
-                 String[] lowSplit = roleCode.split(":");
-                 String[] heightSplit = code.split(":");
-               if (heightSplit.length<lowSplit.length&&heightSplit.length<4){
+        AtomicBoolean agree = new AtomicBoolean(false);
+        roleCodes.forEach(code -> {
+            if (roleCode.contains(code)) {
+                String[] lowSplit = roleCode.split(":");
+                String[] heightSplit = code.split(":");
+                if (heightSplit.length < lowSplit.length && heightSplit.length < 4) {
                     agree.set(true);
-               }
+                }
             }
         });
-        if (agree.get()){
+        if (agree.get()) {
             role.setCreateTime(new Date()).setCreateId(UserInfoService.getUser().getId());
             poseidonRoleRepository.save(role);
             return ResultBean.getInstance(role);
         }
-        return ResultBean.getInstance("500","无权限添加");
+        return ResultBean.getInstance("500", "无权限添加");
+    }
+
+    public ResultBean update(Role role) {
+        List<String> roleCodes = UserInfoService.getRoleCodes();
+        AtomicBoolean agree = new AtomicBoolean(false);
+        roleCodes.forEach(rolecode->{
+             int length = rolecode.split(":").length;
+            if (rolecode.equals(role.getRoleCode())&&length<4){
+                poseidonRoleRepository.save(role);
+                agree.set(true);
+            }
+        });
+        if (agree.get()){
+            return ResultBean.getInstance();
+        }
+        return ResultBean.getInstance("500","更新失败，无权限");
     }
 }
