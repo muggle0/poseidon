@@ -45,7 +45,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     RoleServiceImpl roleServiceImpl;
     @Autowired
     UserRoleRepository userRoleRepository;
-
+// todo 检查代码
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

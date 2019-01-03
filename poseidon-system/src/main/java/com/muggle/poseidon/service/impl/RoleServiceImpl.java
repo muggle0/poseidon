@@ -34,7 +34,7 @@ public class RoleServiceImpl {
         resultBean.success("插入成功", role);
         return resultBean;
     }
-
+// todo 检查代码
     @Transactional
     public List<Role> findAll(Role role) {
          List<Role> all = poseidonRoleRepository.findAll((root, query, builder) -> {

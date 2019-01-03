@@ -78,7 +78,7 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
         }
         boolean equals = one.get().getUserId().equals(user.getId());
         if (equals) {
-            poseidonSign.setUpdateTime(new Date());
+            poseidonSign.setUpdateTime(new Date()).setEnable(1);
             repository.save(poseidonSign);
             return ResultBean.getInstance(poseidonSign);
         }
@@ -89,13 +89,14 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
     @Override
     public ResultBean delete(String id) {
         PoseidonUserDetail user = UserInfoService.getUser();
-        Optional<PoseidonSign> byId = repository.findById(id);
+        Optional<PoseidonSign> byId =findOne(id);
         PoseidonSign poseidonSign = byId.get();
         if (byId.isPresent() && poseidonSign.getUserId().equals(user.getId())) {
             poseidonSign.setDeleteTime(new Date());
             repository.save(poseidonSign);
+            return ResultBean.getInstance();
         }
-        return ResultBean.getInstance();
+        return ResultBean.getInstance("500","非法操作");
     }
 
     private List<PoseidonSign> findAll(PoseidonSign poseidonSign) {

@@ -11,8 +11,8 @@ import org.springframework.security.access.AccessDeniedException;
 
 public class PoseidonAccessException extends AccessDeniedException {
     private String msg;
-    private int code;
-    public PoseidonAccessException(String msg , int code){
+    private String code;
+    public PoseidonAccessException(String msg , String code){
         super(msg);
         this.msg=msg;
         this.code=code;

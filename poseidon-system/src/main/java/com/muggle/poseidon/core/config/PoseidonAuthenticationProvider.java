@@ -1,6 +1,7 @@
 package com.muggle.poseidon.core.config;
 
 import com.muggle.poseidon.core.exception.BadTokenException;
+import com.muggle.poseidon.core.exception.PoseidonAccessException;
 import com.muggle.poseidon.model.MessagePrincipal;
 import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
@@ -41,6 +42,9 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         }
         PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
         final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getPrincipal());
+        if ( poseidonSign.getEnable()==0){
+            throw new BadTokenException(TokenProperties.ABNORMAL_ACCOUNT,TokenProperties.BAD_TOKEN_CODE);
+        }
 //        数据库有数据且无密码或者密码匹配（因为关联验证类型可能不需要密码校验）
         boolean isCredentials=poseidonSign!=null&&(poseidonSign.getCredentials()==null||poseidonSign.getCredentials().equals(authentication.getCredentials()));
         if (!isCredentials){
