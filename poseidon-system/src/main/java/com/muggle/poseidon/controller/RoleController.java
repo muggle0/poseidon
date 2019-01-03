@@ -1,6 +1,7 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.model.Role;
 import com.muggle.poseidon.model.UserRole;
 import com.muggle.poseidon.service.impl.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class RoleController {
     @PostMapping("/insert/user_role")
     public ResultBean insertUserRole(UserRole userRole){
         return roleService.insertUserRole(userRole);
+    }
+
+    @PostMapping("/insert/role")
+    public ResultBean insertRole(Role role){
+        return roleService.insertRole(role);
     }
 }

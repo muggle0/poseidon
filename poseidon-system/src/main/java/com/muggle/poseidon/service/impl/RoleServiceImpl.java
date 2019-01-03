@@ -7,6 +7,8 @@ import com.muggle.poseidon.model.Role;
 import com.muggle.poseidon.model.UserRole;
 import com.muggle.poseidon.model.vo.RoleVO;
 import com.muggle.poseidon.repos.PoseidonRoleRepository;
+import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
+import com.muggle.poseidon.repos.UserRoleRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,17 +16,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RoleServiceImpl {
     @Autowired
     PoseidonRoleRepository poseidonRoleRepository;
-   /* @Autowired
-    User*/
+    @Autowired
+    PoseidonUserDetailsRepository userDetailsRepository;
+    @Autowired
+    UserRoleRepository userRoleRepository;
 
     public ResultBean setRole(Role role) {
         Role save = poseidonRoleRepository.save(role);
@@ -69,10 +70,40 @@ public class RoleServiceImpl {
         final Optional<Role> byId = poseidonRoleRepository.findById(id);
         return ResultBean.getInstance(byId.get());
     }
-
+    @Transactional
     public ResultBean insertUserRole(UserRole userRole) {
         PoseidonUserDetail details = (PoseidonUserDetail)SecurityContextHolder.getContext().getAuthentication().getDetails();
         Set<Role> roles = details.getRoles();
+        String roleCode=null;
+        Iterator<Role> iterator = roles.iterator();
+        while (iterator.hasNext()){
+            Role next = iterator.next();
+            if (next.getId().equals(userRole.getRoleId())){
+                roleCode=next.getRoleCode();
+                break;
+            }
+        }
+        if (roleCode==null){
+            return ResultBean.getInstance("500","分配失败，没有权限");
+        }
+
+        Optional<PoseidonUserDetail> byId = userDetailsRepository.findById(userRole.getUserId());
+        Set<Role> custRoles = byId.get().getRoles();
+        String finalRoleCode = roleCode;
+        Iterator<Role> cutsIterator = custRoles.iterator();
+        while (cutsIterator.hasNext()){
+//            如果下级角色赋予上级角色权限
+            if (finalRoleCode.contains(cutsIterator.next().getRoleCode())){
+                return ResultBean.getInstance("500","对方已拥有该角色");
+            }
+        }
+        UserRole save = userRoleRepository.save(userRole);
+        return ResultBean.getInstance(save);
+    }
+// 拥有某些特殊角色的人才能新添角色
+    public ResultBean insertRole(Role role) {
+
+        String roleCode = role.getRoleCode();
 
         return null;
     }
