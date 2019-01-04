@@ -35,8 +35,20 @@ public class UserController {
         return ResultBean.getInstance(userVO);
     }
 
+
     @GetMapping("/info/{id}")
     public ResultBean getUserById(@PathVariable String id){
-        return userService.getUserId(id);
+        return userService.getUserById(id);
     }
+
+    @PutMapping("/update")
+    public ResultBean update( @Validated UserVO user,String oldPassword,String newPassword ){
+        return userService.update(user,oldPassword,newPassword);
+    }
+
+    @DeleteMapping("/delete")
+    public ResultBean delete( ){
+        return userService.delete();
+    }
+
 }

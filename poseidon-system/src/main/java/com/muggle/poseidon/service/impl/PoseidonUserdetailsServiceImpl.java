@@ -10,6 +10,7 @@ import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
+import com.muggle.poseidon.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.muggle.poseidon.core.properties.PoseidonProperties;
 
 import javax.persistence.criteria.Predicate;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -50,7 +52,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        PoseidonUserDetail userDetail = repository.findByUsernameAnddAndDeleteTimeIsNull(s);
+        PoseidonUserDetail userDetail = repository.findByUsernameAndDeleteTimeIsNull(s);
         if (userDetail == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
@@ -96,19 +98,19 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
             return ResultBean.getInstance(PoseidonProperties.COMMIT_DATA_ERROR, "用户名已存在");
         }
     }
-
-    public UserDetails findOne(String id) {
+    @Transactional
+    public Optional<PoseidonUserDetail> findOne(String id) {
         Optional<PoseidonUserDetail> one = repository.findOne((root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.isNull(root.get("deleteTime"));
-            predicate=criteriaBuilder.and(predicate,criteriaBuilder.equal(root.get("id"),id));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("id"), id));
             return criteriaQuery.where(predicate).getRestriction();
         });
-        return one.get();
+        return one;
     }
 
     public PoseidonSign loadByPrincipal(String principal) {
         PoseidonSign poseidonSign = signRepository.findByPrincipalaAndDeleteTimeIsNull(principal);
-        if (poseidonSign==null){
+        if (poseidonSign == null) {
             throw new UsernameNotFoundException("账户信息不存在");
         }
 //        获取校验码
@@ -152,24 +154,54 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         });
         userRoleRepository.saveAll(list);
     }
-
+    @Transactional
     @Override
     public ResultBean getUsersByRoleId(String roleId) {
         List<UserRole> byRoleId = userRoleRepository.findByRoleId(roleId);
-        List<UserVO> userVOS=new ArrayList<>();
+        List<UserVO> userVOS = new ArrayList<>();
         byRoleId.forEach(userRole -> {
-            UserVO userVO=new UserVO();
-            Optional<PoseidonUserDetail> byId = repository.findById(userRole.getUserId());
-            BeanUtils.copyProperties(byId.get(),userVO);
+            UserVO userVO = new UserVO();
+            Optional<PoseidonUserDetail> byId =findOne(userRole.getUserId());
+            BeanUtils.copyProperties(byId.get(), userVO);
             userVOS.add(userVO);
         });
         return ResultBean.getInstance(userVOS);
     }
-
+    @Transactional
     @Override
-    public ResultBean getUserId(String id) {
-        return null;
+    public ResultBean getUserById(String id) {
+        Optional<PoseidonUserDetail> one = findOne(id);
+        if (one.isPresent()){
+            return ResultBean.getInstance(one.get());
+        }
+        return ResultBean.getInstance("500","用户信息不存在");
     }
-
+    @Transactional
+    @Override
+    public ResultBean update(UserVO userVO,String oldPassword,String newPassword) {
+        PoseidonUserDetail user = UserInfoService.getUser();
+        if(!userVO.getId().equals(user.getId())){
+            return ResultBean.getInstance("500","信息异常，请确认账号信息");
+        }
+        String password=null;
+        if (oldPassword!=null&&newPassword!=null){
+           if ( !passwordEncoder.matches(oldPassword,user.getPassword())){
+               return ResultBean.getInstance("500","密码错误");
+           }
+           password=passwordEncoder.encode(newPassword);
+        }
+        BeanUtils.copyProperties(userVO,user);
+        user.setUpdateTime(new Date()).setPassword(password).setEnabled(true);
+        repository.save(user);
+        return ResultBean.getInstance();
+    }
+    @Transactional
+    @Override
+    public ResultBean delete() {
+        PoseidonUserDetail user = UserInfoService.getUser();
+        user.setDeleteTime(new Date());
+        repository.save(user);
+        return ResultBean.getInstance();
+    }
 
 }

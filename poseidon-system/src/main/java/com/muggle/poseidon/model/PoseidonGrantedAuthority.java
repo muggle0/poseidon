@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +26,7 @@ import java.util.Objects;
 @Table(name = "poseidon_granted_authority")
 @Entity
 @DynamicUpdate
+@DynamicInsert
 public class PoseidonGrantedAuthority implements GrantedAuthority {
     /***/
     @Id
