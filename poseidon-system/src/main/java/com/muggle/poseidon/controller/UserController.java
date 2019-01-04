@@ -2,13 +2,13 @@ package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
+import com.muggle.poseidon.model.vo.UserVO;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
+import com.muggle.poseidon.service.UserInfoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ：muggle
@@ -25,5 +25,18 @@ public class UserController {
     @GetMapping("/role_user")
     public ResultBean getUsers(String roleId){
         return userService.getUsersByRoleId(roleId);
+    }
+
+    @GetMapping("/my_info")
+    public ResultBean userInfo(String roleId){
+        PoseidonUserDetail user = UserInfoService.getUser();
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user,userVO);
+        return ResultBean.getInstance(userVO);
+    }
+
+    @GetMapping("/info/{id}")
+    public ResultBean getUserById(@PathVariable String id){
+        return userService.getUserId(id);
     }
 }

@@ -166,5 +166,10 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         return ResultBean.getInstance(userVOS);
     }
 
+    @Override
+    public ResultBean getUserId(String id) {
+        return null;
+    }
+
 
 }

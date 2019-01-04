@@ -105,6 +105,16 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
         return ResultBean.getInstance("500","非法操作");
     }
 
+    @Transactional
+    @Override
+    public ResultBean getSignById(String id) {
+        Optional<PoseidonSign> one = findOne(id);
+        if (!one.isPresent()){
+            return ResultBean.getInstance("500","数据不存在");
+        }
+        return ResultBean.getInstance(one.get());
+    }
+
     private List<PoseidonSign> findAll(PoseidonSign poseidonSign) {
         List<PoseidonSign> all = repository.findAll((root, query, builder) -> {
             Predicate predicate = builder.isNull(root.get("deleteTime"));

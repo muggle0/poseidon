@@ -11,4 +11,7 @@ public interface PoseidonSignService {
     ResultBean update(PoseidonSign poseidonSign, String validata);
 
     ResultBean delete(String id);
+
+    ResultBean getSignById(String id);
+
 }

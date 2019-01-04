@@ -30,7 +30,6 @@
             <artifactId>poseidon-common</artifactId>
         </dependency>
 
-
     </dependencies>
 
     <build>

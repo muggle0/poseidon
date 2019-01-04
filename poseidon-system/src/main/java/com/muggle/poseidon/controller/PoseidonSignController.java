@@ -27,6 +27,11 @@ public class PoseidonSignController {
         return  signService.getSigns();
     }
 
+    @GetMapping("/info/{id}")
+    public ResultBean getSignById(@PathVariable String id){
+        return  signService.getSignById( id);
+    }
+
     @PostMapping("/insert")
     public ResultBean insertSign(@Validated  PoseidonSign poseidonSign,@NotNull String validata){
         return  signService.insert(poseidonSign,validata);
