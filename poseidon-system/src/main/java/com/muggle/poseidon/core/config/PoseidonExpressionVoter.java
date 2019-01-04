@@ -19,6 +19,9 @@ public class PoseidonExpressionVoter extends WebExpressionVoter {
     @Override
     public int vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes) {
         String requestUrl = fi.getRequestUrl();
+        if (antPathMatcher.match("/public/**",requestUrl)||antPathMatcher.match("/sign_up",requestUrl)||antPathMatcher.match("/sign_page",requestUrl)){
+            return ACCESS_GRANTED;
+        }
         String method = fi.getHttpRequest().getMethod();
         assert authentication != null;
         assert fi != null;

@@ -40,6 +40,6 @@ public class OauthController {
         return poseidonGrantedAuthorityService.delete(id);
     }
 
-    @GetMapping("/black_list")
-    public ResultBean getBlackList()
+//    @GetMapping("/black_list")
+//    public ResultBean getBlackList()
 }
