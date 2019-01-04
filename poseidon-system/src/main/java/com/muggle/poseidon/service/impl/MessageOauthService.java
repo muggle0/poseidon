@@ -79,6 +79,9 @@ public class MessageOauthService implements OauthService {
         switch (verifVO.getCode()) {
             //        图片验证码
             case 1:
+                if(verifVO.getUsername()==null){
+                    return ResultBean.getInstance("500","参数错误");
+                }
                 String key = TokenProperties.VERIFICATION + "-" + verifVO.getUsername();
                 String randonString = VerificationUtils.getRandonString(4);
                 log.info("验证码: {}", randonString);
@@ -88,12 +91,15 @@ public class MessageOauthService implements OauthService {
             case 2:
                 return null;
             case 3:
+                if(verifVO.getEmail()==null){
+                    return ResultBean.getInstance("500","参数错误");
+                }
                 String email = TokenProperties.VERIFICATION + "-" + verifVO.getEmail();
                 String emailString = VerificationUtils.getRandonString(4);
                 log.info("验证码: {}", emailString);
                 redisService.setForTimeMIN(email, emailString, 5);
                 emailService.sendCode(verifVO.getEmail(), emailString);
-                return ResultBean.getInstance(emailString);
+                return ResultBean.getInstance("200","验证码发送成功，注意查看");
             default:
                 return ResultBean.getInstance("500","参数错误");
         }

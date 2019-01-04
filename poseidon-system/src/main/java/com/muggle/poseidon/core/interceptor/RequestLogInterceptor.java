@@ -36,13 +36,16 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ipAddr = RequestUtils.getIpAddr(request);
-        String id = UserInfoService.getUser().getId();
+         String id = UserInfoService.getUserId();
         PoseidonBlackList byUserId = new PoseidonBlackList();
         PoseidonBlackList byIpAddr = new PoseidonBlackList();
         byUserId.setStatus(1).setUserId(id);
         byIpAddr.setStatus(1).setRemark(ipAddr);
+        long userId =0;
+        if (!id.equals("-1")){
+            userId =blackListService.count(byUserId);
+        }
         long ip = blackListService.count(byIpAddr);
-        long userId = blackListService.count(byUserId);
         if (ip>0||userId>0){
            throw new PoseidonException("黑名单用户",PoseidonProperties.BLACK_LIST_USER);
         }

@@ -12,6 +12,7 @@ import com.muggle.poseidon.core.properties.PoseidonProperties;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 /**
  * @program: hiram_erp
@@ -31,9 +32,9 @@ public class RequestLockInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token=request.getParameter("access_token");
-         String ipAddr = RequestUtils.getIpAddr(request);
-        String lockKey = request.getRequestURI() + "_" + ipAddr+"_"+token;
+        String token = request.getParameter("access_token");
+        String ipAddr = RequestUtils.getIpAddr(request);
+        String lockKey = request.getRequestURI() + "_" + ipAddr + "_" + token;
 
         /*if("get".equalsIgnoreCase(request.getMethod())){
             return true;
@@ -41,15 +42,21 @@ public class RequestLockInterceptor implements HandlerInterceptor {
         boolean lock = redisTool.lock(lockKey, ipAddr, expireTime);
         if (!lock) {//
             log.error("拦截表单重复提交");
-            throw new PoseidonException("请求太频繁",PoseidonProperties.TOO_NUMBER_REQUEST);
-//            return false;
+//            throw new PoseidonException("请求太频繁",PoseidonProperties.TOO_NUMBER_REQUEST);
+            response.setContentType("application/json;charset=UTF-8");
+            PrintWriter writer = response.getWriter();
+            writer.write("{\"code\":\"500\",\"msg\":\"请求太频繁\"}");
+            writer.close();
+            return false;
         }
         return true;
     }
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
     }
+
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String requestURI = request.getRequestURI();

@@ -12,6 +12,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import  com.muggle.poseidon.core.properties.PoseidonProperties;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,5 +55,9 @@ public class RestExceptionHandlerController {
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     public ResultBean notsupported(Exception e, HttpServletRequest req) {
         return new ResultBean().setMsg("不支持的请求方式").setCode(PoseidonProperties.NOT_SUPPORT_METHOD);
+    }
+    @ExceptionHandler(value = {NoHandlerFoundException.class})
+    public ResultBean notFoundUrl(Exception e, HttpServletRequest req) {
+        return new ResultBean().setMsg("请求路径不存在").setCode("404");
     }
 }

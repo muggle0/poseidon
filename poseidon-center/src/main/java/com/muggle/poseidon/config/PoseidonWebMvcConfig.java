@@ -11,9 +11,13 @@ import com.muggle.poseidon.service.impl.RedislockImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,15 +36,15 @@ import java.util.List;
 @Configuration
 public class PoseidonWebMvcConfig implements WebMvcConfigurer {
     @Autowired
-    RedisTemplate<String,String> redisTemplate;
+    RedisTemplate<String, String> redisTemplate;
     @Autowired
     PoseidonBlackListService blackListService;
     @Value("${lock.time}")
     int expireTime;
 
     @Bean
-    @ConfigurationProperties(prefix="poseidon.security")
-    public SecurityProperties getModel(){
+    @ConfigurationProperties(prefix = "poseidon.security")
+    public SecurityProperties getModel() {
         return new SecurityProperties();
     }
 
@@ -49,11 +53,12 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }*/
 
-   @Bean
-   public BCryptPasswordEncoder passwordEncoder() {
-       return new BCryptPasswordEncoder();
-   }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
+//    解析器
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         // 1.需要先定义一个convert 转换消息的对象
@@ -76,10 +81,23 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
         // 4.将convert添加到converters当中
         converters.add(fastConverter);
     }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestLockInterceptor(expireTime,new RedislockImpl(redisTemplate))).addPathPatterns("/**");
+        registry.addInterceptor(new RequestLockInterceptor(expireTime, new RedislockImpl(redisTemplate))).addPathPatterns("/**");
         registry.addInterceptor(new RequestLogInterceptor(blackListService)).addPathPatterns("/**");
+    }
+
+//    配置错误页面
+    @Bean
+    public WebServerFactoryCustomizer containerCustomizer() {
+        return new WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>() {
+            @Override
+            public void customize(ConfigurableServletWebServerFactory factory) {
+
+                factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,"/resources/404.html"));
+            }
+        };
     }
 
 }
