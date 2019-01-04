@@ -1,11 +1,10 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.model.UserMessage;
 import com.muggle.poseidon.service.UserMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: poseidon
@@ -18,13 +17,35 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageController {
     @Autowired
     UserMessageService messageService;
+
+
     @GetMapping("/unread")
     public ResultBean getMessage(){
-        messageService.getMessage();
+        return messageService.getMessage();
     }
 
     @GetMapping("/all")
-    public ResultBean getAll(){
-        messageService
+    public ResultBean getAll(UserMessage message){
+        ResultBean all = messageService.getAll(message);
+        return all;
+    }
+
+    @PutMapping("/update")
+    public ResultBean update(UserMessage userMessage){
+        return  messageService.update(userMessage);
+    }
+    @PostMapping("/insert")
+    public ResultBean insert(UserMessage userMessage){
+        return  messageService.insert(userMessage);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResultBean delete(@PathVariable String id){
+        return  messageService.delete(id);
+    }
+
+    @GetMapping("/count")
+    public ResultBean count(UserMessage userMessage){
+        return  messageService.countNoRead(userMessage);
     }
 }

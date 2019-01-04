@@ -122,7 +122,6 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     public Long count(PoseidonUserDetail userDetail) {
         final long count = repository.count((root, criteriaQuery, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.isNull(root.get("deleteTime"));
-            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("enabled"), true));
             if (userDetail.getUsername() != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("username"), userDetail.getUsername()));
             }
@@ -138,6 +137,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
             if (userDetail.getGender() != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("gender"), userDetail.getGender()));
             }
+
             return criteriaQuery.where(predicate).getRestriction();
         });
         return count;
@@ -172,7 +172,9 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     public ResultBean getUserById(String id) {
         Optional<PoseidonUserDetail> one = findOne(id);
         if (one.isPresent()){
-            return ResultBean.getInstance(one.get());
+            UserVO userVO = new UserVO();
+            BeanUtils.copyProperties(one.get(),userVO);
+            return ResultBean.getInstance(userVO);
         }
         return ResultBean.getInstance("500","用户信息不存在");
     }
@@ -193,6 +195,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         BeanUtils.copyProperties(userVO,user);
         user.setUpdateTime(new Date()).setPassword(password).setEnabled(true);
         repository.save(user);
+        log.info("更新用户信息: "+userVO.toString());
         return ResultBean.getInstance();
     }
     @Transactional
@@ -201,6 +204,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         PoseidonUserDetail user = UserInfoService.getUser();
         user.setDeleteTime(new Date());
         repository.save(user);
+        log.info("删除用户："+user.toString());
         return ResultBean.getInstance();
     }
 
