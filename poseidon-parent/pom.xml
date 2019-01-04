@@ -104,8 +104,53 @@
                 <artifactId>poseidon-core</artifactId>
                 <version>${poseidon.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.muggle.poseidon</groupId>
+                <artifactId>poseidon-system</artifactId>
+                <version>${poseidon.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.muggle.poseidon</groupId>
+                <artifactId>poseidon-web</artifactId>
+                <version>${poseidon.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.muggle.poseidon</groupId>
+                <artifactId>poseidon-web-doc</artifactId>
+                <version>${poseidon.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
 
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.html</include>
+                    <include>**/*.jsp</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.jpg</include>
+                </includes>
+                <!--<filtering>false</filtering>-->
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <!--<filtering>false</filtering>-->
+            </resource>
+        </resources>
+        <!--<plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>-->
+    </build>
 
 </project>

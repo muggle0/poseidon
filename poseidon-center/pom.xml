@@ -24,22 +24,18 @@
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-system</artifactId>
-            <version>${poseidon.version}</version>
         </dependency>
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-core</artifactId>
-            <version>0.1.0.BUILD</version>
         </dependency>
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-common</artifactId>
-            <version>${poseidon.version}</version>
         </dependency>
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
-            <artifactId>poseidon-web</artifactId>
-            <version>${poseidon.version}</version>
+            <artifactId>poseidon-web-doc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,17 +72,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <forkCount>6</forkCount>
-                    <useSystemClassLoader>true</useSystemClassLoader>
-                    <useManifestOnlyJar>false</useManifestOnlyJar>
-                    <reuseForks>false</reuseForks>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
