@@ -16,5 +16,5 @@ import java.util.List;
 @Repository
 public interface PoseidonSignRepository extends CrudRepository<PoseidonSign, String>, JpaSpecificationExecutor<PoseidonSign> {
     List<PoseidonSign> findAllByUserId(String userid);
-    PoseidonSign findByPrincipalaAndDeleteTimeIsNull(String principal);
+    PoseidonSign findByPrincipalAndDeleteTimeIsNull(String principal);
 }

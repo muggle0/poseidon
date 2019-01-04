@@ -21,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.muggle.poseidon.core.properties.PoseidonProperties;
-
 import javax.persistence.criteria.Predicate;
 import javax.validation.constraints.NotNull;
 import java.util.*;
@@ -109,7 +108,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     }
 
     public PoseidonSign loadByPrincipal(String principal) {
-        PoseidonSign poseidonSign = signRepository.findByPrincipalaAndDeleteTimeIsNull(principal);
+        PoseidonSign poseidonSign = signRepository.findByPrincipalAndDeleteTimeIsNull(principal);
         if (poseidonSign == null) {
             throw new UsernameNotFoundException("账户信息不存在");
         }
@@ -207,5 +206,4 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         log.info("删除用户："+user.toString());
         return ResultBean.getInstance();
     }
-
 }
