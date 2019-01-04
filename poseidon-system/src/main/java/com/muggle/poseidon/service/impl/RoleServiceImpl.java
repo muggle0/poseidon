@@ -104,6 +104,7 @@ public class RoleServiceImpl {
                 return ResultBean.getInstance("500", "对方已拥有该角色");
             }
         }
+        userRole.setAccreditId(UserInfoService.getUser().getId());
         UserRole save = userRoleRepository.save(userRole);
         log.info("分配角色："+ userRole.toString());
         return ResultBean.getInstance(save);
