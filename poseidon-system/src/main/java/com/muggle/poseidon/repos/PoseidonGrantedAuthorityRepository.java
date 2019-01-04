@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PoseidonGrantedAuthorityRepository extends CrudRepository<PoseidonGrantedAuthority, String>, JpaSpecificationExecutor<PoseidonGrantedAuthority> {
-
+    PoseidonGrantedAuthority findByIdAndDeleteTimeIsNull(String id);
 }
