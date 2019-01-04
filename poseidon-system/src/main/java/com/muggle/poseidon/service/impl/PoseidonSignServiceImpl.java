@@ -36,7 +36,7 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
     @Override
     public ResultBean getSigns() {
         String id = UserInfoService.getUser().getId();
-        PoseidonSign poseidonSign = new PoseidonSign().setUserId(id).setEnable(1);
+        PoseidonSign poseidonSign = new PoseidonSign().setUserId(id);
         final List<PoseidonSign> allByUserId = findAll(poseidonSign);
         return ResultBean.getInstance(allByUserId);
     }
@@ -124,7 +124,6 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
         });
         return all;
     }
-//    todo 冻结账号
 
     private Optional<PoseidonSign> findOne(String id) {
         Optional<PoseidonSign> one = repository.findOne((root, query, builder) -> {

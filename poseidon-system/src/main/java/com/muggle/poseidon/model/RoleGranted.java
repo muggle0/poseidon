@@ -1,6 +1,7 @@
 package com.muggle.poseidon.model;
 
 import com.muggle.poseidon.core.generater.PoseidonIdGener;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +19,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "role_granted")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @DynamicUpdate
 public class RoleGranted implements Serializable {

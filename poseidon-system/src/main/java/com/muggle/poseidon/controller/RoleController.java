@@ -26,7 +26,7 @@ public class RoleController {
     }
 
     @GetMapping("/find/{id}")
-    public ResultBean getRoleByd(@PathVariable("id") String id){
+    public ResultBean getRoleById(@PathVariable("id") String id){
         return roleService.findOne(id);
     }
     @PostMapping("/insert/user_role")
@@ -41,5 +41,10 @@ public class RoleController {
     @PutMapping("/update")
     public ResultBean updateRole(@Validated Role role){
         return roleService.update(role);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResultBean delete(@PathVariable String id){
+        return roleService.delete(id);
     }
 }

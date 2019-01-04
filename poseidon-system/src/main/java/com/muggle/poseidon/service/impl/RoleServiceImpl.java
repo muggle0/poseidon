@@ -2,12 +2,11 @@ package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.model.Role;
-import com.muggle.poseidon.model.UserRole;
+import com.muggle.poseidon.model.*;
 import com.muggle.poseidon.model.vo.RoleVO;
 import com.muggle.poseidon.repos.PoseidonRoleRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
+import com.muggle.poseidon.repos.RoleGrantedRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
 import com.muggle.poseidon.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +29,8 @@ public class RoleServiceImpl {
     PoseidonUserDetailsRepository userDetailsRepository;
     @Autowired
     UserRoleRepository userRoleRepository;
+    @Autowired
+    RoleGrantedRepository roleGrantedRepository;
 
 
     @Transactional
@@ -104,6 +105,7 @@ public class RoleServiceImpl {
             }
         }
         UserRole save = userRoleRepository.save(userRole);
+        log.info("分配角色："+ userRole.toString());
         return ResultBean.getInstance(save);
     }
 
@@ -123,10 +125,33 @@ public class RoleServiceImpl {
                 }
             }
         });
+        Set<PoseidonGrantedAuthority> grantedAuthority = role.getAuthorities();
+        Set<PoseidonGrantedAuthority> authorities = UserInfoService.getUser().getAuthorities();
+        Iterator<PoseidonGrantedAuthority> iterator = grantedAuthority.iterator();
+        boolean isLegal=true;
+        List<RoleGranted> roleGranteds=new ArrayList<>();
+        while (iterator.hasNext()){
+            PoseidonGrantedAuthority next = iterator.next();
+            if (!authorities.contains(next)){
+               isLegal=false;
+              break;
+           }
+            RoleGranted roleGranted = new RoleGranted();
+           roleGranted.setGrantedId(next.getId());
+            roleGranteds.add(roleGranted);
+        }
+        if (!isLegal){
+            return ResultBean.getInstance("500", "无权限添加");
+        }
         if (agree.get()) {
             role.setCreateTime(new Date()).setCreateId(UserInfoService.getUser().getId());
             try {
-                poseidonRoleRepository.save(role);
+                Role save = poseidonRoleRepository.save(role);
+                roleGranteds.forEach(roleGranted -> {
+                    roleGranted.setRoleId(save.getId());
+                });
+                log.info("创建角色："+save.toString());
+                roleGrantedRepository.saveAll(roleGranteds);
                 return ResultBean.getInstance(role);
             } catch (Exception e) {
                 throw new PoseidonException("角色码已存在","500");
@@ -145,6 +170,7 @@ public class RoleServiceImpl {
              int length = rolecode.split(":").length;
             if (rolecode.equals(role.getRoleCode())&&length<4){
                 poseidonRoleRepository.save(role);
+                log.info("更新角色："+ role.toString());
                 agree.set(true);
             }
         });
@@ -153,5 +179,10 @@ public class RoleServiceImpl {
             return ResultBean.getInstance();
         }
         return ResultBean.getInstance("500","更新失败，无权限");
+    }
+
+    public ResultBean delete(String id) {
+
+        return null;
     }
 }
