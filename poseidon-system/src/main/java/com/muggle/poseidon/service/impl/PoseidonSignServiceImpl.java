@@ -41,14 +41,12 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
         return ResultBean.getInstance(allByUserId);
     }
 
+//    绑定账号
     @Transactional
     @Override
     public ResultBean insert(PoseidonSign poseidonSign, String validata) {
         String key = TokenProperties.VERIFICATION + "-" + poseidonSign.getPrincipal();
          PoseidonSign field = new PoseidonSign().setEnable(1).setAuthType(poseidonSign.getAuthType()).setPrincipal(poseidonSign.getPrincipal());
-       if ( count(field)>0){
-            return ResultBean.getInstance("500","已经绑定其他账号，请先解绑");
-        }
         if (!validata.equals(redisService.get(key))) {
             return ResultBean.getInstance("500", "验证码错误");
         }
@@ -56,7 +54,13 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
         if (!poseidonSign.getUserId().equals(user.getId())) {
             return ResultBean.getInstance("500", "请校验登录信息");
         }
+
+         if ( count(field)>0){
+            return ResultBean.getInstance("500","已经绑定其他账号，请先解绑");
+        }
+
         poseidonSign.setCreateTime(new Date()).setEnable(1);
+        log.info("插入数据："+poseidonSign.toString());
         PoseidonSign save = repository.save(poseidonSign);
         return ResultBean.getInstance(save);
     }
@@ -79,6 +83,7 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
         boolean equals = one.get().getUserId().equals(user.getId());
         if (equals) {
             poseidonSign.setUpdateTime(new Date()).setEnable(1);
+            log.info("更新sign: "+poseidonSign.toString());
             repository.save(poseidonSign);
             return ResultBean.getInstance(poseidonSign);
         }
@@ -93,6 +98,7 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
         PoseidonSign poseidonSign = byId.get();
         if (byId.isPresent() && poseidonSign.getUserId().equals(user.getId())) {
             poseidonSign.setDeleteTime(new Date());
+            log.info("删除sign id :"+poseidonSign.getId());
             repository.save(poseidonSign);
             return ResultBean.getInstance();
         }

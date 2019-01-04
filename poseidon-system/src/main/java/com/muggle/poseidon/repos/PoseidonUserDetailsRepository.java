@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PoseidonUserDetailsRepository extends CrudRepository<PoseidonUserDetail, String>, JpaSpecificationExecutor<PoseidonUserDetail> {
-     PoseidonUserDetail findDistinctByUsername(String username);
+     PoseidonUserDetail findByUsernameAnddAndDeleteTimeIsNull(String username);
 }

@@ -1,5 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
+import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.Role;
@@ -9,6 +10,7 @@ import com.muggle.poseidon.repos.PoseidonRoleRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
 import com.muggle.poseidon.service.UserInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
+@Slf4j
 public class RoleServiceImpl {
     @Autowired
     PoseidonRoleRepository poseidonRoleRepository;
@@ -28,13 +31,7 @@ public class RoleServiceImpl {
     @Autowired
     UserRoleRepository userRoleRepository;
 
-    public ResultBean setRole(Role role) {
-        Role save = poseidonRoleRepository.save(role);
-        ResultBean resultBean = new ResultBean();
-        resultBean.success("插入成功", role);
-        return resultBean;
-    }
-// todo 检查代码
+
     @Transactional
     public List<Role> findAll(Role role) {
          List<Role> all = poseidonRoleRepository.findAll((root, query, builder) -> {
@@ -67,10 +64,16 @@ public class RoleServiceImpl {
         });
         return ResultBean.getInstance(roleVOList);
     }
-
     public ResultBean findOne(String id) {
-        final Optional<Role> byId = poseidonRoleRepository.findById(id);
-        return ResultBean.getInstance(byId.get());
+        Optional<Role> one = poseidonRoleRepository.findOne((root, query, builder) -> {
+            Predicate predicate = builder.isNull(root.get("deleteTime"));
+            predicate=builder.and(predicate,builder.equal(root.get("id"),id));
+            return query.where(predicate).getRestriction();
+        });
+       if (one.isPresent()){
+           return ResultBean.getInstance(one.get());
+       }
+       return ResultBean.getInstance("500","没有数据");
     }
 
     @Transactional
@@ -105,6 +108,7 @@ public class RoleServiceImpl {
     }
 
     // 拥有某些特殊角色的人才能新添角色
+    @Transactional
     public ResultBean insertRole(Role role) {
 
         String roleCode = role.getRoleCode();
@@ -121,13 +125,20 @@ public class RoleServiceImpl {
         });
         if (agree.get()) {
             role.setCreateTime(new Date()).setCreateId(UserInfoService.getUser().getId());
-            poseidonRoleRepository.save(role);
-            return ResultBean.getInstance(role);
+            try {
+                poseidonRoleRepository.save(role);
+                return ResultBean.getInstance(role);
+            } catch (Exception e) {
+                throw new PoseidonException("角色码已存在","500");
+            }
         }
         return ResultBean.getInstance("500", "无权限添加");
     }
-
+    @Transactional
     public ResultBean update(Role role) {
+        if (role.getId()==null){
+            return ResultBean.getInstance("500","数据异常");
+        }
         List<String> roleCodes = UserInfoService.getRoleCodes();
         AtomicBoolean agree = new AtomicBoolean(false);
         roleCodes.forEach(rolecode->{
@@ -138,6 +149,7 @@ public class RoleServiceImpl {
             }
         });
         if (agree.get()){
+
             return ResultBean.getInstance();
         }
         return ResultBean.getInstance("500","更新失败，无权限");

@@ -45,11 +45,12 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     RoleServiceImpl roleServiceImpl;
     @Autowired
     UserRoleRepository userRoleRepository;
-// todo 检查代码
+
+
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        PoseidonUserDetail userDetail = repository.findDistinctByUsername(s);
+        PoseidonUserDetail userDetail = repository.findByUsernameAnddAndDeleteTimeIsNull(s);
         if (userDetail == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
@@ -97,17 +98,21 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     }
 
     public UserDetails findOne(String id) {
-        Optional<PoseidonUserDetail> userDetail = repository.findById(id);
-        return userDetail.get();
+        Optional<PoseidonUserDetail> one = repository.findOne((root, criteriaQuery, criteriaBuilder) -> {
+            Predicate predicate = criteriaBuilder.isNull(root.get("deleteTime"));
+            predicate=criteriaBuilder.and(predicate,criteriaBuilder.equal(root.get("id"),id));
+            return criteriaQuery.where(predicate).getRestriction();
+        });
+        return one.get();
     }
 
     public PoseidonSign loadByPrincipal(String principal) {
-        PoseidonSign poseidonSign = signRepository.findByPrincipal(principal);
+        PoseidonSign poseidonSign = signRepository.findByPrincipalaAndDeleteTimeIsNull(principal);
+        if (poseidonSign==null){
+            throw new UsernameNotFoundException("账户信息不存在");
+        }
 //        获取校验码
 //        String credentials = oauthService.getCredentialsByPrincipal(principal);
-        String key = TokenProperties.VERIFICATION + "-" + principal;
-        String credentials = redisService.get(key);
-        poseidonSign.setCredentials(credentials);
         return poseidonSign;
     }
 

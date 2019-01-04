@@ -1,5 +1,6 @@
 package com.muggle.poseidon.model;
 import com.muggle.poseidon.core.generater.PoseidonIdGener;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +21,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @Entity
 @DynamicUpdate
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Table(name = "poseidon_sign")
 public class PoseidonSign implements Serializable {
