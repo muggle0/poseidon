@@ -6,6 +6,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.muggle.poseidon.core.properties.SecurityProperties;
 import com.muggle.poseidon.core.interceptor.RequestLockInterceptor;
 import com.muggle.poseidon.core.interceptor.RequestLogInterceptor;
+import com.muggle.poseidon.service.PoseidonBlackListService;
 import com.muggle.poseidon.service.impl.RedislockImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -33,6 +33,8 @@ import java.util.List;
 public class PoseidonWebMvcConfig implements WebMvcConfigurer {
     @Autowired
     RedisTemplate<String,String> redisTemplate;
+    @Autowired
+    PoseidonBlackListService blackListService;
     @Value("${lock.time}")
     int expireTime;
 
@@ -77,7 +79,7 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RequestLockInterceptor(expireTime,new RedislockImpl(redisTemplate))).addPathPatterns("/**");
-        registry.addInterceptor(new RequestLogInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new RequestLogInterceptor(blackListService)).addPathPatterns("/**");
     }
 
 }

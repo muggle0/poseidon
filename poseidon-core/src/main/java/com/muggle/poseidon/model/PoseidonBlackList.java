@@ -1,9 +1,11 @@
 package com.muggle.poseidon.model;
 
 import com.muggle.poseidon.core.generater.PoseidonIdGener;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,8 +19,8 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "poseidon_black_list")
-@Getter
-@Setter
+@Data
+@Accessors(chain = true)
 @NoArgsConstructor
 @DynamicUpdate
 public class PoseidonBlackList implements Serializable {

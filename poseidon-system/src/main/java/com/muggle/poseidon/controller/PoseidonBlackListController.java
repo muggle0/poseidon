@@ -64,10 +64,8 @@ public class PoseidonBlackListController {
         return service.count(blackList);
     }
 
-
    @PutMapping("/update")
     public ResultBean update(PoseidonBlackList blackList){
         return  service.update(blackList);
    }
-
 }
