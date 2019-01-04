@@ -35,7 +35,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
    }
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//       todo 异常测试  黑名单拦截器
+//      抛出异常无法终止验证
        if (!(authentication.getPrincipal() instanceof MessagePrincipal)){
            return null;
        }

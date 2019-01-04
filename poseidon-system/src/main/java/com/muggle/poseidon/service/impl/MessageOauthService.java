@@ -95,7 +95,7 @@ public class MessageOauthService implements OauthService {
                 emailService.sendCode(verifVO.getEmail(), emailString);
                 return ResultBean.getInstance(emailString);
             default:
-                return null;
+                return ResultBean.getInstance("500","参数错误");
         }
     }
 }

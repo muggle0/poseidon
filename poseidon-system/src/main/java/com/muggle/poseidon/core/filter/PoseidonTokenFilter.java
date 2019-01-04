@@ -55,6 +55,9 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         if (password == null) {
             password = "";
         }
+        if(isMessage==null){
+            isMessage="other";
+        }
         username = username.trim();
         String verification = request.getParameter(TokenProperties.VERIFICATION);
         String key=TokenProperties.VERIFICATION + "-" + username;
