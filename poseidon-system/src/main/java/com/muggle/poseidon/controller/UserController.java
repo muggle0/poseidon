@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @version:
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/poseidon/user")
 public class UserController {
     @Autowired
     PoseidonUserdetailService userService;

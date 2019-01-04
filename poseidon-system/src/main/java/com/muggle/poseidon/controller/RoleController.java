@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @version: 1.0
  */
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/poseidon/role")
 public class RoleController {
     @Autowired
     RoleServiceImpl roleService;
