@@ -6,14 +6,15 @@
         <groupId>com.muggle.poseidon</groupId>
         <artifactId>poseidon-parent</artifactId>
         <version>0.1.0.BUILD</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../poseidon-parent/pom.xml</relativePath>
+        <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
     <groupId>com.muggle.poseidon</groupId>
     <artifactId>poseidon-web</artifactId>
     <version>0.1.0.BUILD</version>
     <name>poseidon-web</name>
     <description>Demo project for Spring Boot</description>
-
+    <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -23,7 +24,7 @@
     <dependencies>
 
     </dependencies>
-
+<!--
     <build>
         <plugins>
             <plugin>
@@ -31,6 +32,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>
