@@ -18,7 +18,7 @@ public class PoseidonLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         final PrintWriter writer = response.getWriter();
-        writer.write("登出成功");
+        writer.write("{\"code\":\"200\",\"msg\":\"登出成功\"}");
         writer.close();
     }
 }

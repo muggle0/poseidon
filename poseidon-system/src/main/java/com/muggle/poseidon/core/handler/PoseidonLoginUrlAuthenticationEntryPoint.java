@@ -23,7 +23,7 @@ public class PoseidonLoginUrlAuthenticationEntryPoint extends LoginUrlAuthentica
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
         final PrintWriter writer = response.getWriter();
-        writer.write("登录异常："+authException.getMessage());
+        writer.write("{\"code\":\"500\",\"msg\":\"登录异常\"}");
         writer.close();
     }
 }

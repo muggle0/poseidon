@@ -22,7 +22,7 @@ public class PoseidonAuthenticationFailureHandler extends SimpleUrlAuthenticatio
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
         final PrintWriter writer = response.getWriter();
-        writer.write("登录失败: "+exception.getMessage());
+        writer.write("{\"code\":\"500\",\"msg\":\"登录失败\"}");
         writer.close();
     }
 }
