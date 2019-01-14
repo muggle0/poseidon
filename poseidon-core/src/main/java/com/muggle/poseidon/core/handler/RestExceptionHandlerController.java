@@ -41,12 +41,12 @@ public class RestExceptionHandlerController {
     public ResultBean exceptionHandler(Exception e, HttpServletRequest req) {
         log.error("系统异常：" + req.getMethod() + req.getRequestURI(), e);
         try {
+//            todo MQ
             EmailBean emailBean = new EmailBean();
             emailBean.setRecipient("1977339740@qq.com");
             emailBean.setSubject("poseidon---系统异常");
             emailBean.setContent("系统异常：" + req.getMethod() + req.getRequestURI()+e.getMessage());
             emailService.sendSimpleMail(emailBean);
-            return new ResultBean().setMsg("系统异常，请联系管理员").setCode("500");
         } finally {
             return new ResultBean().setMsg("系统异常，请联系管理员").setCode("500");
         }

@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -46,5 +48,6 @@ public class PoseidonCenterApplicationTests {
         final Set<PoseidonGrantedAuthority> authorities = one.get(0).getAuthorities();
                 System.out.println(one);
     }
+
 }
 

@@ -19,7 +19,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendSimpleMail(EmailBean mailBean) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         //邮件发送人
-        simpleMailMessage.setFrom(server);
+        simpleMailMessage.setFrom("1977339740@qq.com(poseidon)");
         //邮件接收人
         simpleMailMessage.setTo(mailBean.getRecipient());
         //邮件主题

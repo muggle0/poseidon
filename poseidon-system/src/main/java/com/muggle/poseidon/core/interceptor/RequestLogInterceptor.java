@@ -42,6 +42,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
         byUserId.setStatus(1).setUserId(id);
         byIpAddr.setStatus(1).setRemark(ipAddr);
         long userId =0;
+//        todo redis 缓存
         if (!id.equals("-1")){
             userId =blackListService.count(byUserId);
         }

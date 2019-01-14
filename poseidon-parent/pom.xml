@@ -29,6 +29,7 @@
         <fastjson.version>1.2.53</fastjson.version>
         <druid.vrsion>1.1.12</druid.vrsion>
         <poseidon.version>0.1.0.BUILD</poseidon.version>
+        <!--<skipTests>true</skipTests>-->
     </properties>
     <dependencies>
 
