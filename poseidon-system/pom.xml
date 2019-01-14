@@ -44,6 +44,7 @@
                     <include>**/*.jsp</include>
                     <include>**/*.txt</include>
                     <include>**/*.jpg</include>
+                    <include>**/*.ico</include>
                 </includes>
                 <!--<filtering>false</filtering>-->
             </resource>

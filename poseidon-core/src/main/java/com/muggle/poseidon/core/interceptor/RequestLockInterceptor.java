@@ -45,7 +45,7 @@ public class RequestLockInterceptor implements HandlerInterceptor {
 //            throw new PoseidonException("请求太频繁",PoseidonProperties.TOO_NUMBER_REQUEST);
             response.setContentType("application/json;charset=UTF-8");
             PrintWriter writer = response.getWriter();
-            writer.write("{\"code\":\"500\",\"msg\":\"请求太频繁\"}");
+            writer.write("{\"code\":\"5001\",\"msg\":\"请求太频繁\"}");
             writer.close();
             return false;
         }
