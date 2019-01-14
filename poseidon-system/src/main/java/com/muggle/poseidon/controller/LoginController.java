@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.constraints.NotNull;
@@ -34,7 +35,7 @@ public class LoginController {
      */
     @PostMapping("/sign_up")
     @ResponseBody
-    public ResultBean toSignUp(@Validated PoseidonUserDetail userDetail,@NotNull String verification){
+    public ResultBean toSignUp(@RequestBody @Validated PoseidonUserDetail userDetail, @NotNull String verification){
         ResultBean resultBean = poseidonUserdetailsService.toSignUp(userDetail, verification);
         return resultBean;
     }

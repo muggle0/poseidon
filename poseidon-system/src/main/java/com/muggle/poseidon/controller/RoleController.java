@@ -30,12 +30,12 @@ public class RoleController {
         return roleService.findOne(id);
     }
     @PostMapping("/insert/user_role")
-    public ResultBean insertUserRole(UserRole userRole){
+    public ResultBean insertUserRole(@RequestBody UserRole userRole){
         return roleService.insertUserRole(userRole);
     }
 
     @PostMapping("/insert")
-    public ResultBean insertRole(@Validated Role role){
+    public ResultBean insertRole(@RequestBody @Validated Role role){
         return roleService.insertRole(role);
     }
     @PutMapping("/update")

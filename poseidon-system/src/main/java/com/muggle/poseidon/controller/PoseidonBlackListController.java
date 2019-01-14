@@ -40,7 +40,7 @@ public class PoseidonBlackListController {
 
 
     @PostMapping("/insert_batch")
-    public ResultBean insert(List<PoseidonBlackList> lists){
+    public ResultBean insert(@RequestBody List<PoseidonBlackList> lists){
         return service.insert(lists);
     }
 

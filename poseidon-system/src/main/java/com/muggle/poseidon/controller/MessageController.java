@@ -35,7 +35,7 @@ public class MessageController {
         return  messageService.update(userMessage);
     }
     @PostMapping("/insert")
-    public ResultBean insert(UserMessage userMessage){
+    public ResultBean insert(@RequestBody UserMessage userMessage){
         return  messageService.insert(userMessage);
     }
 

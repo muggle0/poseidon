@@ -62,7 +62,7 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         String verification = request.getParameter(TokenProperties.VERIFICATION);
         String key=TokenProperties.VERIFICATION + "-" + username;
         String access = redisService.get(key);
-        if (verification == null || !verification.equals(access)) {
+        if (verification == null || !verification.equalsIgnoreCase(access)) {
             throw new AuthenticationServiceException("验证码错误或过期");
         }
 

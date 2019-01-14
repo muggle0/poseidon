@@ -1,5 +1,7 @@
 package com.muggle.poseidon.poseidoncenter;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.Role;
@@ -47,6 +49,14 @@ public class PoseidonCenterApplicationTests {
         List<Role> one = roleServiceImpl.findAll(role);
         final Set<PoseidonGrantedAuthority> authorities = one.get(0).getAuthorities();
                 System.out.println(one);
+    }
+
+    @Test
+    public void testJson(){
+        PoseidonUserDetail userDetail = new PoseidonUserDetail();
+        userDetail.setDeleteTime(new Date()).setEnabled(true);
+        String s = JSONObject.toJSONString(userDetail);
+        System.out.println(s);
     }
 
 }

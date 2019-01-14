@@ -31,7 +31,7 @@ public class OauthController {
     }
 
     @PostMapping("/authority/insert_batch")
-    public ResultBean insert(List<PoseidonGrantedAuthority> authorityList){
+    public ResultBean insert(@RequestBody List<PoseidonGrantedAuthority> authorityList){
         return poseidonGrantedAuthorityService.insert(authorityList);
     }
 

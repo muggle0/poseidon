@@ -33,7 +33,7 @@ public class PoseidonSignController {
     }
 
     @PostMapping("/insert")
-    public ResultBean insertSign(@Validated  PoseidonSign poseidonSign,@NotNull String validata){
+    public ResultBean insertSign(@RequestBody @Validated  PoseidonSign poseidonSign,@NotNull String validata){
         return  signService.insert(poseidonSign,validata);
     }
 

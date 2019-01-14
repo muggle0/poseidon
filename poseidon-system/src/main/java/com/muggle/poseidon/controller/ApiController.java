@@ -6,10 +6,7 @@ import com.muggle.poseidon.model.vo.VerifVO;
 import com.muggle.poseidon.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: poseidon
@@ -39,9 +36,9 @@ public class ApiController {
      * description: 获取验证码
      *
      */
-    @GetMapping("/public/verification")
+    @PostMapping("/public/verification")
     @ResponseBody
-    public ResultBean getVerification(@Validated VerifVO verifVO){
+    public ResultBean getVerification(@RequestBody @Validated VerifVO verifVO){
         return oauthService.getVerification(verifVO);
     }
 
@@ -51,7 +48,7 @@ public class ApiController {
      */
     @PostMapping ("/admin/role")
     @ResponseBody
-    public ResultBean setRole(@Validated PoseidonUserDetail poseidonUserDetail){
+    public ResultBean setRole(@RequestBody @Validated PoseidonUserDetail poseidonUserDetail){
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>");
 //        todo
         return ResultBean.getInstance();
