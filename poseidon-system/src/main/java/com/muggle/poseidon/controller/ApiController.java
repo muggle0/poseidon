@@ -50,7 +50,7 @@ public class ApiController {
     @ResponseBody
     public ResultBean setRole(@RequestBody @Validated PoseidonUserDetail poseidonUserDetail){
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>");
-//        todo
+//        todo 权限
         return ResultBean.getInstance();
     }
 
