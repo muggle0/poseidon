@@ -22,7 +22,13 @@ public class PoseidonAuthenticationFailureHandler extends SimpleUrlAuthenticatio
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
         final PrintWriter writer = response.getWriter();
-        writer.write("{\"code\":\"401\",\"msg\":\"登录失败,"+exception.getMessage()+"\"}");
-        writer.close();
+        if(exception.getMessage().equals("坏的凭证")){
+            writer.write("{\"code\":\"401\",\"msg\":\"登录失败,用户名或者密码有误\"}");
+            writer.close();
+        }else {
+            writer.write("{\"code\":\"401\",\"msg\":\"登录失败,"+exception.getMessage()+"\"}");
+            writer.close();
+        }
+
     }
 }
