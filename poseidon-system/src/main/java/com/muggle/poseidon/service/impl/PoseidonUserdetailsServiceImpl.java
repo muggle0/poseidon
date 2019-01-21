@@ -77,7 +77,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         if (s == null) {
             throw new PoseidonException("验证码过期", PoseidonProperties.COMMIT_DATA_ERROR);
         }
-        if (!verification.equals(s)) {
+        if (verification==null||!verification.equals(s)) {
             throw new PoseidonException("验证码错误", PoseidonProperties.COMMIT_DATA_ERROR);
         }
 
