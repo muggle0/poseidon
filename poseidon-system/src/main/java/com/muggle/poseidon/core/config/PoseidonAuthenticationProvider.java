@@ -29,7 +29,7 @@ import java.util.Optional;
 public class PoseidonAuthenticationProvider implements AuthenticationProvider {
    private UserDetailsService userDetailsService;
    private BCryptPasswordEncoder bCryptPasswordEncoder;
-   public PoseidonAuthenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder,UserDetailsService userDetailsServices){
+   public PoseidonAuthenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder,UserDetailsService userDetailsService){
        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
        this.userDetailsService=userDetailsService;
    }
@@ -40,7 +40,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
            return null;
        }
        MessagePrincipal principal= (MessagePrincipal) authentication.getPrincipal();
-        if (!(principal.getCode().equals(TokenProperties.MESSAGE_CODE))){
+        if (!(principal.getCode().equals(TokenProperties.EMAIL_CODE))){
             return null;
         }
         PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
@@ -52,6 +52,9 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         boolean isCredentials=poseidonSign!=null&&(poseidonSign.getCredentials()==null||poseidonSign.getCredentials().equals(authentication.getCredentials()));
         if (!isCredentials){
             return null;
+        }
+        if ( poseidonSign.getEnable()==0){
+            throw new BadTokenException(TokenProperties.ABNORMAL_ACCOUNT,TokenProperties.BAD_TOKEN_CODE);
         }
         log.info("验证用户登录："+principal);
         Optional<PoseidonUserDetail> optional = poseidonUserdetailsService.findOne(poseidonSign.getUserId());

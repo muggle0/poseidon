@@ -94,7 +94,6 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
         return new WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>() {
             @Override
             public void customize(ConfigurableServletWebServerFactory factory) {
-
                 factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,"/resources/404.html"));
             }
         };
