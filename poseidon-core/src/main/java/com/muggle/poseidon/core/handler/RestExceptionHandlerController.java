@@ -41,11 +41,11 @@ public class RestExceptionHandlerController {
     public ResultBean exceptionHandler(Exception e, HttpServletRequest req) {
         log.error("系统异常：" + req.getMethod() + req.getRequestURI(), e);
         try {
-//            todo MQ
             EmailBean emailBean = new EmailBean();
             emailBean.setRecipient("1977339740@qq.com");
             emailBean.setSubject("poseidon---系统异常");
             emailBean.setContent("系统异常：" + req.getMethod() + req.getRequestURI()+e.getMessage());
+//            异步提高效率
             emailService.sendSimpleMail(emailBean);
         } finally {
             return new ResultBean().setMsg("系统异常，请联系管理员").setCode("500");
@@ -60,4 +60,5 @@ public class RestExceptionHandlerController {
     public ResultBean notFoundUrl(Exception e, HttpServletRequest req) {
         return new ResultBean().setMsg("请求路径不存在").setCode("404");
     }
+
 }
