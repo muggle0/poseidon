@@ -19,6 +19,7 @@ public class EmailServiceImpl implements EmailService {
     @Async
     @Override
     public void sendSimpleMail(EmailBean mailBean) {
+
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         //邮件发送人
         simpleMailMessage.setFrom("1977339740@qq.com(poseidon)");
@@ -38,7 +39,6 @@ public class EmailServiceImpl implements EmailService {
         mailBean.setSubject(context.toString());
         sendSimpleMail(mailBean);
     }
-
     @Override
     public void sendCode(String recipient, String context) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
