@@ -51,12 +51,12 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         if (username == null) {
             throw new AuthenticationServiceException("用户名为空");
         }
-        String isMessage = request.getParameter(TokenProperties.IS_MESSAGE);
+        String message = request.getParameter(TokenProperties.MESSAGE);
         if (password == null) {
             password = "";
         }
-        if(isMessage==null){
-            isMessage="other";
+        if(message==null){
+            message="other";
         }
         username = username.trim();
         String verification = request.getParameter(TokenProperties.VERIFICATION);
@@ -70,17 +70,17 @@ public class PoseidonTokenFilter extends UsernamePasswordAuthenticationFilter {
         logger.info("password:" + password);
         UsernamePasswordAuthenticationToken authRequest = null;
 //        这里本来想弄个短信登录，但由于经费问题只搞了个email登录，所以命名略显不协调
-        switch (isMessage){
-            case "phone":
-                MessagePrincipal message = new MessagePrincipal();
-                message.setCode(TokenProperties.MESSAGE_CODE);
-                message.setPrincipal(username);
+        switch (message){
+            case "message":
+                MessagePrincipal phone = new MessagePrincipal();
+                phone.setCode(TokenProperties.MESSAGE_CODE);
+                phone.setUsername(username);
                 authRequest = new UsernamePasswordAuthenticationToken(message, password);
                 break;
-            case "email":
+            case "qqMethod":
                 MessagePrincipal email = new MessagePrincipal();
-                email.setCode(TokenProperties.EMAIL_CODE);
-                email.setPrincipal(username);
+                email.setCode(TokenProperties.QQ_CODE);
+                email.setUsername(username);
                 authRequest = new UsernamePasswordAuthenticationToken(email, password);
                 break;
             default:

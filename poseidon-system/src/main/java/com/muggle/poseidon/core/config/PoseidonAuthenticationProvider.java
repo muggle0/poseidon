@@ -44,7 +44,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
             return null;
         }
         PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
-        final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getPrincipal());
+        final PoseidonSign poseidonSign = poseidonUserdetailsService.loadByPrincipal(principal.getUsername());
         if ( poseidonSign.getEnable()==0){
             throw new BadTokenException(TokenProperties.ABNORMAL_ACCOUNT,TokenProperties.BAD_TOKEN_CODE);
         }
