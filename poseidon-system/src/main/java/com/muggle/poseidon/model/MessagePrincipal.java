@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MessagePrincipal {
-    private String principal;
+    private String username;
     private String verification;
     private Integer code;
 }
