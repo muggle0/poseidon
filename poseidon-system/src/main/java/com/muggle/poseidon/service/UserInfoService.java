@@ -15,7 +15,7 @@ public class UserInfoService {
     public static PoseidonUserDetail getUser() {
         SecurityContext context = SecurityContextHolder.getContext();
         if (context != null && context.getAuthentication() != null) {
-            Object details = context.getAuthentication().getDetails();
+            Object details = context.getAuthentication().getPrincipal();
             if (details instanceof PoseidonUserDetail) {
                 PoseidonUserDetail authentication = (PoseidonUserDetail) details;
                 return authentication;

@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/my_info")
-    public ResultBean userInfo(String roleId){
+    public ResultBean userInfo(){
         PoseidonUserDetail user = UserInfoService.getUser();
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user,userVO);

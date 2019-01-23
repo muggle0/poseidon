@@ -63,8 +63,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         if(!bool){
             throw new BadTokenException(TokenProperties.ABNORMAL_ACCOUNT,TokenProperties.BAD_TOKEN_CODE);
         }
-        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(one.getUsername(),one.getPassword(),one.getAuthorities());
-        token.setDetails(one);
+        UsernamePasswordAuthenticationToken token=new UsernamePasswordAuthenticationToken(one,one.getPassword(),one.getAuthorities());
         return token;
     }
     @Override
