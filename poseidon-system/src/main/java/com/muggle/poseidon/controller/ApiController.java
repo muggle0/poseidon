@@ -20,7 +20,7 @@ public class ApiController {
     OauthService oauthService;
 
 
-    @GetMapping("/hello")
+    @GetMapping("/public/hello")
     public String get(){
         return "你好啊";
     }

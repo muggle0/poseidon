@@ -38,6 +38,7 @@ public class RestExceptionHandlerController {
     }
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ResultBean bindExceptionHandler(MethodArgumentNotValidException e, HttpServletRequest req) {
+        System.out.println(e.getMessage());
         return new ResultBean().setMsg("数据未通过校验").setCode(PoseidonProperties.COMMIT_DATA_ERROR);
     }
 
@@ -49,7 +50,7 @@ public class RestExceptionHandlerController {
             EmailBean emailBean = new EmailBean();
             emailBean.setRecipient(adminEmail);
             emailBean.setSubject("poseidon---系统异常");
-            emailBean.setContent("系统异常：" + req.getMethod() + req.getRequestURI()+e.getMessage());
+            emailBean.setContent("系统异常：" + req.getMethod() + req.getRequestURI()+"----"+e.getMessage());
 //            改良
             emailService.sendSimpleMail(emailBean);
         } finally {
