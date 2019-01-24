@@ -40,7 +40,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
            return null;
        }
        MessagePrincipal principal= (MessagePrincipal) authentication.getPrincipal();
-        if (!(principal.getCode().equals(TokenProperties.EMAIL_CODE))){
+        if (!(principal.getCode().equals(TokenProperties.MESSAGE_CODE))){
             return null;
         }
         PoseidonUserdetailsServiceImpl poseidonUserdetailsService = (PoseidonUserdetailsServiceImpl) userDetailsService;
