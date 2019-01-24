@@ -8,4 +8,5 @@ public class SecurityProperties {
    private String username;
    private String password;
    private String page;
+   private String logout;
 }
