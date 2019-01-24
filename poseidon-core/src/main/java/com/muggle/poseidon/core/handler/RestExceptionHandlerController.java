@@ -7,6 +7,7 @@ import com.muggle.poseidon.model.EmailBean;
 import com.muggle.poseidon.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 public class RestExceptionHandlerController {
     @Autowired
     EmailService emailService;
+    @Value("${admin.email}")
+    private String adminEmail;
 
     @ExceptionHandler(value = {PoseidonException.class})
     public ResultBean poseidonExceptionHandler(PoseidonException e, HttpServletRequest req) {
@@ -44,7 +47,7 @@ public class RestExceptionHandlerController {
         try {
 //
             EmailBean emailBean = new EmailBean();
-            emailBean.setRecipient("1977339740@qq.com");
+            emailBean.setRecipient(adminEmail);
             emailBean.setSubject("poseidon---系统异常");
             emailBean.setContent("系统异常：" + req.getMethod() + req.getRequestURI()+e.getMessage());
 //            改良

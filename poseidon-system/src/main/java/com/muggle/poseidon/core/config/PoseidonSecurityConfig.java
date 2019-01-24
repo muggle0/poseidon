@@ -73,7 +73,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
                 .and().formLogin().usernameParameter(properties.getUsername()).passwordParameter(properties.getPassword())
                 .loginPage(properties.getPage()).loginProcessingUrl(properties.getProcesses()).permitAll()
-                .and().logout().logoutUrl("/logout?good-bye").logoutSuccessHandler(new PoseidonLogoutSuccessHandler())
+                .and().logout().logoutUrl(properties.getLogout()).logoutSuccessHandler(new PoseidonLogoutSuccessHandler())
                 .permitAll().and().csrf().disable();
         http.addFilterAt(poseidonTokenFilter(),UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint()).accessDeniedHandler(new PoseidonAccessDeniedHandler());
