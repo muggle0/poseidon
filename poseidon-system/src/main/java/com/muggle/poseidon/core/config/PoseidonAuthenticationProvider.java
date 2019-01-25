@@ -1,8 +1,7 @@
 package com.muggle.poseidon.core.config;
 
 import com.muggle.poseidon.core.exception.BadTokenException;
-import com.muggle.poseidon.core.exception.PoseidonAccessException;
-import com.muggle.poseidon.model.MessagePrincipal;
+import com.muggle.poseidon.model.dto.MessagePrincipal;
 import com.muggle.poseidon.model.PoseidonSign;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
@@ -11,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.muggle.poseidon.core.properties.TokenProperties;
