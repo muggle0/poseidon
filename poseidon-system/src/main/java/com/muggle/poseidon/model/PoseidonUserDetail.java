@@ -60,6 +60,9 @@ public class PoseidonUserDetail  implements Serializable ,UserDetails {
     @NotNull(message = "昵称不能为空")
     private String nickname;
 
+    @JSONField(format="yyyyMMdd HH:mm:ss")
+    private Date birthday;
+
     /**
      * isNullAble:1
      */

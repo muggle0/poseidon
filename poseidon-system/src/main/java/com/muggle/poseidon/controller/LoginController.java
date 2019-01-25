@@ -1,5 +1,7 @@
 package com.muggle.poseidon.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
@@ -35,8 +37,8 @@ public class LoginController {
      */
     @PostMapping("/sign_up")
     @ResponseBody
-    public ResultBean toSignUp(@RequestBody @Validated PoseidonUserDetail userDetail, @NotNull String verification){
-        ResultBean resultBean = poseidonUserdetailsService.toSignUp(userDetail, verification);
+    public ResultBean toSignUp(@RequestBody @Validated PoseidonUserDetail userDetail){
+        ResultBean resultBean = poseidonUserdetailsService.toSignUp(userDetail);
         return resultBean;
     }
 
@@ -48,8 +50,4 @@ public class LoginController {
     public String signPage(){
         return "/resources/sign.html";
     }
-
-
-
-
 }

@@ -37,7 +37,7 @@ public class RestExceptionHandlerController {
         return new ResultBean().setMsg(e.getMsg()).setCode(e.getCode());
     }
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    public ResultBean bindExceptionHandler(MethodArgumentNotValidException e, HttpServletRequest req) {
+    public ResultBean MethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest req) {
         System.out.println(e.getMessage());
         return new ResultBean().setMsg("数据未通过校验").setCode(PoseidonProperties.COMMIT_DATA_ERROR);
     }

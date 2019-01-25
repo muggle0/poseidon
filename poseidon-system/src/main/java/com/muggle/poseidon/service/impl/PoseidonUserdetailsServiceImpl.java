@@ -14,6 +14,7 @@ import com.muggle.poseidon.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -71,17 +72,8 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     }
 
     @Transactional
-    public ResultBean toSignUp(PoseidonUserDetail userDetail, String verification) {
-        String key = TokenProperties.VERIFICATION + "-" + userDetail.getUsername();
-        String s = redisService.get(key);
-        if (s == null) {
-            throw new PoseidonException("验证码过期", PoseidonProperties.COMMIT_DATA_ERROR);
-        }
-        if (!verification.equalsIgnoreCase(s)) {
-            throw new PoseidonException("验证码错误", PoseidonProperties.COMMIT_DATA_ERROR);
-        }
-
-        log.info("创建用户：" + userDetail.toString());
+    public ResultBean toSignUp(PoseidonUserDetail userDetail) {
+        log.info("尝试创建用户：" + userDetail.toString());
         String value = userDetail.getPassword();
         String password = passwordEncoder.encode(userDetail.getPassword());
         userDetail.setPassword(password);
@@ -96,6 +88,10 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         List<Role> all = roleServiceImpl.findAll(role);
         saveUserRole(all, save.getId());
         log.info("新增用户：{}", save.toString());
+//        自动登录
+        UserDetails userDetails = loadUserByUsername(userDetail.getUsername());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        UserInfoService.setUser(usernamePasswordAuthenticationToken);
         return ResultBean.getInstance(save);
     }
 

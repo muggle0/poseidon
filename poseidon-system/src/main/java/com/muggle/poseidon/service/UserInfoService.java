@@ -3,6 +3,7 @@ package com.muggle.poseidon.service;
 import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.Role;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -22,6 +23,13 @@ public class UserInfoService {
             }
         }
         return null;
+    }
+
+    public static void setUser(UsernamePasswordAuthenticationToken token) {
+        SecurityContext context = SecurityContextHolder.getContext();
+        if (context != null && context.getAuthentication() != null) {
+            context.setAuthentication(token);
+        }
     }
 
     public static void clearUser() {
