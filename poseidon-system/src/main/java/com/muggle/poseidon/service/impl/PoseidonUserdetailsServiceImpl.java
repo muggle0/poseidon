@@ -1,8 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.core.properties.TokenProperties;
 import com.muggle.poseidon.model.*;
 import com.muggle.poseidon.model.vo.UserVO;
 import com.muggle.poseidon.repos.PoseidonSignRepository;
@@ -10,7 +8,7 @@ import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.service.RedisService;
-import com.muggle.poseidon.service.UserInfoService;
+import com.muggle.poseidon.manager.UserInfoManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.muggle.poseidon.core.properties.PoseidonProperties;
 
 import javax.persistence.criteria.Predicate;
-import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -91,7 +87,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
 //        自动登录
         UserDetails userDetails = loadUserByUsername(userDetail.getUsername());
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-        UserInfoService.setUser(usernamePasswordAuthenticationToken);
+        UserInfoManager.setUser(usernamePasswordAuthenticationToken);
         return ResultBean.getInstance(save);
     }
 
@@ -181,7 +177,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     @Transactional
     @Override
     public ResultBean update(UserVO userVO, String oldPassword, String newPassword) {
-        PoseidonUserDetail user = UserInfoService.getUser();
+        PoseidonUserDetail user = UserInfoManager.getUser();
         if (!userVO.getId().equals(user.getId())) {
             return ResultBean.getInstance("500", "信息异常，请确认账号信息");
         }
@@ -202,7 +198,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     @Transactional
     @Override
     public ResultBean delete() {
-        PoseidonUserDetail user = UserInfoService.getUser();
+        PoseidonUserDetail user = UserInfoManager.getUser();
         user.setDeleteTime(new Date());
         repository.save(user);
         log.info("删除用户：" + user.toString());

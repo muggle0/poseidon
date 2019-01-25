@@ -1,4 +1,4 @@
-package com.muggle.poseidon.service;
+package com.muggle.poseidon.manager;
 
 import com.muggle.poseidon.model.PoseidonGrantedAuthority;
 import com.muggle.poseidon.model.PoseidonUserDetail;
@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class UserInfoService {
+public class UserInfoManager {
     public static PoseidonUserDetail getUser() {
         SecurityContext context = SecurityContextHolder.getContext();
         if (context != null && context.getAuthentication() != null) {

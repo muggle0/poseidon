@@ -8,7 +8,7 @@ import com.muggle.poseidon.repos.PoseidonRoleRepository;
 import com.muggle.poseidon.repos.PoseidonUserDetailsRepository;
 import com.muggle.poseidon.repos.RoleGrantedRepository;
 import com.muggle.poseidon.repos.UserRoleRepository;
-import com.muggle.poseidon.service.UserInfoService;
+import com.muggle.poseidon.manager.UserInfoManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +104,7 @@ public class RoleServiceImpl {
                 return ResultBean.getInstance("500", "对方已拥有该角色");
             }
         }
-        userRole.setAccreditId(UserInfoService.getUser().getId());
+        userRole.setAccreditId(UserInfoManager.getUser().getId());
         UserRole save = userRoleRepository.save(userRole);
         log.info("分配角色："+ userRole.toString());
         return ResultBean.getInstance(save);
@@ -115,7 +115,7 @@ public class RoleServiceImpl {
     public ResultBean insertRole(Role role) {
 
         String roleCode = role.getRoleCode();
-        List<String> roleCodes = UserInfoService.getRoleCodes();
+        List<String> roleCodes = UserInfoManager.getRoleCodes();
         AtomicBoolean agree = new AtomicBoolean(false);
         roleCodes.forEach(code -> {
             if (roleCode.contains(code)) {
@@ -127,7 +127,7 @@ public class RoleServiceImpl {
             }
         });
         Set<PoseidonGrantedAuthority> grantedAuthority = role.getAuthorities();
-        Set<PoseidonGrantedAuthority> authorities = UserInfoService.getUser().getAuthorities();
+        Set<PoseidonGrantedAuthority> authorities = UserInfoManager.getUser().getAuthorities();
         Iterator<PoseidonGrantedAuthority> iterator = grantedAuthority.iterator();
         boolean isLegal=true;
         List<RoleGranted> roleGranteds=new ArrayList<>();
@@ -145,7 +145,7 @@ public class RoleServiceImpl {
             return ResultBean.getInstance("500", "无权限添加");
         }
         if (agree.get()) {
-            role.setCreateTime(new Date()).setCreateId(UserInfoService.getUser().getId());
+            role.setCreateTime(new Date()).setCreateId(UserInfoManager.getUser().getId());
             try {
                 Role save = poseidonRoleRepository.save(role);
                 roleGranteds.forEach(roleGranted -> {
@@ -165,7 +165,7 @@ public class RoleServiceImpl {
         if (role.getId()==null){
             return ResultBean.getInstance("500","数据异常");
         }
-        List<String> roleCodes = UserInfoService.getRoleCodes();
+        List<String> roleCodes = UserInfoManager.getRoleCodes();
         AtomicBoolean agree = new AtomicBoolean(false);
         roleCodes.forEach(rolecode->{
              int length = rolecode.split(":").length;

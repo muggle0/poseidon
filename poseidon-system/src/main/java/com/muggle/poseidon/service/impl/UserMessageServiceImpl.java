@@ -1,10 +1,9 @@
 package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonUserDetail;
 import com.muggle.poseidon.model.UserMessage;
 import com.muggle.poseidon.repos.UserMessageRepository;
-import com.muggle.poseidon.service.UserInfoService;
+import com.muggle.poseidon.manager.UserInfoManager;
 import com.muggle.poseidon.service.UserMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Override
     public ResultBean getMessage() {
         UserMessage userMessage = new UserMessage();
-        userMessage.setUserId(UserInfoService.getUser().getId());
+        userMessage.setUserId(UserInfoManager.getUser().getId());
         userMessage.setMessageType("leaveWord");
         userMessage.setMarkRead(0);
         List<UserMessage> all = findAll(userMessage);
@@ -37,7 +36,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Transactional
     @Override
     public ResultBean getAll(UserMessage message) {
-        String id = UserInfoService.getUser().getId();
+        String id = UserInfoManager.getUser().getId();
         boolean equals=!(message.getUserId().equals(id))&&!(message.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");
@@ -49,7 +48,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Transactional
     @Override
     public ResultBean update(UserMessage userMessage) {
-        String id = UserInfoService.getUser().getId();
+        String id = UserInfoManager.getUser().getId();
         boolean equals=!(userMessage.getUserId().equals(id))&&!(userMessage.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");
@@ -62,7 +61,7 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Transactional
     @Override
     public ResultBean insert(UserMessage userMessage) {
-        String id = UserInfoService.getUser().getId();
+        String id = UserInfoManager.getUser().getId();
         boolean equals=!(userMessage.getUserId().equals(id))&&!(userMessage.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");
@@ -80,7 +79,7 @@ public class UserMessageServiceImpl implements UserMessageService {
             return ResultBean.getInstance("500","数据不存在");
         }
         UserMessage userMessage = one.get();
-        String id = UserInfoService.getUser().getId();
+        String id = UserInfoManager.getUser().getId();
         if (!id.equals(userMessage.getCreateId())){
             return ResultBean.getInstance("500","不能删除他人消息");
         }
@@ -91,7 +90,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public ResultBean countNoRead(UserMessage userMessage) {
-        String id = UserInfoService.getUser().getId();
+        String id = UserInfoManager.getUser().getId();
         boolean equals=!(userMessage.getUserId().equals(id))&&!(userMessage.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");

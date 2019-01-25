@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.model.PoseidonBlackList;
 import com.muggle.poseidon.service.PoseidonBlackListService;
-import com.muggle.poseidon.service.UserInfoService;
+import com.muggle.poseidon.manager.UserInfoManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -36,7 +36,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ipAddr = RequestUtils.getIpAddr(request);
-         String id = UserInfoService.getUserId();
+         String id = UserInfoManager.getUserId();
         PoseidonBlackList byUserId = new PoseidonBlackList();
         PoseidonBlackList byIpAddr = new PoseidonBlackList();
         byUserId.setStatus(1).setUserId(id);
