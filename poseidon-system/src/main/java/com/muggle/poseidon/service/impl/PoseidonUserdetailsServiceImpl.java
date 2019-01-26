@@ -84,9 +84,9 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         List<Role> all = roleServiceImpl.findAll(role);
         saveUserRole(all, save.getId());
         log.info("新增用户：{}  pass:{}", save.toString(),value);
+        final Set<PoseidonGrantedAuthority> authorities = all.get(0).getAuthorities();
 //        自动登录
-        UserDetails userDetails = loadUserByUsername(userDetail.getUsername());
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(save, save.getPassword(),authorities );
         UserInfoManager.setUser(usernamePasswordAuthenticationToken);
         return ResultBean.getInstance(save);
     }
