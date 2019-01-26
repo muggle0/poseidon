@@ -54,7 +54,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
             throw new UsernameNotFoundException("用户名不存在");
         }
         Set<Role> roles = userDetail.getRoles();
-        log.info("用户登录验证：" + userDetail.toString());
+//        log.info("用户登录验证：" + userDetail.getId());
         if (roles == null) {
             return userDetail;
         }
@@ -69,7 +69,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
 
     @Transactional
     public ResultBean toSignUp(PoseidonUserDetail userDetail) {
-        log.info("尝试创建用户：" + userDetail.toString());
+//        log.info("尝试创建用户：" + userDetail.toString());
         String value = userDetail.getPassword();
         String password = passwordEncoder.encode(userDetail.getPassword());
         userDetail.setPassword(password);
@@ -83,7 +83,7 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         Role role = new Role().setRoleCode("base");
         List<Role> all = roleServiceImpl.findAll(role);
         saveUserRole(all, save.getId());
-        log.info("新增用户：{}", save.toString());
+        log.info("新增用户：{}  pass:{}", save.toString(),value);
 //        自动登录
         UserDetails userDetails = loadUserByUsername(userDetail.getUsername());
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());

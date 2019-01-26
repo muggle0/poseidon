@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Map;
-import  com.muggle.poseidon.core.properties.PoseidonProperties;
+
+import com.muggle.poseidon.core.properties.PoseidonProperties;
 import com.muggle.poseidon.utils.RequestUtils;
 
 /**
@@ -36,24 +37,24 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ipAddr = RequestUtils.getIpAddr(request);
-         String id = UserInfoManager.getUserId();
+        String id = UserInfoManager.getUserId();
         PoseidonBlackList byUserId = new PoseidonBlackList();
         PoseidonBlackList byIpAddr = new PoseidonBlackList();
         byUserId.setStatus(1).setUserId(id);
         byIpAddr.setStatus(1).setRemark(ipAddr);
-        long userId =0;
+        long userId = 0;
 //        todo redis 缓存
-        if (!id.equals("-1")){
-            userId =blackListService.count(byUserId);
+        if (!id.equals("-1")) {
+            userId = blackListService.count(byUserId);
         }
         long ip = blackListService.count(byIpAddr);
-        if (ip>0||userId>0){
-           throw new PoseidonException("黑名单用户",PoseidonProperties.BLACK_LIST_USER);
+        if (ip > 0 || userId > 0) {
+            throw new PoseidonException("黑名单用户", PoseidonProperties.BLACK_LIST_USER);
         }
-            long beginTime = System.currentTimeMillis();
+        long beginTime = System.currentTimeMillis();
         // 线程绑定变量（该数据只有当前请求的线程可见）
         threadLocal.set(beginTime);
-        log.info("请求开始时间:{}", new SimpleDateFormat("HH:mm:ss.SSS").format(beginTime));
+        log.info("请求开始时间:{}  --用户id: {}", new SimpleDateFormat("HH:mm:ss.SSS").format(beginTime),id);
         return true;
     }
 
