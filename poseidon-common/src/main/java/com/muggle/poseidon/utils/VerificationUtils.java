@@ -1,5 +1,7 @@
 package com.muggle.poseidon.utils;
 
+import com.alibaba.druid.sql.visitor.functions.Char;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -12,7 +14,11 @@ import java.util.Set;
  * @version: 1.0
  */
 public class VerificationUtils {
-
+    private static char[] codeSequence = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+            'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ,
+            'a','b','c','d','e','f','g','h','i','j','k','m','l','n','o','p',
+            'q','r','s','t','u','v','w','x','y','z'};
     /**
      * 随机生成字符 或 者数字
      *
@@ -78,18 +84,17 @@ public class VerificationUtils {
      * @return 指定长度 大于零 返回指定长度随机字符，小于等于零 返回null
      */
     public static String getRandonString(int length) {
-        String value = "";
-        if (length > 0) {
-            //如果返回的字符串小于指定长度 重新生成
-            if (value.length() < length) {
-                Set<String> store = getStrAndNum(length);
-                value = printSet(store);
-            }
-            return value;
-        } else {
-            return value;
-        }
+//        fixme
+        return getStr();
     }
 
-
+    static String getStr(){
+        char [] code=new char[4];
+        Random random=new Random();
+        for (int i=0;i<4;i++){
+            code[i]=codeSequence[random.nextInt(62)];
+        }
+        String s = String.valueOf(code);
+        return s;
+    }
 }

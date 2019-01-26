@@ -15,11 +15,11 @@ public class PoseidonExpressionVoter extends WebExpressionVoter {
     private static final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
 
-
+    //   authentication 为securityContextHolder里面的用户信息  attributes为 attributes（已认证） 或者    ----securityconfig中配置的内容
     @Override
     public int vote(Authentication authentication, FilterInvocation fi, Collection<ConfigAttribute> attributes) {
         String requestUrl = fi.getRequestUrl();
-        if (antPathMatcher.match("/public/**",requestUrl)||antPathMatcher.match("/sign_up",requestUrl)||antPathMatcher.match("/sign_page",requestUrl)){
+        if (antPathMatcher.match("/public/**", requestUrl) || antPathMatcher.match("/sign_up", requestUrl) || antPathMatcher.match("/sign_page", requestUrl)) {
             return ACCESS_GRANTED;
         }
         String method = fi.getHttpRequest().getMethod();
@@ -27,9 +27,9 @@ public class PoseidonExpressionVoter extends WebExpressionVoter {
         assert fi != null;
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         assert authorities != null;
-        int size = attributes.size();
+        int size = authorities.size();
         Object[] objects = new Object[size];
-        attributes.toArray(objects);
+        authorities.toArray(objects);
         if (size > 0) {
             if (!(objects[0] instanceof PoseidonGrantedAuthority)) {
                 return ACCESS_ABSTAIN;

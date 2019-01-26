@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -53,10 +54,25 @@ public class PoseidonCenterApplicationTests {
 
     @Test
     public void testJson(){
-        PoseidonUserDetail userDetail = new PoseidonUserDetail();
+        char[] codeSequence = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+                'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+                'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ,
+                'a','b','c','d','e','f','g','h','i','j','k','m','l','n','o','p',
+                'q','r','s','t','u','v','w','x','y','z'};
+        char [] code=new char[4];
+        Random random=new Random();
+        while (true){
+            for (int i=0;i<4;i++){
+                code[i]=codeSequence[random.nextInt(62)];
+            }
+            String s = String.valueOf(code);
+            System.out.println(s);
+        }
+
+        /*PoseidonUserDetail userDetail = new PoseidonUserDetail();
         userDetail.setDeleteTime(new Date()).setEnabled(true);
         String s = JSONObject.toJSONString(userDetail);
-        System.out.println(s);
+        System.out.println(s);*/
     }
 
 }
