@@ -30,7 +30,8 @@ public class QueryManager<T> {
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
                 Predicate predicate = builder.isNull(root.get("deleteTime"));
                 queries.forEach(item->{
-                    if (item.setQueryType();)
+//
+                    if (item.getQueryType())
                 });
                 return null;
             }

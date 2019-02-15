@@ -98,5 +98,13 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
             }
         };
     }
-
+        /*
+        * <dependency>
+  <groupId>gdal</groupId>
+  <artifactId>gdal</artifactId>
+  <version>1.0.0</version>
+  <scope>system</scope>
+  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/gdal.jar</systemPath>
+</dependency>
+        * */
 }
