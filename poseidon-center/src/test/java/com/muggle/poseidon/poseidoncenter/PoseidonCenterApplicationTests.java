@@ -16,10 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -61,13 +58,13 @@ public class PoseidonCenterApplicationTests {
                 'q','r','s','t','u','v','w','x','y','z'};
         char [] code=new char[4];
         Random random=new Random();
-        while (true){
+       /* while (true){
             for (int i=0;i<4;i++){
                 code[i]=codeSequence[random.nextInt(62)];
             }
             String s = String.valueOf(code);
             System.out.println(s);
-        }
+        }*/
 
         /*PoseidonUserDetail userDetail = new PoseidonUserDetail();
         userDetail.setDeleteTime(new Date()).setEnabled(true);
@@ -75,5 +72,19 @@ public class PoseidonCenterApplicationTests {
         System.out.println(s);*/
     }
 
+    @Test
+    public void getList(){
+        List<String> test=new ArrayList<>();
+        test.add("aa");
+        test.add("awa");
+        test.add("aaw");
+        test.add("aaww");
+        Iterator<String> iterator = test.iterator();
+        while (iterator.hasNext()){
+            iterator.next();
+            iterator.remove();
+        }
+        System.out.println(test);
+    }
 }
 

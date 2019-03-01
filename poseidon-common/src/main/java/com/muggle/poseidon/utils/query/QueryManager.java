@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,10 +30,38 @@ public class QueryManager<T> {
             @Override
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
                 Predicate predicate = builder.isNull(root.get("deleteTime"));
-                queries.forEach(item->{
-//
-                    if (item.getQueryType())
-                });
+                Iterator<Query> iterator = queries.iterator();
+                while (iterator.hasNext()){
+                    Query next = iterator.next();
+                    if (next.getQueryType().equals(QueryType.LIKE_LEFT)){
+                        predicate=builder.and(predicate,builder.like(root.get(next.getField()),next.getValue()+"%"));
+                        continue;
+                    }
+                    if (next.getQueryType().equals(QueryType.EQUALS)){
+                        predicate=builder.and(predicate,builder.equal(root.get(next.getField()),next.getValue()));
+                        continue;
+                    }
+                    if (next.getQueryType().equals(QueryType.LIKE_RIGHT)){
+                        predicate=builder.and(predicate,builder.like(root.get(next.getField()),"%"+next.getValue()));
+                        continue;
+                    }
+                    if (next.getQueryType().equals(QueryType.LIKE)){
+                        predicate=builder.and(predicate,builder.like(root.get(next.getField()),"%"+next.getValue()+"%"));
+                        continue;
+                    }
+                    if (next.getQueryType().equals(QueryType.GREATERTHAN)){
+                        predicate=builder.and(predicate,builder.greaterThan(root.get(next.getField()),next.getValue()));
+                        continue;
+                    }
+                    if (next.getQueryType().equals(QueryType.EQUALS)){
+                        predicate=builder.and(predicate,builder.equal(root.get(next.getField()),next.getValue()));
+                        continue;
+                    }
+                    if (next.getQueryType().equals(QueryType.EQUALS)){
+                        predicate=builder.and(predicate,builder.equal(root.get(next.getField()),next.getValue()));
+                        continue;
+                    }
+                }
                 return null;
             }
         };

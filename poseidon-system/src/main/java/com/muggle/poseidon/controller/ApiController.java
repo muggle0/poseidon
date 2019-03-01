@@ -26,7 +26,7 @@ public class ApiController {
     }
 
     //    初始化数据库 生成一个超级管理员超级
-    @GetMapping("/public/wer34retrty-asdfwsdfsd")
+    @GetMapping("/public/wer34retrty-asdfwsdfsd.html")
     @ResponseBody
     public ResultBean create(){
         return oauthService.create();
