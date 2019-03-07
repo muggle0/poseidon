@@ -13,6 +13,7 @@
     <artifactId>poseidon-common</artifactId>
     <version>0.1.0.BUILD</version>
     <name>poseidon-common</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>

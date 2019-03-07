@@ -12,6 +12,7 @@
     <artifactId>poseidon-web-upload</artifactId>
     <version>0.1.0.BUILD</version>
     <name>poseidon-web-upload</name>
+    <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
 

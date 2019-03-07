@@ -13,6 +13,7 @@
     <artifactId>poseidon-system</artifactId>
     <version>0.1.0.BUILD</version>
     <name>poseidon-system</name>
+    <packaging>jar</packaging>
     <description>波塞冬</description>
 
     <properties>

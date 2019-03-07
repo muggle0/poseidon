@@ -12,6 +12,7 @@
     <artifactId>poseidon-web-doc</artifactId>
     <version>0.1.0.BUILD</version>
     <name>poseidon-web-doc</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>

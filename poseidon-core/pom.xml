@@ -13,6 +13,7 @@
     <artifactId>poseidon-core</artifactId>
     <version>0.1.0.BUILD</version>
     <name>poseidon-core</name>
+    <packaging>jar</packaging>
     <description>poseidon</description>
 
     <properties>
