@@ -14,7 +14,7 @@
 
  —poseidon-core: core模块(非通用)
 
- —poseidon-log: 日志模块
+ —poseidon-request: 请求模块
 
  —poseidon-parent: 存放父pom
 

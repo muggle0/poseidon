@@ -12,9 +12,9 @@
         <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
     <groupId>com.muggle.poseidon</groupId>
-    <artifactId>poseidon-log</artifactId>
+    <artifactId>poseidon-request</artifactId>
     <version>0.1.0.BUILD</version>
-    <name>poseidon-log</name>
+    <name>poseidon-request</name>
     <packaging>jar</packaging>
     <description>日志模块</description>
 

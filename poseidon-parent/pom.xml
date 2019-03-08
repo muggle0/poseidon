@@ -15,7 +15,7 @@
         <module>../poseidon-center</module>
         <module>../poseidon-common</module>
         <module>../poseidon-core</module>
-        <module>../poseidon-log</module>
+        <module>../poseidon-request</module>
     </modules>
 
     <name>poseidon</name>
