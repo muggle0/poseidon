@@ -9,12 +9,13 @@
     <property name="maxHistory" value="100"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) %logger - %msg%n
-            </pattern>
-        </encoder>
+    <encoder>
+        <pattern>
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%-5level]) %logger - %msg%n
+        </pattern>
+    </encoder>
     </appender>
+
     <appender name="logs" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
@@ -29,10 +30,13 @@
         </encoder>
     </appender>
 
+    <appender name="log-asyn" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="logs"/>
+    </appender>
     <appender name="runningTime-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_dir}/runningTime/%d{yyyy-MM-dd}-poseidon.log</fileNamePattern>
+            <fileNamePattern>${log_dir}/runningTime/%d{yyyy-MM-dd}-hiram.log</fileNamePattern>
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -47,44 +51,35 @@
         </encoder>
     </appender>
     <logger name="runningTime" level="info" additivity="false">
-        <!--<appender-ref ref="runningTime-file"/>-->
+        <appender-ref ref="runningTime-file"/>
         <appender-ref ref="runningTime-console"/>
     </logger>
-    <!-- <appender name="requestLog-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-             <fileNamePattern>${log_dir}/requestLog/%d{yyyy-MM-dd}-hiram.log</fileNamePattern>
-             <maxHistory>${maxHistory}</maxHistory>
-         </rollingPolicy>
-         <encoder>
-             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger - %msg%n</pattern>
-         </encoder>
-     </appender>-->
-    <appender name="requestLog-db" class="ch.qos.logback.classic.db.DBAppender">
-        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
-            <dataSource class="org.apache.commons.dbcp.BasicDataSource">
-                <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
-                <url>jdbc:mysql://121.12.152.35:16506/hiram_erp?characterEncoding=UTF-8</url>
-                <username>root</username>
-                <password>R%#c%j9#VEkC$TaW</password>
-            </dataSource>
-        </connectionSource>
-        <!--<sqlDialect class="ch.qos.logback.core.db.dialect.MySQLDialect" />-->
+    <appender name="requestLog-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_dir}/requestLog/%d{yyyy-MM-dd}-hiram.log</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger - %msg%n</pattern>
+        </encoder>
     </appender>
-    <!--异步配置-->
+    <appender name="requestLog-console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
     <appender name="request-asyn" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="requestLog-db"/>
-    </appender>
-    <appender name="logs-asyn" class="ch.qos.logback.classic.AsyncAppender">
-        <appender-ref ref="logs"/>
+        <appender-ref ref="requestLog-file"/>
     </appender>
     <logger name="requestLog" level="info" additivity="false">
-        <!--<appender-ref ref="requestLog-file"/>-->
         <appender-ref ref="request-asyn"/>
+        <appender-ref ref="requestLog-console"/>
     </logger>
     <root>
         <level value="${hiram.log.level}"/>
         <appender-ref ref="console"/>
-        <!--<appender-ref ref="logs"/>-->
-        <appender-ref ref="logs-asyn"/>
+        <appender-ref ref="log-asyn"/>
     </root>
 </configuration>
