@@ -36,7 +36,7 @@ public class LogDataBaseConfig {
      * @return jpa配置信息
      */
     @Bean(name = "secondJpaProperties")
-    @ConfigurationProperties(prefix = "spring.jpa")
+    @ConfigurationProperties(prefix = "spring.aa")
     public JpaProperties jpaProperties() {
         return new JpaProperties();
     }
@@ -60,7 +60,7 @@ public class LogDataBaseConfig {
                 // 设置hibernate配置
                 .properties(jpaProperties.getHibernateProperties(new HibernateSettings()))
                 // 设置实体包名
-                .packages("com.gwyon.spring.entity.second")
+                .packages("com.muggle.poseidon.entity")
                 // 设置持久化单元名，用于@PersistenceContext注解获取EntityManager时指定数据源
                 .persistenceUnit("secondPersistenceUnit")
                 .build();

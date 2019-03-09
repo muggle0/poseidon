@@ -1,15 +1,12 @@
 package com.muggle.poseidon.core.interceptor;
 
-import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.service.RedisLock;
 import com.muggle.poseidon.service.impl.RedislockImpl;
 import com.muggle.poseidon.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import com.muggle.poseidon.core.properties.PoseidonProperties;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -32,22 +29,30 @@ public class RequestLockInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getParameter("access_token");
-        String ipAddr = RequestUtils.getIpAddr(request);
-        String lockKey = request.getRequestURI() + "_" + ipAddr + "_" + token;
 
-        /*if("get".equalsIgnoreCase(request.getMethod())){
-            return true;
-        }*/
-        boolean lock = redisTool.lock(lockKey, ipAddr, expireTime);
-        if (!lock) {//
-            log.error("拦截表单重复提交");
+        if("post".equalsIgnoreCase(request.getMethod())){
+            String token = request.getParameter("request_key");
+            if (token==null||"".equals(token)){
+                log.error("请求非法");
 //            throw new PoseidonException("请求太频繁",PoseidonProperties.TOO_NUMBER_REQUEST);
-            response.setContentType("application/json;charset=UTF-8");
-            PrintWriter writer = response.getWriter();
-            writer.write("{\"code\":\"5001\",\"msg\":\"请求太频繁\"}");
-            writer.close();
-            return false;
+                response.setContentType("application/json;charset=UTF-8");
+                PrintWriter writer = response.getWriter();
+                writer.write("{\"code\":\"5001\",\"msg\":\"请求非法\"}");
+                writer.close();
+                return false;
+            }
+            String ipAddr = RequestUtils.getIpAddr(request);
+            String lockKey = request.getRequestURI() + "_"  + "_" + token;
+            boolean lock = redisTool.lock(lockKey, ipAddr, expireTime);
+            if (!lock) {//
+                log.error("拦截表单重复提交");
+//            throw new PoseidonException("请求太频繁",PoseidonProperties.TOO_NUMBER_REQUEST);
+                response.setContentType("application/json;charset=UTF-8");
+                PrintWriter writer = response.getWriter();
+                writer.write("{\"code\":\"5001\",\"msg\":\"请求太频繁\"}");
+                writer.close();
+                return false;
+            }
         }
         return true;
     }
@@ -59,8 +64,8 @@ public class RequestLockInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        String requestURI = request.getRequestURI();
-        String lockKey = request.getRequestURI() + "_" + RequestUtils.getIpAddr(request);
+//        String requestURI = request.getRequestURI();
+//        String lockKey = request.getRequestURI() + "_" + RequestUtils.getIpAddr(request);
 //        redisTool.unlock(lockKey,getIpAddr(request));
     }
 
