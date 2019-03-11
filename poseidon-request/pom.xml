@@ -43,6 +43,10 @@
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.muggle.poseidon</groupId>
+            <artifactId>poseidon-system</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

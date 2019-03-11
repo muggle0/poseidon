@@ -34,7 +34,6 @@ public class RequestLockInterceptor implements HandlerInterceptor {
             String token = request.getParameter("request_key");
             if (token==null||"".equals(token)){
                 log.error("请求非法");
-//            throw new PoseidonException("请求太频繁",PoseidonProperties.TOO_NUMBER_REQUEST);
                 response.setContentType("application/json;charset=UTF-8");
                 PrintWriter writer = response.getWriter();
                 writer.write("{\"code\":\"5001\",\"msg\":\"请求非法\"}");
@@ -42,7 +41,7 @@ public class RequestLockInterceptor implements HandlerInterceptor {
                 return false;
             }
             String ipAddr = RequestUtils.getIpAddr(request);
-            String lockKey = request.getRequestURI() + "_"  + "_" + token;
+            String lockKey = request.getRequestURI()  + "_" + token;
             boolean lock = redisTool.lock(lockKey, ipAddr, expireTime);
             if (!lock) {//
                 log.error("拦截表单重复提交");
