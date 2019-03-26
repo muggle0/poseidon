@@ -12,7 +12,7 @@
 
  —poseidon-common：common模块（通用模块）
 
- —poseidon-core: core模块(非通用)
+ —poseidon-core: core模块(核心模块)
 
  —poseidon-request: 请求模块
 
