@@ -3,6 +3,8 @@
 #### 本项目目的
 
     对一些使用过的或者有待验证的技术进行整合汇总，作为一个实验田和技术档案的存在
+#### 项目文档
+[wiki](https://github.com/muggle0/poseidon/wiki)
 
 #### 本项目的结构：
  
@@ -12,7 +14,7 @@
 
  —poseidon-common：common模块（通用模块）
 
- —poseidon-core: core模块(非通用)
+ —poseidon-core: core模块(核心模块)
 
  —poseidon-request: 请求模块
 
