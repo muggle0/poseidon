@@ -131,6 +131,11 @@
                 <artifactId>poseidon-request</artifactId>
                 <version>${poseidon.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.muggle</groupId>
+                <artifactId>poseidon-quartz</artifactId>
+                <version>${poseidon.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

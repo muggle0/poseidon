@@ -31,6 +31,13 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
        this.userDetailsService=userDetailsService;
    }
+   
+   
+   /** 
+   * @Description: 验证器的验证方法   
+   * @Param:  authentication 用户的登陆信息
+   * @return:  
+   */ 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 //      抛出异常无法终止验证
@@ -68,6 +75,12 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         token.setDetails("id:"+one.getId());
         return token;
     }
+    
+    /** 
+    * @Description: 判断验证器是否执行
+    * @Param:
+    * @return:
+    */ 
     @Override
     public boolean supports(Class<?> aClass) {
         return (UsernamePasswordAuthenticationToken.class

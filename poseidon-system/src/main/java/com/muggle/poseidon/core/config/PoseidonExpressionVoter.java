@@ -45,7 +45,6 @@ public class PoseidonExpressionVoter extends WebExpressionVoter {
                 return ACCESS_GRANTED;
             }
         }
-
         return ACCESS_DENIED;
     }
 }
