@@ -78,7 +78,7 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
     
     /** 
     * @Description: 判断验证器是否执行
-    * @Param:
+    * @Param: sss
     * @return:
     */ 
     @Override
@@ -86,4 +86,5 @@ public class PoseidonAuthenticationProvider implements AuthenticationProvider {
         return (UsernamePasswordAuthenticationToken.class
                 .isAssignableFrom(aClass));
     }
+
 }

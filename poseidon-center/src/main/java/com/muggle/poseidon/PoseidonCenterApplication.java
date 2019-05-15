@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
@@ -15,12 +16,12 @@ public class PoseidonCenterApplication {
     }
 
     @Bean
-    public CommandLineRunner init() {
+    public CommandLineRunner init(RedisTemplate<String,String> redisTemplate) {
 
         return new CommandLineRunner() {
             @Override
             public void run(String... strings) throws Exception {
-                System.out.println(strings);
+
             }
         };
     }

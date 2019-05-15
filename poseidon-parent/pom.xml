@@ -32,7 +32,7 @@
         <poseidon.version>0.1.0.BUILD</poseidon.version>
         <mysql.version>8.0.13</mysql.version>
         <!--是否跳过测试用例-->
-        <!--<skipTests>true</skipTests>-->
+        <skipTests>true</skipTests>
         <!--logstash 指定logback版本-->
         <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
     </properties>
