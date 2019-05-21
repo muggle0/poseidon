@@ -1,10 +1,10 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.model.vo.UserVO;
+import com.muggle.poseidon.entity.PoseidonUserDetail;
+import com.muggle.poseidon.entity.vo.UserVO;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
-import com.muggle.poseidon.manager.UserInfoManager;
+import com.muggle.poseidon.manager.UserInfoManagerImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/my_info")
     public ResultBean userInfo(){
-        PoseidonUserDetail user = UserInfoManager.getUser();
+        PoseidonUserDetail user = UserInfoManagerImpl.getUser();
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user,userVO);
         return ResultBean.getInstance(userVO);

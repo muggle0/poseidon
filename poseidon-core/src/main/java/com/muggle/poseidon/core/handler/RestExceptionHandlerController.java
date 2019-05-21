@@ -3,12 +3,11 @@ package com.muggle.poseidon.core.handler;
 
 import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.EmailBean;
+import com.muggle.poseidon.entity.EmailBean;
 import com.muggle.poseidon.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

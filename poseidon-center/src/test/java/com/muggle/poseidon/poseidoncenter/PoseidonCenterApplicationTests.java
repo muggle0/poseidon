@@ -1,10 +1,8 @@
 package com.muggle.poseidon.poseidoncenter;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
-import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.model.Role;
+import com.muggle.poseidon.entity.PoseidonGrantedAuthority;
+import com.muggle.poseidon.entity.PoseidonUserDetail;
+import com.muggle.poseidon.entity.Role;
 import com.muggle.poseidon.service.impl.RoleServiceImpl;
 import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
 import org.junit.Test;
@@ -15,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RunWith(SpringRunner.class)

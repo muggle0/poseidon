@@ -1,6 +1,6 @@
 package com.muggle.poseidon.core.aspect;
 
-import com.muggle.poseidon.manager.UserInfoManager;
+import com.muggle.poseidon.manager.UserInfoManagerImpl;
 import com.muggle.poseidon.utils.RequestUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -88,7 +88,7 @@ public class LogMessageAspect {
         // 打印请求相关参数
         // 打印请求 url
         // 请求id
-        String userId = UserInfoManager.getUserId();
+        String userId = UserInfoManagerImpl.getUserId();
 
         String url = request.getRequestURL().toString();
         String method = request.getMethod();

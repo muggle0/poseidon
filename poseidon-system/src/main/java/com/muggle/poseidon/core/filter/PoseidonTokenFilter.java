@@ -1,7 +1,7 @@
 package com.muggle.poseidon.core.filter;
 
 import com.muggle.poseidon.core.properties.TokenProperties;
-import com.muggle.poseidon.model.dto.MessagePrincipal;
+import com.muggle.poseidon.entity.dto.MessagePrincipal;
 import com.muggle.poseidon.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;

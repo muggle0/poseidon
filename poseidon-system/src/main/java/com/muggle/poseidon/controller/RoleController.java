@@ -1,8 +1,8 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.Role;
-import com.muggle.poseidon.model.UserRole;
+import com.muggle.poseidon.entity.Role;
+import com.muggle.poseidon.entity.UserRole;
 import com.muggle.poseidon.service.impl.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

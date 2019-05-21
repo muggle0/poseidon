@@ -1,7 +1,7 @@
 package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonSign;
+import com.muggle.poseidon.entity.PoseidonSign;
 
 public interface PoseidonSignService {
     ResultBean getSigns();

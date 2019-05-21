@@ -5,7 +5,7 @@ import java.util.List;
 
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonBlackList;
+import com.muggle.poseidon.entity.PoseidonBlackList;
 import com.muggle.poseidon.repos.PoseidonBlackListRepository;
 import com.muggle.poseidon.service.PoseidonBlackListService;
 import lombok.extern.slf4j.Slf4j;

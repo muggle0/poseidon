@@ -1,7 +1,7 @@
 package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.UserMessage;
+import com.muggle.poseidon.entity.UserMessage;
 
 public interface UserMessageService {
     ResultBean getMessage();

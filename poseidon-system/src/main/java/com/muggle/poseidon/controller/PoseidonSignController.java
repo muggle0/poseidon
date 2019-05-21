@@ -1,7 +1,7 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonSign;
+import com.muggle.poseidon.entity.PoseidonSign;
 import com.muggle.poseidon.service.PoseidonSignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

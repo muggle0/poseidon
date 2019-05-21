@@ -1,4 +1,4 @@
-package com.muggle.poseidon.model;
+package com.muggle.poseidon.entity;
 
 import lombok.Data;
 

@@ -1,10 +1,8 @@
-package com.muggle.poseidon.model;
+package com.muggle.poseidon.entity;
 
 import com.muggle.poseidon.core.generater.PoseidonIdGener;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 

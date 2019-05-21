@@ -1,4 +1,4 @@
-package com.muggle.poseidon.model.vo;
+package com.muggle.poseidon.entity.vo;
 
 import lombok.Data;
 

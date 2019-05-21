@@ -1,6 +1,6 @@
 package com.muggle.poseidon.repos;
 
-import com.muggle.poseidon.model.PoseidonSign;
+import com.muggle.poseidon.entity.PoseidonSign;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

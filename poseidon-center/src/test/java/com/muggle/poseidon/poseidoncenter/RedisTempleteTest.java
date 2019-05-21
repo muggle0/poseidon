@@ -1,26 +1,19 @@
 package com.muggle.poseidon.poseidoncenter;
 
-import com.muggle.poseidon.model.EmailBean;
-import io.lettuce.core.SetArgs;
+import com.muggle.poseidon.entity.EmailBean;
 import io.lettuce.core.api.async.RedisAsyncCommands;
-import io.lettuce.core.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.ReturnType;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scripting.support.ResourceScriptSource;
 
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RedisTempleteTest extends PoseidonCenterApplicationTests {

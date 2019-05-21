@@ -2,9 +2,9 @@
 //
 //import com.alibaba.fastjson.JSONObject;
 //import com.muggle.poseidon.base.PoseidonException;
-//import com.muggle.poseidon.model.PoseidonBlackList;
+//import com.muggle.poseidon.entity.PoseidonBlackList;
 //import com.muggle.poseidon.service.PoseidonBlackListService;
-//import com.muggle.poseidon.manager.UserInfoManager;
+//import com.muggle.poseidon.manager.UserInfoManagerImpl;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.web.servlet.HandlerInterceptor;
@@ -37,7 +37,7 @@
 //    @Override
 //    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        String ipAddr = RequestUtils.getIpAddr(request);
-//        String id = UserInfoManager.getUserId();
+//        String id = UserInfoManagerImpl.getUserId();
 //        PoseidonBlackList byUserId = new PoseidonBlackList();
 //        PoseidonBlackList byIpAddr = new PoseidonBlackList();
 //        byUserId.setStatus(1).setUserId(id);

@@ -1,6 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.poseidon.model.EmailBean;
+import com.muggle.poseidon.entity.EmailBean;
 import com.muggle.poseidon.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

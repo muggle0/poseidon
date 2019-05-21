@@ -1,6 +1,5 @@
 package com.muggle.poseidon.core.handler;
 
-import com.muggle.poseidon.manager.UserInfoManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

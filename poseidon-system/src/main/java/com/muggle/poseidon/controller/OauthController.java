@@ -1,7 +1,7 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
+import com.muggle.poseidon.entity.PoseidonGrantedAuthority;
 import com.muggle.poseidon.service.PoseidonGrantedAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

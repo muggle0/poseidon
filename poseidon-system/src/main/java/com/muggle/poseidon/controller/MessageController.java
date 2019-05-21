@@ -1,7 +1,7 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.UserMessage;
+import com.muggle.poseidon.entity.UserMessage;
 import com.muggle.poseidon.service.UserMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

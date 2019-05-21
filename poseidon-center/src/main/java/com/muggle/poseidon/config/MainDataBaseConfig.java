@@ -66,7 +66,7 @@ public class MainDataBaseConfig {
                 // 设置hibernate配置
                 .properties(jpaProperties.getHibernateProperties(new HibernateSettings()))
                 // 设置实体包名
-                .packages("com.muggle.poseidon.model")
+                .packages("com.muggle.poseidon.entity")
                 // 设置持久化单元名，用于@PersistenceContext注解获取EntityManager时指定数据源
                 .persistenceUnit("primaryPersistenceUnit")
                 .build();

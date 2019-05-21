@@ -1,7 +1,7 @@
 package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
+import com.muggle.poseidon.entity.PoseidonGrantedAuthority;
 import com.muggle.poseidon.repos.PoseidonGrantedAuthorityRepository;
 import com.muggle.poseidon.service.PoseidonGrantedAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.Predicate;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author ：muggle

@@ -1,7 +1,7 @@
 package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonBlackList;
+import com.muggle.poseidon.entity.PoseidonBlackList;
 
 import java.util.List;
 import java.util.Optional;

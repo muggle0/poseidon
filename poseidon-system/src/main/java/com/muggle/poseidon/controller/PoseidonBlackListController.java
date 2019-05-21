@@ -1,10 +1,9 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonBlackList;
+import com.muggle.poseidon.entity.PoseidonBlackList;
 import com.muggle.poseidon.service.PoseidonBlackListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

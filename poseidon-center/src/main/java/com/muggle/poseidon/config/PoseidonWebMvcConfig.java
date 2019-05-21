@@ -35,28 +35,20 @@ import java.util.List;
  **/
 @Configuration
 public class PoseidonWebMvcConfig implements WebMvcConfigurer {
-    @Autowired
-    RedisTemplate<String, String> redisTemplate;
+
     @Autowired
     PoseidonBlackListService blackListService;
     @Value("${lock.time}")
     int expireTime;
 
-    @Bean
-    @ConfigurationProperties(prefix = "poseidon.security")
-    public SecurityProperties getModel() {
-        return new SecurityProperties();
-    }
+
 
    /* @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }*/
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
 //    解析器
     @Override

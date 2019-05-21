@@ -1,8 +1,8 @@
 package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.model.vo.VerifVO;
+import com.muggle.poseidon.entity.PoseidonUserDetail;
+import com.muggle.poseidon.entity.vo.VerifVO;
 import com.muggle.poseidon.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

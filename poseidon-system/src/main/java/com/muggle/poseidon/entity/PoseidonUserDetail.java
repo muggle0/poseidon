@@ -1,7 +1,6 @@
-package com.muggle.poseidon.model;
+package com.muggle.poseidon.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.muggle.poseidon.core.generater.PoseidonIdGener;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -15,7 +14,6 @@ import javax.persistence.ForeignKey;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.*;
 

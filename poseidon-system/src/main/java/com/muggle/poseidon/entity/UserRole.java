@@ -1,4 +1,4 @@
-package com.muggle.poseidon.model;
+package com.muggle.poseidon.entity;
 
 import com.muggle.poseidon.core.generater.PoseidonIdGener;
 import lombok.Getter;

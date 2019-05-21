@@ -1,9 +1,9 @@
 package com.muggle.poseidon.core.config;
 
 import com.muggle.poseidon.core.exception.BadTokenException;
-import com.muggle.poseidon.model.dto.MessagePrincipal;
-import com.muggle.poseidon.model.PoseidonSign;
-import com.muggle.poseidon.model.PoseidonUserDetail;
+import com.muggle.poseidon.entity.dto.MessagePrincipal;
+import com.muggle.poseidon.entity.PoseidonSign;
+import com.muggle.poseidon.entity.PoseidonUserDetail;
 import com.muggle.poseidon.service.impl.PoseidonUserdetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;

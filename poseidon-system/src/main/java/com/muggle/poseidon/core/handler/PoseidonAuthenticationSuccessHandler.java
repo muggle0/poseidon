@@ -1,15 +1,12 @@
 package com.muggle.poseidon.core.handler;
 
-import com.muggle.poseidon.manager.UserInfoManager;
-import lombok.extern.slf4j.Slf4j;
+import com.muggle.poseidon.manager.UserInfoManagerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +22,7 @@ public class PoseidonAuthenticationSuccessHandler extends SimpleUrlAuthenticatio
     private final static Logger log = LoggerFactory.getLogger("requestLog");
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("用户登录 id：{}",UserInfoManager.getUserId());
+        log.info("用户登录 id：{}", UserInfoManagerImpl.getUserId());
         response.setContentType("application/json;charset=UTF-8");
         final PrintWriter writer = response.getWriter();
         writer.write("{\"code\":\"200\",\"msg\":\"登录成功\"}");

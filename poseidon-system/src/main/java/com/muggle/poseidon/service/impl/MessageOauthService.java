@@ -1,10 +1,9 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.poseidon.base.PoseidonException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.core.properties.TokenProperties;
-import com.muggle.poseidon.model.*;
-import com.muggle.poseidon.model.vo.VerifVO;
+import com.muggle.poseidon.entity.*;
+import com.muggle.poseidon.entity.vo.VerifVO;
 import com.muggle.poseidon.repos.*;
 import com.muggle.poseidon.service.EmailService;
 import com.muggle.poseidon.service.OauthService;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.Date;
 

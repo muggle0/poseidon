@@ -1,8 +1,10 @@
 package com.muggle.poseidon.manager;
 
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
-import com.muggle.poseidon.model.PoseidonUserDetail;
-import com.muggle.poseidon.model.Role;
+import com.muggle.poseidon.entity.PoseidonGrantedAuthority;
+import com.muggle.poseidon.entity.PoseidonUserDetail;
+import com.muggle.poseidon.entity.Role;
+import com.muggle.poseidon.entity.UserInfoDTO;
+import com.muggle.poseidon.manage.UserInfoManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,8 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class UserInfoManager {
-    public static PoseidonUserDetail getUser() {
+public class UserInfoManagerImpl implements UserInfoManager {
+    /*public static PoseidonUserDetail getUser() {
         SecurityContext context = SecurityContextHolder.getContext();
         if (context != null && context.getAuthentication() != null) {
             Object details = context.getAuthentication().getPrincipal();
@@ -62,5 +64,11 @@ public class UserInfoManager {
             return "-1";
         }
         return user.getId();
+    }*/
+
+    @Override
+    public UserInfoDTO getUserInfo() {
+        new UserInfoDTO()
+        return null;
     }
 }

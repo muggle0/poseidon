@@ -1,7 +1,6 @@
 package com.muggle.poseidon.core.config;
 
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
-import com.muggle.poseidon.service.PoseidonGrantedAuthorityService;
+import com.muggle.poseidon.entity.PoseidonGrantedAuthority;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

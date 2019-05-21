@@ -1,7 +1,7 @@
 package com.muggle.poseidon.service;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.model.PoseidonGrantedAuthority;
+import com.muggle.poseidon.entity.PoseidonGrantedAuthority;
 
 import java.util.List;
 
