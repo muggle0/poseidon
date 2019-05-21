@@ -8,12 +8,19 @@ import com.muggle.poseidon.manage.UserInfoManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
+
+@Service
 public class UserInfoManagerImpl implements UserInfoManager {
     /*public static PoseidonUserDetail getUser() {
         SecurityContext context = SecurityContextHolder.getContext();
@@ -68,7 +75,21 @@ public class UserInfoManagerImpl implements UserInfoManager {
 
     @Override
     public UserInfoDTO getUserInfo() {
-        new UserInfoDTO()
+        UserInfoDTO.UserInfoDTOBuilder builder = UserInfoDTO.builder();
+        SecurityContext context = SecurityContextHolder.getContext();
+        if  (context != null && context.getAuthentication() != null) {
+            Object details = context.getAuthentication().getPrincipal();
+            if (details instanceof PoseidonUserDetail) {
+                PoseidonUserDetail authentication = (PoseidonUserDetail) details;
+                    builder.birthday(authentication.getBirthday()).id(authentication.getId()).imgUrl(authentication.getImgUrl());
+                Set<Role> roles = authentication.getRoles();
+                List<@NotNull String> collect = roles.stream().map(role -> {
+                    return role.getRoleCode();
+                }).collect(toList());
+                UserInfoDTO build = builder.nickname(authentication.getNickname()).roleCodes(collect).build();
+                return build;
+            }
+        }
         return null;
     }
 }

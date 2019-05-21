@@ -1,11 +1,13 @@
 package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.entity.PoseidonUserDetail;
 import com.muggle.poseidon.entity.UserMessage;
 import com.muggle.poseidon.manager.UserInfoManagerImpl;
 import com.muggle.poseidon.repos.UserMessageRepository;
 import com.muggle.poseidon.service.UserMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +28,9 @@ public class UserMessageServiceImpl implements UserMessageService {
     UserMessageRepository repository;
     @Override
     public ResultBean getMessage() {
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
         UserMessage userMessage = new UserMessage();
-        userMessage.setUserId(UserInfoManagerImpl.getUser().getId());
+        userMessage.setUserId(details.getId());
         userMessage.setMessageType("leaveWord");
         userMessage.setMarkRead(0);
         List<UserMessage> all = findAll(userMessage);
@@ -36,7 +39,8 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Transactional
     @Override
     public ResultBean getAll(UserMessage message) {
-        String id = UserInfoManagerImpl.getUser().getId();
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String id = details.getId();
         boolean equals=!(message.getUserId().equals(id))&&!(message.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");
@@ -48,7 +52,8 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Transactional
     @Override
     public ResultBean update(UserMessage userMessage) {
-        String id = UserInfoManagerImpl.getUser().getId();
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String id = details.getId();
         boolean equals=!(userMessage.getUserId().equals(id))&&!(userMessage.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");
@@ -61,7 +66,8 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Transactional
     @Override
     public ResultBean insert(UserMessage userMessage) {
-        String id = UserInfoManagerImpl.getUser().getId();
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String id =details.getId();
         boolean equals=!(userMessage.getUserId().equals(id))&&!(userMessage.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");
@@ -74,12 +80,13 @@ public class UserMessageServiceImpl implements UserMessageService {
     @Transactional
     @Override
     public ResultBean delete(String messageId) {
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
         Optional<UserMessage> one = findOne(messageId);
         if (!one.isPresent()){
             return ResultBean.getInstance("500","数据不存在");
         }
         UserMessage userMessage = one.get();
-        String id = UserInfoManagerImpl.getUser().getId();
+        String id = details.getId();
         if (!id.equals(userMessage.getCreateId())){
             return ResultBean.getInstance("500","不能删除他人消息");
         }
@@ -90,7 +97,8 @@ public class UserMessageServiceImpl implements UserMessageService {
 
     @Override
     public ResultBean countNoRead(UserMessage userMessage) {
-        String id = UserInfoManagerImpl.getUser().getId();
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String id = details.getId();
         boolean equals=!(userMessage.getUserId().equals(id))&&!(userMessage.getCreateId().equals(id));
         if (equals){
             return ResultBean.getInstance("500","非法操作");
@@ -149,6 +157,4 @@ public class UserMessageServiceImpl implements UserMessageService {
         });
         return all;
     }
-
-
 }

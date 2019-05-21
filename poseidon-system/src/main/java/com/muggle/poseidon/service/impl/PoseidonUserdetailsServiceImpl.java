@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -76,18 +77,18 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
         userDetail.setCreatTime(new Date()).setEnabled(true)
                 .setAccountNonExpired(true).setAccountNonLocked(true).setCredentialsNonExpired(true);
         PoseidonUserDetail byUsernameAndDeleteTimeIsNull = repository.findByUsernameAndDeleteTimeIsNull(userDetail.getUsername());
-        if (byUsernameAndDeleteTimeIsNull!=null){
-            return ResultBean.getInstance("500","用户名已存在");
+        if (byUsernameAndDeleteTimeIsNull != null) {
+            return ResultBean.getInstance("500", "用户名已存在");
         }
         PoseidonUserDetail save = repository.save(userDetail);
         Role role = new Role().setRoleCode("base");
         List<Role> all = roleServiceImpl.findAll(role);
         saveUserRole(all, save.getId());
-        log.info("新增用户：{}  pass:{}", save.toString(),value);
+        log.info("新增用户：{}  pass:{}", save.toString(), value);
         final Set<PoseidonGrantedAuthority> authorities = all.get(0).getAuthorities();
 //        自动登录
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(save, save.getPassword(),authorities );
-        UserInfoManagerImpl.setUser(usernamePasswordAuthenticationToken);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(save, save.getPassword(), authorities);
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         return ResultBean.getInstance(save);
     }
 
@@ -177,20 +178,20 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     @Transactional
     @Override
     public ResultBean update(UserVO userVO, String oldPassword, String newPassword) {
-        PoseidonUserDetail user = UserInfoManagerImpl.getUser();
-        if (!userVO.getId().equals(user.getId())) {
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        if (!userVO.getId().equals(details.getId())) {
             return ResultBean.getInstance("500", "信息异常，请确认账号信息");
         }
         String password = null;
         if (oldPassword != null && newPassword != null) {
-            if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            if (!passwordEncoder.matches(oldPassword, details.getPassword())) {
                 return ResultBean.getInstance("500", "密码错误");
             }
             password = passwordEncoder.encode(newPassword);
         }
-        BeanUtils.copyProperties(userVO, user);
-        user.setUpdateTime(new Date()).setPassword(password).setEnabled(true);
-        repository.save(user);
+        BeanUtils.copyProperties(userVO, details);
+        details.setUpdateTime(new Date()).setPassword(password).setEnabled(true);
+        repository.save(details);
         log.info("更新用户信息: " + userVO.toString());
         return ResultBean.getInstance();
     }
@@ -198,10 +199,10 @@ public class PoseidonUserdetailsServiceImpl implements UserDetailsService, Posei
     @Transactional
     @Override
     public ResultBean delete() {
-        PoseidonUserDetail user = UserInfoManagerImpl.getUser();
-        user.setDeleteTime(new Date());
-        repository.save(user);
-        log.info("删除用户：" + user.toString());
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        details.setDeleteTime(new Date());
+        repository.save(details);
+        log.info("删除用户：" + details.toString());
         return ResultBean.getInstance();
     }
 }

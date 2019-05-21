@@ -1,7 +1,6 @@
 package com.muggle.poseidon.core.interceptor;
 
 import com.muggle.poseidon.service.RedisLock;
-import com.muggle.poseidon.service.impl.RedislockImpl;
 import com.muggle.poseidon.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,12 +16,13 @@ import java.io.PrintWriter;
  * @author: muggle
  * @create: 2018-12-06 11:02
  **/
+// fixme  表单重复提交 和 黑名单用户
 @Slf4j
 public class RequestLockInterceptor implements HandlerInterceptor {
     RedisLock redisTool;
     private int expireTime;
 
-    public RequestLockInterceptor(int expireTime, RedislockImpl redisTool) {
+    public RequestLockInterceptor(int expireTime, RedisLock redisTool) {
         this.expireTime = expireTime;
         this.redisTool = redisTool;
     }

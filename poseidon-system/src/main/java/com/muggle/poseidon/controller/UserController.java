@@ -2,7 +2,9 @@ package com.muggle.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.entity.PoseidonUserDetail;
+import com.muggle.poseidon.entity.UserInfoDTO;
 import com.muggle.poseidon.entity.vo.UserVO;
+import com.muggle.poseidon.manage.UserInfoManager;
 import com.muggle.poseidon.service.PoseidonUserdetailService;
 import com.muggle.poseidon.manager.UserInfoManagerImpl;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     PoseidonUserdetailService userService;
+    @Autowired
+    UserInfoManager userInfoManager;
 
     @GetMapping("/role_user")
     public ResultBean getUsers(String roleId){
@@ -29,10 +33,9 @@ public class UserController {
 
     @GetMapping("/my_info")
     public ResultBean userInfo(){
-        PoseidonUserDetail user = UserInfoManagerImpl.getUser();
-        UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(user,userVO);
-        return ResultBean.getInstance(userVO);
+        UserInfoDTO userInfo = userInfoManager.getUserInfo();
+
+        return ResultBean.getInstance(userInfo);
     }
 
 

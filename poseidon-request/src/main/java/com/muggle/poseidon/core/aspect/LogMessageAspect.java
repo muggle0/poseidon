@@ -1,5 +1,6 @@
 package com.muggle.poseidon.core.aspect;
 
+import com.muggle.poseidon.manage.UserInfoManager;
 import com.muggle.poseidon.manager.UserInfoManagerImpl;
 import com.muggle.poseidon.utils.RequestUtils;
 import org.aspectj.lang.JoinPoint;
@@ -7,6 +8,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -25,10 +27,13 @@ import java.io.Serializable;
 @Component
 public class LogMessageAspect {
 
+    @Autowired
+    UserInfoManager userInfoManager;
+
     private final static Logger logger = LoggerFactory.getLogger("requestLog");
 //    private final static Logger timeLog = LoggerFactory.getLogger(LogMessageAspect.class);
     private static final ThreadLocal<Long> threadLocal = new ThreadLocal<>();
-    @Pointcut("execution(public * com.hiram.erp.controller.*.*(..))")
+    @Pointcut("execution(public * com.muggle.poseidon.controller.*.*(..))")
     public void webLog() {}
 
     /**
@@ -61,7 +66,6 @@ public class LogMessageAspect {
     public void doAfter(JoinPoint joinPoint) throws Throwable {
 
 
-
     }
 
     /**
@@ -88,7 +92,7 @@ public class LogMessageAspect {
         // 打印请求相关参数
         // 打印请求 url
         // 请求id
-        String userId = UserInfoManagerImpl.getUserId();
+        String userId = userInfoManager.getUserInfo().getId();
 
         String url = request.getRequestURL().toString();
         String method = request.getMethod();

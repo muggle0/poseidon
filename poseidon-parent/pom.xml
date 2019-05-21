@@ -16,6 +16,7 @@
         <module>../poseidon-common</module>
         <module>../poseidon-core</module>
         <module>../poseidon-request</module>
+        <module>../poseidon-redis</module>
     </modules>
 
     <name>poseidon</name>
@@ -67,16 +68,8 @@
         </dependency>
 
 
-<!--
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+
+
 
         <dependency>
             <groupId>mysql</groupId>
@@ -124,6 +117,12 @@
             <dependency>
                 <groupId>com.muggle</groupId>
                 <artifactId>poseidon-quartz</artifactId>
+                <version>${poseidon.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.muggle</groupId>
+                <artifactId>poseidon-redis</artifactId>
                 <version>${poseidon.version}</version>
             </dependency>
         </dependencies>

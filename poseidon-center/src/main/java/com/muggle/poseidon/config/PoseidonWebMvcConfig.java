@@ -3,24 +3,21 @@ package com.muggle.poseidon.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.muggle.poseidon.core.interceptor.RequestLockInterceptor;
-import com.muggle.poseidon.core.properties.SecurityProperties;
+//import com.muggle.poseidon.core.interceptor.RequestLockInterceptor;
+import com.muggle.poseidon.manager.RedisLockImpl;
 //import com.muggle.poseidon.core.interceptor.RequestLogInterceptor;
 import com.muggle.poseidon.service.PoseidonBlackListService;
-import com.muggle.poseidon.service.impl.RedislockImpl;
+import com.muggle.poseidon.service.RedisLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -38,6 +35,8 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     PoseidonBlackListService blackListService;
+    @Autowired
+    RedisLock redisLock;
     @Value("${lock.time}")
     int expireTime;
 
@@ -76,7 +75,7 @@ public class PoseidonWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestLockInterceptor(expireTime, new RedislockImpl(redisTemplate))).addPathPatterns("/**");
+//        registry.addInterceptor(new RequestLockInterceptor(expireTime,redisLock)).addPathPatterns("/**");
 //        registry.addInterceptor(new RequestLogInterceptor(blackListService)).addPathPatterns("/**");
     }
 

@@ -38,14 +38,19 @@
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-web-doc</artifactId>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-request</artifactId>
-        </dependency>
+        </dependency>-->
         <!--<dependency>
             <groupId>com.muggle</groupId>
             <artifactId>poseidon-quartz</artifactId>
         </dependency>-->
+
+        <dependency>
+            <groupId>com.muggle</groupId>
+            <artifactId>poseidon-redis</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

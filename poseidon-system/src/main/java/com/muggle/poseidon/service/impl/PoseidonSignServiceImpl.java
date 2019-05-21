@@ -10,6 +10,7 @@ import com.muggle.poseidon.service.RedisService;
 import com.muggle.poseidon.manager.UserInfoManagerImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +36,8 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
     @Transactional
     @Override
     public ResultBean getSigns() {
-        String id = UserInfoManagerImpl.getUser().getId();
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String id = details.getId();
         PoseidonSign poseidonSign = new PoseidonSign().setUserId(id);
         final List<PoseidonSign> allByUserId = findAll(poseidonSign);
         return ResultBean.getInstance(allByUserId);
@@ -45,12 +47,13 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
     @Transactional
     @Override
     public ResultBean insert(PoseidonSign poseidonSign, String validata) {
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
         String key = TokenProperties.VERIFICATION + "-" + poseidonSign.getPrincipal();
          PoseidonSign field = new PoseidonSign().setEnable(1).setAuthType(poseidonSign.getAuthType()).setPrincipal(poseidonSign.getPrincipal());
         if (!validata.equals(redisService.get(key))) {
             return ResultBean.getInstance("500", "验证码错误");
         }
-        PoseidonUserDetail user = UserInfoManagerImpl.getUser();
+        PoseidonUserDetail user = details;
         if (!poseidonSign.getUserId().equals(user.getId())) {
             return ResultBean.getInstance("500", "请校验登录信息");
         }
@@ -68,11 +71,12 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
     @Transactional
     @Override
     public ResultBean update(PoseidonSign poseidonSign, String validata) {
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
         String key = TokenProperties.VERIFICATION + "-" + poseidonSign.getPrincipal();
         if (!validata.equals(redisService.get(key))) {
             return ResultBean.getInstance("500", "验证码错误");
         }
-        PoseidonUserDetail user = UserInfoManagerImpl.getUser();
+        PoseidonUserDetail user = details;
         if (!poseidonSign.getUserId().equals(user.getId())) {
             return ResultBean.getInstance("500", "请校验登录信息");
         }
@@ -93,7 +97,8 @@ public class PoseidonSignServiceImpl implements PoseidonSignService {
     @Transactional
     @Override
     public ResultBean delete(String id) {
-        PoseidonUserDetail user = UserInfoManagerImpl.getUser();
+        PoseidonUserDetail details = (PoseidonUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        PoseidonUserDetail user = details;
         Optional<PoseidonSign> byId =findOne(id);
         PoseidonSign poseidonSign = byId.get();
         if (byId.isPresent() && poseidonSign.getUserId().equals(user.getId())) {
