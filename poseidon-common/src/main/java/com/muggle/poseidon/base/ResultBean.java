@@ -42,6 +42,7 @@ public class ResultBean {
         resultBean.setData(data);
         return resultBean;
     }
+
     public static ResultBean getInstance(Object data){
         ResultBean resultBean=new ResultBean();
         resultBean.setCode("200").setMsg("操作成功");

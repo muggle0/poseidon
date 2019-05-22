@@ -1,4 +1,0 @@
-INSERT INTO `poseidon_user_detail` VALUES (850562938540761088, 'admin', 'muggle', '$2a$10$leb0s1LGWIw/85yXGwE.vufU2s/smXTrWQaYDKZqnIf298W5y.4eC', 1, 1, 1, 1, NULL, 'localhost:8080/resources/admin.jpg', NULL, 1, '1977339740@qq.com', NULL, NULL, NULL, NULL);
-INSERT INTO `poseidon_user_detail` VALUES (856411382128496640, 'username1', 'username1', '$2a$10$N1eEzd1E1OFHZkGzl4zSce/xVnnfn3POC.QO7imrngpI6stJXaiGu', 1, 1, 1, 1, NULL, NULL, NULL, 1, '', '2019-01-26 20:51:30', NULL, NULL, NULL);
-INSERT INTO `poseidon_user_detail` VALUES (856423140654755840, 'sks7', '最慢是我啊', '$2a$10$pasmCKd25zaWPbiGci0PReFzP3JjHitrk3zEHzTpaD2DomTC1MxQG', 1, 1, 1, 1, NULL, NULL, NULL, 0, '', '2019-01-26 21:38:14', NULL, NULL, '2000-08-18 00:00:00');
-INSERT INTO `poseidon_user_detail` VALUES (856592645620150272, 'duan', 'duan', '$2a$10$Pwdf8dQihL0aIGmRXVHbW.X7egVxGwTOhBpD./sZWOC372yqTwQAG', 1, 1, 1, 1, NULL, NULL, NULL, 1, '1@qq.com', '2019-01-27 08:51:47', NULL, NULL, '2019-01-02 00:00:00');

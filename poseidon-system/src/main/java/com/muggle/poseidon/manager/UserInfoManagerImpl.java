@@ -90,6 +90,7 @@ public class UserInfoManagerImpl implements UserInfoManager {
                 return build;
             }
         }
-        return null;
+        UserInfoDTO anmouse = UserInfoDTO.builder().id("-1").username("anmouse").build();
+        return anmouse;
     }
 }

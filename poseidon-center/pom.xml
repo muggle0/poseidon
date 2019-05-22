@@ -38,10 +38,10 @@
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-web-doc</artifactId>
         </dependency>
-       <!-- <dependency>
+        <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-request</artifactId>
-        </dependency>-->
+        </dependency>
         <!--<dependency>
             <groupId>com.muggle</groupId>
             <artifactId>poseidon-quartz</artifactId>

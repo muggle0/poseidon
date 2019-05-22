@@ -50,8 +50,4 @@ public class DataSourceConfig {
     public JdbcTemplate jdbcTemplate(@Qualifier("primaryDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-
-
-
-
 }

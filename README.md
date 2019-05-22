@@ -99,3 +99,8 @@ elk
 请求过滤模块：redis锁保证幂等性，拦截非法请求及黑名单用户。
 
 
+#### 项目运行方式
+ 1. 下载logstash，配置logback地址
+ 2. 运行center下的sql 配置mysql地址
+ 
+ 
