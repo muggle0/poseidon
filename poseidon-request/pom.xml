@@ -24,11 +24,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>5.3</version>
-        </dependency>
+
         <!-- Your project must also directly depend on either logback-classic or logback-access.  For example: -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -46,6 +42,12 @@
         <dependency>
             <groupId>com.muggle.poseidon</groupId>
             <artifactId>poseidon-system</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>5.3</version>
         </dependency>
     </dependencies>
 
