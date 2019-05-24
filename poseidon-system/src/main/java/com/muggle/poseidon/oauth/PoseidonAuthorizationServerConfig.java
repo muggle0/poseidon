@@ -1,5 +1,6 @@
 package com.muggle.poseidon.oauth;
 
+import com.muggle.poseidon.service.impl.PoseidonClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -51,12 +52,10 @@ public class PoseidonAuthorizationServerConfig extends AuthorizationServerConfig
 /*    @Autowired
     private RedisClientDetailsService redisClientDetailsService;*/
 
-//    @Autowired
-    private ClientDetailsService clientDetailsService;
-
     @Autowired
-    @Qualifier("primaryDataSource")
-    private DataSource dataSource;
+    private PoseidonClientDetailsService clientDetailsService;
+
+
 
 
     @Override

@@ -1,5 +1,7 @@
 package com.muggle.poseidon.entity;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
@@ -14,69 +16,38 @@ import java.util.Set;
  * @create: 2019-05-24
  **/
 
+@Data
+@Accessors(chain = true)
 public class PoseidonClientDetails implements ClientDetails {
-    @Override
-    public String getClientId() {
-        return null;
-    }
 
-    @Override
-    public Set<String> getResourceIds() {
-        return null;
-    }
+    private String clientId;
 
-    @Override
-    public boolean isSecretRequired() {
-        return false;
-    }
+    private Set<String> resourceIds;
 
-    @Override
-    public String getClientSecret() {
-        return null;
-    }
+    private boolean secretRequired;
 
-    @Override
-    public boolean isScoped() {
-        return false;
-    }
+    private String clientSecret;
 
-    @Override
-    public Set<String> getScope() {
-        return null;
-    }
+    protected boolean scoped;
 
-    @Override
-    public Set<String> getAuthorizedGrantTypes() {
-        return null;
-    }
+    private Set<String> scope;
 
-    @Override
-    public Set<String> getRegisteredRedirectUri() {
-        return null;
-    }
+    private Set<String> authorizedGrantTypes;
 
-    @Override
-    public Collection<GrantedAuthority> getAuthorities() {
-        return null;
-    }
+    private Set<String> registeredRedirectUri;
 
-    @Override
-    public Integer getAccessTokenValiditySeconds() {
-        return null;
-    }
+    private Collection<GrantedAuthority> authorities;
 
-    @Override
-    public Integer getRefreshTokenValiditySeconds() {
-        return null;
-    }
+    private Integer accessTokenValiditySeconds;
+
+    private Integer refreshTokenValiditySeconds;
+
+    private boolean autoApprove;
+
+    private  Map<String, Object> additionalInformation;
 
     @Override
     public boolean isAutoApprove(String s) {
         return false;
-    }
-
-    @Override
-    public Map<String, Object> getAdditionalInformation() {
-        return null;
     }
 }
