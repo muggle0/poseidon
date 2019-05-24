@@ -25,3 +25,4 @@
 /.nb-gradle/
 /poseidon-system/src/main/resources/static/resources/test.txt
 /poseidon-center/src/main/resources/application-local.properties
+/logs/

@@ -102,5 +102,4 @@ elk
 #### 项目运行方式
  1. 下载logstash，配置logback地址
  2. 运行center下的sql 配置mysql地址
- 
- 
+ 3.解压logstash并配置logstash.conf（在bin目录下创建） cmd输入./logstash -f logstash.conf

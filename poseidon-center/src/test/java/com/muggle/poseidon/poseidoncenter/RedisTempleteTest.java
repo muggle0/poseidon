@@ -37,7 +37,7 @@ public class RedisTempleteTest extends PoseidonCenterApplicationTests {
     public void sendSimpleMail() {
         EmailBean mailBean = new EmailBean();
         StringBuffer context = new StringBuffer();
-        context.append("<h3> 我觉得你是个铁憨憨，还处对象，回家种田吧兄弟</h3><br>");
+        context.append("<h3> 我觉得你是个铁憨憨，回家种田吧兄弟</h3><br>");
         context.append(mailBean.getSubject());
         mailBean.setRecipient("1977339740@qq.com");
         mailBean.setSubject(context.toString());

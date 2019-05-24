@@ -24,4 +24,6 @@ public class SecurityBootStrapConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }
