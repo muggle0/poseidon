@@ -43,8 +43,7 @@ public class PoseidonAuthorizationServerConfig extends AuthorizationServerConfig
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
+
 
     @Autowired
     private RedisAuthorizationCodeServices redisAuthorizationCodeServices;
@@ -54,21 +53,22 @@ public class PoseidonAuthorizationServerConfig extends AuthorizationServerConfig
 
     @Autowired
     private PoseidonClientDetailsService clientDetailsService;
-
+    @Autowired
+    TokenStore tokenStore;
 
 
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager);
-        endpoints.tokenStore(tokenStore());
+        endpoints.tokenStore(tokenStore);
 
 
         // 配置TokenServices参数
         DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(endpoints.getTokenStore());
+        tokenServices.setTokenStore(tokenStore);
         tokenServices.setSupportRefreshToken(false);
-        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+        tokenServices.setClientDetailsService(clientDetailsService);
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds( (int) TimeUnit.HOURS.toSeconds(2)); // 1天
         endpoints.tokenServices(tokenServices);
@@ -87,29 +87,10 @@ public class PoseidonAuthorizationServerConfig extends AuthorizationServerConfig
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//		clients.inMemory().withClient("system").secret(bCryptPasswordEncoder.encode("system"))
-//				.authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("app")
-//				.accessTokenValiditySeconds(3600);
-
-//		clients.jdbc(dataSource);
-        // 2018.06.06，这里优化一下，详细看下redisClientDetailsService这个实现类
-//        clients.withClientDetails(redisClientDetailsService);
-//        redisClientDetailsService.loadAllClientToCache();
         clients.withClientDetails(clientDetailsService);
     }
 
-    /**
-     * 令牌存储
-     */
-    @Bean
-    public TokenStore tokenStore() {
 
-        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
-        // 解决同一username每次登陆access_token都相同的问题
-        redisTokenStore.setAuthenticationKeyGenerator(new RandomAuthenticationKeyGenerator());
-
-        return redisTokenStore;
-    }
 
 /*
     @Bean // 声明 ClientDetails实现

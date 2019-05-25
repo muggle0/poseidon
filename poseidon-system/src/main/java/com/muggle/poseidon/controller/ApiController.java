@@ -5,6 +5,9 @@ import com.muggle.poseidon.entity.PoseidonUserDetail;
 import com.muggle.poseidon.entity.vo.VerifVO;
 import com.muggle.poseidon.service.OauthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +25,15 @@ public class ApiController {
 
     @GetMapping("/public/hello")
     public String get(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.getPrincipal();
         return "你好啊";
     }
 
+    @GetMapping("/public/whoami")
+    public String whoami( @AuthenticationPrincipal(expression ="name") String name) {
+        return name;
+    }
     //    初始化数据库 生成一个超级管理员超级
     @GetMapping("/public/wer34retrty-asdfwsdfsd.html")
     @ResponseBody

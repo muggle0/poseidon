@@ -15,6 +15,7 @@ import java.util.UUID;
 public class RandomAuthenticationKeyGenerator implements AuthenticationKeyGenerator {
     @Override
     public String extractKey(OAuth2Authentication oAuth2Authentication) {
+        oAuth2Authentication.
         return UUID.randomUUID().toString();
     }
 }

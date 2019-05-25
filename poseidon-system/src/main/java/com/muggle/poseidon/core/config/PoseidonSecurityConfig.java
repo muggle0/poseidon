@@ -69,7 +69,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/sign_up", "/public/**","/api/**","/sign_page").permitAll()
+        http.authorizeRequests().antMatchers("/sign_up", "/public/**","/api/**","/sign_page","/oauth/**").permitAll()
                 .antMatchers("/admin/oauth/**").hasRole("admin")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
                 .and().formLogin().usernameParameter(properties.getUsername()).passwordParameter(properties.getPassword())
