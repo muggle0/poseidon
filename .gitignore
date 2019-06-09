@@ -1,5 +1,4 @@
 /target/
-!.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -25,11 +24,17 @@
 /.nb-gradle/
 /poseidon-system/src/main/resources/static/resources/test.txt
 /poseidon-center/src/main/resources/application-local.properties
-/**/*.iml
-/**/targrt
-/**/test
-/**/mvnw
-/**/mvnw.cmd
-/**/*.mvn
-/**/*.log
-/**/out
+
+*/targrt/
+*/test/
+*/mvnw
+*/*.cmd
+*/*.mvn
+*/*.log
+*/out/
+/logs/
+
+*.log
+*/*.iml
+*/.settings/
+*/.idea/
