@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PoseidonCenterApplicationTests {
     @Autowired
     PoseidonUserdetailsServiceImpl poseidonUserdetailsService;

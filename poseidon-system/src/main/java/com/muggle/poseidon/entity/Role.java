@@ -13,6 +13,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ import java.util.Set;
 @Table(name = "role")
 @Entity
 @DynamicUpdate
-public class Role {
+public class Role implements Serializable {
     /***/
     @Id
     @Column(name = "id")

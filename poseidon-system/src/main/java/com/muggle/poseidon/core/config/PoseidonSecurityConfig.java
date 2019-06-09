@@ -6,6 +6,7 @@ import com.muggle.poseidon.core.handler.*;
 import com.muggle.poseidon.core.properties.SecurityProperties;
 import com.muggle.poseidon.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
@@ -68,7 +69,7 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/sign_up", "/public/**","/api/**","/sign_page").permitAll()
+        http.authorizeRequests().antMatchers("/sign_up", "/public/**","/api/**","/sign_page","/oauth/**").permitAll()
                 .antMatchers("/admin/oauth/**").hasRole("admin")
                 .anyRequest().authenticated().accessDecisionManager(accessDecisionManager())
                 .and().formLogin().usernameParameter(properties.getUsername()).passwordParameter(properties.getPassword())
@@ -79,6 +80,8 @@ public class PoseidonSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint()).accessDeniedHandler(new PoseidonAccessDeniedHandler());
     }
 
+
+    @Bean
     protected AuthenticationManager getAuthenticationManager()  {
         ProviderManager authenticationManager = new ProviderManager(Arrays.asList(poseidonAuthenticationProvider(),daoAuthenticationProvider()));
         return authenticationManager;
