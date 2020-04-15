@@ -5,18 +5,12 @@
 
     <groupId>com.muggle.poseidon</groupId>
     <artifactId>poseidon-parent</artifactId>
-    <version>0.1.0.BUILD</version>
+    <version>0.1.0.Alpha</version>
     <description>波塞冬</description>
     <packaging>pom</packaging>
 
     <modules>
-        <module>../poseidon-system</module>
-        <module>../poseidon-web</module>
-        <module>../poseidon-center</module>
-        <module>../poseidon-common</module>
-        <module>../poseidon-core</module>
-        <module>../poseidon-request</module>
-        <module>../poseidon-redis</module>
+
     </modules>
 
     <name>poseidon</name>
@@ -26,160 +20,12 @@
         <version>2.0.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <properties>
-        <java.version>1.8</java.version>
-        <fastjson.version>1.2.53</fastjson.version>
-        <druid.vrsion>1.1.12</druid.vrsion>
-        <poseidon.version>0.1.0.BUILD</poseidon.version>
-        <mysql.version>8.0.13</mysql.version>
-        <!--是否跳过测试用例-->
-        <skipTests>true</skipTests>
-        <!--logstash 指定logback版本-->
-        <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
-    </properties>
-    <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
 
 
-       <!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
-
-
-<!--###################################################################-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.vrsion}</version>
-        </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
-            <exclusions>
-                &lt;!&ndash;旧版本 redis操作有问题&ndash;&gt;
-                <exclusion>
-                    <artifactId>spring-security-oauth2</artifactId>
-                    <groupId>org.springframework.security.oauth</groupId>
-                </exclusion>
-            </exclusions>
-            <version>2.1.2.RELEASE</version>
-        </dependency>-->
-
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>2.3.3.RELEASE</version>
-        </dependency>
-    </dependencies>
 
 
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.muggle.poseidon</groupId>
-                <artifactId>poseidon-common</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.muggle.poseidon</groupId>
-                <artifactId>poseidon-core</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.muggle.poseidon</groupId>
-                <artifactId>poseidon-system</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.muggle.poseidon</groupId>
-                <artifactId>poseidon-web</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.muggle.poseidon</groupId>
-                <artifactId>poseidon-web-doc</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.muggle.poseidon</groupId>
-                <artifactId>poseidon-request</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.muggle</groupId>
-                <artifactId>poseidon-quartz</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
 
-            <dependency>
-                <groupId>com.muggle</groupId>
-                <artifactId>poseidon-redis</artifactId>
-                <version>${poseidon.version}</version>
-            </dependency>
-        </dependencies>
     </dependencyManagement>
     <build>
 
