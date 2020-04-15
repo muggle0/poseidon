@@ -13,3 +13,26 @@
 
 2020/04/15 从实用性角度出发对项目进行重构
 
+# 项目说明
+
+项目使用 [poseidon-boot-starter](https://github.com/muggle0/poseidon-boot-starter) 脚手架基于 `springboot 2.0.6.RELEASE` 进行开发 
+
+项目使用的框架：
+
+- quartz
+- flowable
+- spring-security
+- spring-stateMachine 
+- netty
+- reactor
+
+项目结合实用性与学习实践的角度进行开发功能
+
+# 快速开始
+
+[线上体验]()
+
+## 环境准备
+
+## 启动项目
+

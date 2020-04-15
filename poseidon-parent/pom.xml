@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.muggle.poseidon</groupId>
+    <groupId>com.muggle</groupId>
     <artifactId>poseidon-parent</artifactId>
     <version>0.1.0.Alpha</version>
     <description>波塞冬</description>
@@ -11,6 +11,7 @@
 
     <modules>
 
+        <module>../poseidon-core</module>
     </modules>
 
     <name>poseidon</name>
@@ -27,36 +28,6 @@
     <dependencyManagement>
 
     </dependencyManagement>
-    <build>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.html</include>
-                    <include>**/*.jsp</include>
-                    <include>**/*.txt</include>
-                    <include>**/*.jpg</include>
-                </includes>
-                <!--<filtering>false</filtering>-->
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <!--<filtering>false</filtering>-->
-            </resource>
-        </resources>
-        <!--<plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>-->
-    </build>
 
 </project>
