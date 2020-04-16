@@ -24,7 +24,7 @@
 - spring-security
 - spring-stateMachine 
 - netty
-- reactor
+- webflux
 
 项目结合实用性与学习实践的角度进行开发功能
 
