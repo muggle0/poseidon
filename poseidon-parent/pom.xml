@@ -24,7 +24,19 @@
         <version>2.0.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+    <properties>
+        <swagger.version>2.9.2</swagger.version>
+        <druild.version>1.1.9</druild.version>
+        <mybatis.version>1.3.2</mybatis.version>
+        <mybatisplus.version>3.2.0</mybatisplus.version>
+        <mysql.version>8.0.13</mysql.version>
+        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <pagehelp.version>5.1.7</pagehelp.version>
+        <fastjson.version>1.2.56</fastjson.version>
+        <mapstruct.versoin>1.3.1.Final</mapstruct.versoin>
+        <lombok.version>1.16.20</lombok.version>
+        <java.version>1.8</java.version>
+    </properties>
 
 
     <dependencies>
@@ -66,8 +78,9 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
 
+
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.muggle</groupId>
@@ -75,10 +88,49 @@
                 <version>${version}</version>
             </dependency>
             <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druild.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <scope>runtime</scope>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatisplus-spring-boot-starter</artifactId>
+                <version>${mybatisplus-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>5.1.7</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>0.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <scope>provided</scope>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatisplus.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.muggle</groupId>
                 <artifactId>poseidon-oa</artifactId>
                 <version>${version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
