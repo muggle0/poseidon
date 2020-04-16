@@ -4,18 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.muggle</groupId>
+    <artifactId>poseidon-oa</artifactId>
+    <version>${parent.version}</version>
+    <packaging>jar</packaging>
+
     <parent>
         <groupId>com.muggle</groupId>
         <artifactId>poseidon-parent</artifactId>
         <version>0.1.0.Alpha</version>
         <relativePath>../poseidon-parent/pom.xml</relativePath>
     </parent>
-    <groupId>com.muggle</groupId>
-    <artifactId>poseidon-common</artifactId>
-    <version>${parent.version}</version>
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.muggle</groupId>
+            <artifactId>poseidon-common</artifactId>
+        </dependency>
     </dependencies>
-
 </project>

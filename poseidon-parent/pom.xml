@@ -10,6 +10,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>../poseidon-common</module>
+
+        <module>../poseidon-oa</module>
 
         <module>../poseidon-core</module>
     </modules>
@@ -24,9 +27,59 @@
 
 
 
+    <dependencies>
+        <dependency>
+            <groupId>com.muggle</groupId>
+            <artifactId>poseidon-boot-starter</artifactId>
+            <version>0.0.1.Alpha</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-webmvc</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-security-web</artifactId>
+                    <groupId>org.springframework.security</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
 
+        <dependencies>
+            <dependency>
+                <groupId>com.muggle</groupId>
+                <artifactId>poseidon-common</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.muggle</groupId>
+                <artifactId>poseidon-oa</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
 
