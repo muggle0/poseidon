@@ -35,7 +35,7 @@
 /logs/
 
 *.log
-#*/*.iml
+*/*.iml
 */.settings/
 */.idea/
 */.mvn
