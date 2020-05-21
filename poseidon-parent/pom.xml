@@ -40,11 +40,6 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>com.muggle</groupId>
-            <artifactId>poseidon-boot-starter</artifactId>
-            <version>0.0.1-webflux.Alpha</version>
-        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
@@ -55,6 +50,12 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jsqlparser</artifactId>
+                    <groupId>com.github.jsqlparser</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -96,6 +97,13 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatisplus.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.muggle</groupId>
+            <artifactId>poseidon-boot-starter</artifactId>
+            <version>0.0.1-webflux.Alpha</version>
+
+        </dependency>
+
 
     </dependencies>
 
@@ -125,8 +133,6 @@
                 <artifactId>pagehelper</artifactId>
                 <version>5.1.7</version>
             </dependency>
-
-
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
