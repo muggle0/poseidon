@@ -17,8 +17,11 @@
     </parent>
 
     <dependencies>
-
-
+        <dependency>
+            <groupId>com.muggle</groupId>
+            <artifactId>poseidon-generator</artifactId>
+            <version>0.0.1.Alpha</version>
+        </dependency>
         <dependency>
             <groupId>com.muggle</groupId>
             <artifactId>poseidon-common</artifactId>
