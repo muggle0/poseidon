@@ -29,7 +29,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 //扫描包路径
-                .apis(RequestHandlerSelectors.basePackage("com.muggle.poseidon.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.muggle.poseidon.oa.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

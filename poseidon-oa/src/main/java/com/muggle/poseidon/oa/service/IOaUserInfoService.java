@@ -1,7 +1,7 @@
-package com.muggle.oa.service;
+package com.muggle.poseidon.oa.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.muggle.oa.entity.OaUserInfo;
+import com.muggle.poseidon.oa.entity.OaUserInfo;
 
 /**
  * <p>

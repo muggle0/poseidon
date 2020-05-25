@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 
 @Configuration
 //@SuppressWarnings("all")
-@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
+//@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
 public class MybatisPlusConfig {
 
     private static final Logger log = LoggerFactory.getLogger(MybatisPlusConfig.class);

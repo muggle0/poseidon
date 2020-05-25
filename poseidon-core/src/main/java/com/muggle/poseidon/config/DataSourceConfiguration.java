@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
+//@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
 @SuppressWarnings("all")
-@MapperScan(basePackages = "com.muggle.poseidon.mapper")
+@MapperScan(basePackages = "com.muggle.poseidon.oa.mapper")
 public class DataSourceConfiguration {
     @Value("${spring.datasource.driver-class-name}")
     private String jdbcDriver;
