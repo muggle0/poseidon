@@ -1,4 +1,4 @@
-package com.muggle.oa.security;
+package com.muggle.poseidon.oa.security;
 
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;

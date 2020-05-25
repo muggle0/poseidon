@@ -1,4 +1,4 @@
-package com.muggle.oa.entity;
+package com.muggle.poseidon.oa.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

@@ -1,6 +1,5 @@
 package com.muggle.poseidon;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

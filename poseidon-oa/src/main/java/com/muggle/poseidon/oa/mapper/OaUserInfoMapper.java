@@ -1,7 +1,7 @@
-package com.muggle.oa.mapper;
+package com.muggle.poseidon.oa.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.muggle.oa.entity.OaUserInfo;
+import com.muggle.poseidon.oa.entity.OaUserInfo;
 
 /**
  * <p>

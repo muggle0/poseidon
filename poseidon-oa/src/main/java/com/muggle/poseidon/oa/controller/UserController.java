@@ -1,9 +1,8 @@
-package com.muggle.oa.controller;
+package com.muggle.poseidon.oa.controller;
 
 import com.muggle.code.SimpleCodeTemplate;
 import com.muggle.code.TableMessage;
 import com.muggle.poseidon.base.ResultBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

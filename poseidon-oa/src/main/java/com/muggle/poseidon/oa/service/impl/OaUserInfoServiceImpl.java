@@ -1,9 +1,9 @@
-package com.muggle.oa.service.impl;
+package com.muggle.poseidon.oa.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.muggle.oa.entity.OaUserInfo;
-import com.muggle.oa.mapper.OaUserInfoMapper;
-import com.muggle.oa.service.IOaUserInfoService;
+import com.muggle.poseidon.oa.entity.OaUserInfo;
+import com.muggle.poseidon.oa.mapper.OaUserInfoMapper;
+import com.muggle.poseidon.oa.service.IOaUserInfoService;
 import org.springframework.stereotype.Service;
 
 /**
