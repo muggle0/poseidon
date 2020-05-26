@@ -26,7 +26,8 @@ public class UserController {
     }
 
 
-    public static void main(String[] args) {
+
+    /*public static void main(String[] args) {
         TableMessage tableMessage = new TableMessage();
         tableMessage.setUsername("root");
         tableMessage.setSwagger(true);
@@ -40,5 +41,5 @@ public class UserController {
         tableMessage.setSwagger(true);
         SimpleCodeTemplate simpleCodeTemplate = new SimpleCodeTemplate(tableMessage);
         simpleCodeTemplate.createCode();
-    }
+    }*/
 }
