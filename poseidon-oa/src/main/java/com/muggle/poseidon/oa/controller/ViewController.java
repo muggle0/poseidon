@@ -21,19 +21,18 @@ public class ViewController {
     private static final Logger log = LoggerFactory.getLogger(ViewController.class);
 
     @GetMapping("/")
-    public String index(HttpServletResponse response){
+    public String index() {
         try {
-            if (UserInfoUtils.getUserInfo()!=null){
-                response.sendRedirect("http://localhost:8080/views/index.html");
+            if (UserInfoUtils.getUserInfo() != null) {
+                return "redirect:/pear/index.html";
             }
         } catch (BasePoseidonCheckException e) {
-           log.error("获取用户信息异常",e);
-        } catch (IOException e) {
-            return "template/tips/error.html";
+            log.error("首页获取用户信息错误");
+            return "view/error/500.html";
         }
-        return "user/login.html";
+        return "redirect:/pear/login.html";
     }
 
 
-/**/
+    /**/
 }
