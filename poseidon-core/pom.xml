@@ -37,6 +37,8 @@
                     <include>**/application*.properties</include>
                     <include>**/*.xml</include>
                     <include>**/*.html</include>
+                    <include>**/*.js</include>
+                    <include>**/*.css</include>
                 </includes>
             </resource>
             <resource>
