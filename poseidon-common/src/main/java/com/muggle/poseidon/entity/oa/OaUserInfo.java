@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
@@ -40,13 +41,13 @@ public class OaUserInfo extends BaseBean  implements UserDetails {
     private String bank;
 
     @ApiModelProperty(value = "生日")
-    private LocalDateTime birth;
+    private Date birth;
 
     @ApiModelProperty(value = "邮箱")
     private String eamil;
 
     @ApiModelProperty(value = "入职时间")
-    private LocalDateTime hireTime;
+    private Date hireTime;
 
     @ApiModelProperty(value = "身份证号码")
     private String idCard;
@@ -55,15 +56,15 @@ public class OaUserInfo extends BaseBean  implements UserDetails {
     private String imgPath;
 
     @ApiModelProperty(value = "未锁定")
-    private Boolean accountNonLocked;
+    private boolean accountNonLocked;
 
     @ApiModelProperty(value = "上次登录ip")
     private String lastLoginIp;
 
     @ApiModelProperty(value = "上次登录时间")
-    private LocalDateTime lastLoginTime;
+    private Date lastLoginTime;
 
-    private LocalDateTime gmtModified;
+    private Date gmtModified;
 
     private Long modifyUserId;
 
@@ -116,11 +117,6 @@ public class OaUserInfo extends BaseBean  implements UserDetails {
     }
 
 
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
 
 
 }

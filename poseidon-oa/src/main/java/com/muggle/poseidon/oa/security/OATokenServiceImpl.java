@@ -1,13 +1,19 @@
 package com.muggle.poseidon.oa.security;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
 import com.muggle.poseidon.entity.oa.OaUserInfo;
+import com.muggle.poseidon.oa.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.service.TokenService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +33,11 @@ import java.util.List;
 
 @Service
 public class OATokenServiceImpl implements TokenService {
+    private static final Logger log = LoggerFactory.getLogger(OATokenServiceImpl.class);
+    @Autowired
+    OaUserInfoMapper userInfoMapper;
+
+    private BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
     @Override
     public UserDetails getUserById(Long aLong) {
         return null;
@@ -39,7 +50,7 @@ public class OATokenServiceImpl implements TokenService {
 
     @Override
     public void saveUrlInfo(List<AuthUrlPathDO> list) {
-
+        // do
     }
 
     @Override
@@ -51,20 +62,30 @@ public class OATokenServiceImpl implements TokenService {
         try {
             BufferedReader reader = httpServletRequest.getReader();
             OaUserInfo oaUserInfo = JSONObject.parseObject(reader.readLine(), OaUserInfo.class);
+            reader.close();
             if (StringUtils.isEmpty(oaUserInfo.getUsername())){
                 throw new SimplePoseidonCheckException("请输入用户名");
             }else  if (StringUtils.isEmpty(oaUserInfo.getPassword())){
                 throw new SimplePoseidonCheckException("请输入密码");
             }
-            reader.close();
+            OaUserInfo dbUserInfo = userInfoMapper.selectOne(new LambdaQueryWrapper<OaUserInfo>().eq(OaUserInfo::getUsername, oaUserInfo.getUsername()));
+            if (dbUserInfo==null){
+                throw new SimplePoseidonCheckException("用户不存在");
+            }
+            String password = dbUserInfo.getPassword();
+           if (!passwordEncoder.matches(oaUserInfo.getPassword(), password)){
+               throw new SimplePoseidonCheckException("密码错误");
+           }
+            return dbUserInfo;
         } catch (IOException e) {
+            log.error("用户登录获取request io 异常",e);
             throw new SimplePoseidonCheckException("登录异常");
         }
-        return null;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+
+        return  userInfoMapper.selectOne(new LambdaQueryWrapper<OaUserInfo>().eq(OaUserInfo::getUsername,username));
     }
 }
