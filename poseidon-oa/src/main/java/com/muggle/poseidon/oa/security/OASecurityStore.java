@@ -57,7 +57,6 @@ public class OASecurityStore implements SecurityStore {
         body.put("roles", Arrays.asList("admin", "guest"));
         String token = createToken(body, "test");
         return token;
-
     }
 
     @Override
