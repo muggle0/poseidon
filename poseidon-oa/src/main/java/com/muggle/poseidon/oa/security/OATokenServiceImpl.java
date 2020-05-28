@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -44,9 +45,17 @@ public class OATokenServiceImpl implements TokenService {
     @Override
     public UserDetails login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws SimplePoseidonCheckException {
         String method = httpServletRequest.getMethod();
+        if (!"POST".equals(method)){
+            throw new SimplePoseidonCheckException("错误的请求方式");
+        }
         try {
             BufferedReader reader = httpServletRequest.getReader();
             OaUserInfo oaUserInfo = JSONObject.parseObject(reader.readLine(), OaUserInfo.class);
+            if (StringUtils.isEmpty(oaUserInfo.getUsername())){
+                throw new SimplePoseidonCheckException("请输入用户名");
+            }else  if (StringUtils.isEmpty(oaUserInfo.getPassword())){
+                throw new SimplePoseidonCheckException("请输入密码");
+            }
             reader.close();
         } catch (IOException e) {
             throw new SimplePoseidonCheckException("登录异常");

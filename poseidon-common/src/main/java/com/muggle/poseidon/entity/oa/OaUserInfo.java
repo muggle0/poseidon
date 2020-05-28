@@ -3,6 +3,7 @@ package com.muggle.poseidon.entity.oa;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +11,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * <p>
@@ -23,7 +26,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value="OaUserInfo对象", description="")
-public class OaUserInfo extends BaseBean {
+public class OaUserInfo extends BaseBean  implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -98,13 +101,26 @@ public class OaUserInfo extends BaseBean {
     private String nickname;
 
     @ApiModelProperty(value = "未过期")
-    private Boolean accountNonExpired;
+    private boolean accountNonExpired;
 
     @ApiModelProperty(value = "凭证有效")
-    private Boolean credentialsNonExpired;
+    private boolean credentialsNonExpired;
 
     @ApiModelProperty(value = "可用")
-    private Boolean enabled;
+    private boolean enabled;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
 
 
 }
