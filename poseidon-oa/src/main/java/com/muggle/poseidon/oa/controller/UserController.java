@@ -1,14 +1,15 @@
 package com.muggle.poseidon.oa.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.muggle.code.SimpleCodeTemplate;
 import com.muggle.code.TableMessage;
+import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * @Description:
@@ -20,8 +21,10 @@ import java.util.Arrays;
 public class UserController {
 //    @Autowired
 
-    @GetMapping("/test")
-    public ResultBean<String> test(){
+    @PostMapping("/test")
+//    @InterfaceAction
+    public ResultBean<String> test(@RequestBody Map<String,String> map){
+        String test= JSON.toJSONString(map);
         return ResultBean.successData("hello world");
     }
 

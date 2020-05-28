@@ -21,7 +21,7 @@ public class ViewController {
     private static final Logger log = LoggerFactory.getLogger(ViewController.class);
 
     @GetMapping("/")
-    public String index() {
+    public String login() {
         try {
             if (UserInfoUtils.getUserInfo() != null) {
                 return "redirect:/pear/index.html";
@@ -31,6 +31,19 @@ public class ViewController {
             return "view/error/500.html";
         }
         return "redirect:/pear/login.html";
+    }
+
+    @GetMapping("/pear/index.html")
+    public String index(){
+        try {
+            if (UserInfoUtils.getUserInfo()==null){
+                return  "redirect:/pear/login.html";
+            }
+        } catch (BasePoseidonCheckException e) {
+            log.error("首页获取用户信息错误");
+            return "view/error/500.html";
+        }
+        return "redirect:/pear/index.html";
     }
 
 
