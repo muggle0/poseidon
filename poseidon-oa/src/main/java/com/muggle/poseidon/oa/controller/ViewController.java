@@ -32,5 +32,9 @@ public class ViewController {
         return "login.html";
     }
 
+    @GetMapping("/error_message")
+    public String error(){
+        return "view/error/500.html";
+    }
 
 }

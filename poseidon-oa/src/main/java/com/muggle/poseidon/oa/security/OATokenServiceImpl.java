@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
+import com.muggle.poseidon.entity.oa.OaUrlInfo;
 import com.muggle.poseidon.entity.oa.OaUserInfo;
 import com.muggle.poseidon.oa.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.service.TokenService;
@@ -53,45 +54,15 @@ public class OATokenServiceImpl implements TokenService {
 
     @Override
     public void saveUrlInfo(List<AuthUrlPathDO> list) {
-      /*  for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             AuthUrlPathDO bean = list.get(i);
             if (bean.getMethodURL().contains("/error") || bean.getMethodURL().contains("/swagger")) {
                 continue;
             }
-            String className = bean.getClassName();
-            UserAuthority userAuthority = authMap.get(className);
-            UserAuthority child = new UserAuthority();
-            BeanUtils.copyProperties(bean, child);
-            child.setId(idGenerator.nextId());
-            child.setUrl(bean.getMethodURL() + "/**");
-            child.setDescription(bean.getMethodDesc());
-            child.setGmtCreate(new Date());
-            child.setEnable(true);
-            if (userAuthority == null) {
-                UserAuthority parentAuth = new UserAuthority();
-                BeanUtils.copyProperties(bean, parentAuth);
-                parentAuth.setUrl(bean.getClassUrl() + "/**");
-                parentAuth.setDescription(bean.getClassDesc());
-                parentAuth.setGmtCreate(new Date());
-                parentAuth.setEnable(true);
-                parentAuth.setMethodName(null);
-                parentAuth.setRequestType(null);
-                long parentId = idGenerator.nextId();
-                parentAuth.setId(parentId);
-                authMap.put(parentAuth.getClassName(), parentAuth);
-                child.setParentId(parentId);
-            } else {
-                child.setParentId(userAuthority.getId());
-            }
-            userAuthorities.add(child);
+
+            OaUrlInfo OaUrlInfo = new OaUrlInfo();
         }
-        userAuthorities.addAll(authMap.values());
-        UserAuthority userAuthority = new UserAuthority();
-        userAuthority.setDescription("管理员权限").setEnable(true);
-        userAuthority.setGmtCreate(new Date())
-                .setUrl("/**").setApplication(appName).setId(idGenerator.nextId());
-        userAuthorities.add(userAuthority);
-        // do*/
+        // do
     }
 
     @Override

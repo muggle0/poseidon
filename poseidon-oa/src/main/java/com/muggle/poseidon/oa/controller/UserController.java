@@ -30,11 +30,11 @@ public class UserController {
 
 
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         TableMessage tableMessage = new TableMessage();
         tableMessage.setUsername("root");
         tableMessage.setSwagger(true);
-        tableMessage.setTableName(Arrays.asList("oa_user_info"));
+        tableMessage.setTableName(Arrays.asList("oa_url_info"));
         tableMessage.setAuthor("muggle");
         tableMessage.setBasePack("com.muggle.poseidon");
         tableMessage.setDriver("com.mysql.jdbc.Driver");
@@ -44,5 +44,5 @@ public class UserController {
         tableMessage.setSwagger(true);
         SimpleCodeTemplate simpleCodeTemplate = new SimpleCodeTemplate(tableMessage);
         simpleCodeTemplate.createCode();
-    }*/
+    }
 }

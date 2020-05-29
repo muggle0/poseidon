@@ -51,10 +51,9 @@ public class OASecurityStore implements SecurityStore {
         Assert.isTrue(userDetails.isAccountNonExpired(),"账号已过期");
         Assert.isTrue(userDetails.isAccountNonLocked(),"账号被锁定");
         Map<String, Object> body = new HashMap<>();
-
         // fixme
         body.put("username", userDetails.getUsername());
-        body.put("version", UUID.randomUUID().toString());
+        body.put("version",System.currentTimeMillis());
         body.put("roles", Arrays.asList("admin", "guest"));
         String token = createToken(body, credential);
         return token;
