@@ -2,12 +2,17 @@ package com.muggle.poseidon.oa.security;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
 import com.muggle.poseidon.entity.oa.OaUrlInfo;
 import com.muggle.poseidon.entity.oa.OaUserInfo;
+import com.muggle.poseidon.oa.mapper.OaUrlInfoMapper;
 import com.muggle.poseidon.oa.mapper.OaUserInfoMapper;
+import com.muggle.poseidon.oa.service.impl.OaUrlInfoServiceImpl;
 import com.muggle.poseidon.service.TokenService;
+import com.muggle.poseidon.service.oa.IOaUrlInfoService;
+import com.muggle.poseidon.util.PoseidonIdGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -24,9 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description:
@@ -39,6 +43,13 @@ public class OATokenServiceImpl implements TokenService {
     private static final Logger log = LoggerFactory.getLogger(OATokenServiceImpl.class);
     @Autowired
     OaUserInfoMapper userInfoMapper;
+    @Autowired
+    OaUrlInfoMapper urlInfoMapper;
+    @Autowired
+    IOaUrlInfoService oaUrlInfoService;
+
+    @Autowired
+    PoseidonIdGenerator idGenerator;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -54,15 +65,57 @@ public class OATokenServiceImpl implements TokenService {
 
     @Override
     public void saveUrlInfo(List<AuthUrlPathDO> list) {
-        for (int i = 0; i < list.size(); i++) {
-            AuthUrlPathDO bean = list.get(i);
-            if (bean.getMethodURL().contains("/error") || bean.getMethodURL().contains("/swagger")) {
+        Set<String> urlSet = new HashSet<>();
+        Iterator<AuthUrlPathDO> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            AuthUrlPathDO next = iterator.next();
+            if (next.getMethodURL().contains("error") || next.getMethodURL().contains("swagger") || next.getClassUrl() == null) {
+                iterator.remove();
                 continue;
             }
-
-            OaUrlInfo OaUrlInfo = new OaUrlInfo();
+            String url = next.getMethodURL();
+            urlSet.add(next.getClassUrl());
+            urlSet.add(url);
         }
-        // do
+        QueryWrapper<OaUrlInfo> urlInfoQuery = new QueryWrapper<>();
+        urlInfoQuery.in("url", urlSet);
+        List<OaUrlInfo> oaUrlInfos = urlInfoMapper.selectList(urlInfoQuery);
+        Map<String, OaUrlInfo> urlMap = oaUrlInfos.stream().collect(Collectors.toMap(OaUrlInfo::getUrl, bean -> bean));
+        List<OaUrlInfo> oaUrlInfoList = new ArrayList<>();
+        for (AuthUrlPathDO authUrlPathDO : list) {
+            String url = authUrlPathDO.getMethodURL();
+            OaUrlInfo dbOaUrlInfo = urlMap.get(url);
+            if (dbOaUrlInfo != null) {
+                continue;
+            }
+            OaUrlInfo parent = urlMap.get(authUrlPathDO.getClassUrl());
+            if (parent == null) {
+                OaUrlInfo parentOaurl = new OaUrlInfo();
+                parentOaurl.setUrl(authUrlPathDO.getClassUrl());
+                parentOaurl.setDescription(authUrlPathDO.getClassDesc());
+                parentOaurl.setGmtCreate(new Date());
+                parentOaurl.setEnable(true);
+                parentOaurl.setRequestType(authUrlPathDO.getRequestType());
+                parentOaurl.setClassName(authUrlPathDO.getClassName());
+                parentOaurl.setId(idGenerator.simpleNextId());
+                oaUrlInfoList.add(parentOaurl);
+                urlMap.put(authUrlPathDO.getClassUrl(), parentOaurl);
+                parent = parentOaurl;
+            }
+            OaUrlInfo oaUrlInfo = new OaUrlInfo();
+            oaUrlInfo.setUrl(url);
+            oaUrlInfo.setDescription(authUrlPathDO.getMethodDesc());
+            oaUrlInfo.setGmtCreate(new Date());
+            oaUrlInfo.setEnable(true);
+            oaUrlInfo.setRequestType(authUrlPathDO.getRequestType());
+            oaUrlInfo.setClassName(authUrlPathDO.getClassName());
+            oaUrlInfo.setMethodName(authUrlPathDO.getMethodName());
+            oaUrlInfo.setId(idGenerator.nextId());
+            oaUrlInfo.setParentId(parent.getId());
+            oaUrlInfo.setParentUrl(parent.getUrl());
+            oaUrlInfoList.add(oaUrlInfo);
+        }
+        oaUrlInfoService.saveBatch(oaUrlInfoList);
     }
 
     @Override
@@ -97,7 +150,6 @@ public class OATokenServiceImpl implements TokenService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         return userInfoMapper.selectOne(new LambdaQueryWrapper<OaUserInfo>().eq(OaUserInfo::getUsername, username));
     }
 }

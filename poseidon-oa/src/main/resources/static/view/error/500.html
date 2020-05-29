@@ -82,5 +82,14 @@
 				<button class="pear-btn pear-btn-primary">返回首页</button>
 			</div>
 		</div>
+		<script src="component/layui/layui.js"></script>
+		<script>
+			layui.use(['jquery'],function () {
+				var $ = layui.jquery;
+				$("body").on("click", ".pear-btn", function () {
+					window.location.href = "index.html"
+				});
+			})
+		</script>
 	</body>
 </html>

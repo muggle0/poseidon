@@ -1,6 +1,7 @@
 package com.muggle.poseidon.entity.oa;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
@@ -31,7 +32,7 @@ public class OaUrlInfo extends BaseBean {
     private String description;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDate gmtCreate;
+    private Date gmtCreate;
 
     @ApiModelProperty(value = "是否有效")
     private Boolean enable;
@@ -47,6 +48,10 @@ public class OaUrlInfo extends BaseBean {
 
     @ApiModelProperty(value = "父行id")
     private Long parentId;
+
+    private Long id;
+
+    private String parentUrl;
 
 
 }

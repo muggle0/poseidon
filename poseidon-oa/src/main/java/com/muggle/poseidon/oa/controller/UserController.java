@@ -34,7 +34,7 @@ public class UserController {
         TableMessage tableMessage = new TableMessage();
         tableMessage.setUsername("root");
         tableMessage.setSwagger(true);
-        tableMessage.setTableName(Arrays.asList("oa_url_info"));
+        tableMessage.setTableName(Arrays.asList("oa_role"));
         tableMessage.setAuthor("muggle");
         tableMessage.setBasePack("com.muggle.poseidon");
         tableMessage.setDriver("com.mysql.jdbc.Driver");
