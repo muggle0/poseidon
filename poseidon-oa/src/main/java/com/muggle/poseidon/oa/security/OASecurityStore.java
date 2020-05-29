@@ -37,25 +37,26 @@ public class OASecurityStore implements SecurityStore {
     @Value("${oa.key}")
     private String credential;
 
-
     @Override
     public UserDetails getUserdetail(String token) throws BasePoseidonCheckException {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         String requestURI = attributes.getRequest().getRequestURI();
-        boolean match = pathMatcher.match("/pear/**", requestURI);
-        if (match) {
-            return null;
-        }
-        token
+        UserDetails userDetails = OaUserInfoTool.covertToken(token, credential);
+        return userDetails;
     }
 
     @Override
     public String signUserMessage(UserDetails userDetails) {
+        Assert.isTrue(userDetails.isEnabled(),"账号已注销");
+        Assert.isTrue(userDetails.isAccountNonExpired(),"账号已过期");
+        Assert.isTrue(userDetails.isAccountNonLocked(),"账号被锁定");
         Map<String, Object> body = new HashMap<>();
+
+        // fixme
         body.put("username", userDetails.getUsername());
         body.put("version", UUID.randomUUID().toString());
         body.put("roles", Arrays.asList("admin", "guest"));
-        String token = createToken(body, "test");
+        String token = createToken(body, credential);
         return token;
     }
 

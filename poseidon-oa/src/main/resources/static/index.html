@@ -62,13 +62,25 @@
 		</div>
 
 		<script src="component/layui/layui.js"></script>
+        <script src="component/cookie.js"></script>
 		<script>
-			layui.use(['pearAdmin', 'jquery', 'pearTab', 'pearNotice'], function() {
+
+
+            layui.use(['pearAdmin', 'jquery', 'pearTab', 'pearNotice'], function() {
 				var pearAdmin = layui.pearAdmin;
 				var $ = layui.jquery;
 				var pearTab = layui.pearTab;
 				var pearNotice = layui.pearNotice;
-
+                cookie=layui.cookie;
+                function f() {
+                    var token= $.cookie('token');
+                    console.log(token);
+                    if (!token) {
+                        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+                        location.href="login.html";
+                    }
+                }
+                f();
 				var config = {
 					keepLoad: 1200, // 主 页 加 载 过 度 时 长 可为 false
 					muiltTab: true, // 是 否 开 启 多 标 签 页 true 开启 false 关闭
@@ -80,7 +92,6 @@
 						/** 框架初始化 */
 					}
 				};
-				
 				pearAdmin.render(config);
 				
 				/**
