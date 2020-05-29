@@ -13,6 +13,7 @@ import com.muggle.poseidon.oa.service.impl.OaUrlInfoServiceImpl;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.service.oa.IOaUrlInfoService;
 import com.muggle.poseidon.util.PoseidonIdGenerator;
+import com.muggle.poseidon.util.RequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -121,6 +122,7 @@ public class OATokenServiceImpl implements TokenService {
     @Override
     public UserDetails login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws SimplePoseidonCheckException {
         String method = httpServletRequest.getMethod();
+
         if (!"POST".equals(method)) {
             throw new SimplePoseidonCheckException("错误的请求方式");
         }
@@ -141,6 +143,11 @@ public class OATokenServiceImpl implements TokenService {
             if (!passwordEncoder.matches(oaUserInfo.getPassword(), password)) {
                 throw new SimplePoseidonCheckException("密码错误");
             }
+            dbUserInfo.setLastLoginIp(RequestUtils.getIP(httpServletRequest));
+            Date date = new Date();
+            dbUserInfo.setLastLoginTime(date);
+            dbUserInfo.setGmtModified(date);
+            userInfoMapper.updateById(dbUserInfo);
             return dbUserInfo;
         } catch (IOException e) {
             log.error("用户登录获取request io 异常", e);

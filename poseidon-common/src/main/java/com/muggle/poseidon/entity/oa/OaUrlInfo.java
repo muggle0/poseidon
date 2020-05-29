@@ -3,6 +3,8 @@ package com.muggle.poseidon.entity.oa;
 import java.time.LocalDate;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -49,6 +51,7 @@ public class OaUrlInfo extends BaseBean {
     @ApiModelProperty(value = "父行id")
     private Long parentId;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private String parentUrl;

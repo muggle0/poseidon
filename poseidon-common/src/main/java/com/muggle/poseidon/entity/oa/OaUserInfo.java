@@ -1,10 +1,12 @@
 package com.muggle.poseidon.entity.oa;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
@@ -31,7 +33,7 @@ public class OaUserInfo extends BaseBean  implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "user_id", type = IdType.AUTO)
+    @TableId(value = "user_id")
     private Long userId;
 
     @ApiModelProperty(value = "地址")
@@ -110,12 +112,8 @@ public class OaUserInfo extends BaseBean  implements UserDetails {
     @ApiModelProperty(value = "可用")
     private boolean enabled;
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
+    @TableField(exist = false)
+    private List<OaRole> authorities;
 
 
 
