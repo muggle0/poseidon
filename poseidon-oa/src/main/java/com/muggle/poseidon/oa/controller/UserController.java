@@ -19,14 +19,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 public class UserController {
-//    @Autowired
+    @Autowired
 
-    @PostMapping("/test")
-//    @InterfaceAction
-    public ResultBean<String> test(@RequestBody Map<String,String> map){
-        String test= JSON.toJSONString(map);
-        return ResultBean.successData("hello world");
-    }
+   @PostMapping("/regester")
+   public ResultBean<String> regester(){
+
+   }
 
 
 

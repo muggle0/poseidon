@@ -48,6 +48,15 @@
 				"spread": true
 			},
 			{
+				"id": 111,
+				"title": "用户日志",
+				"icon": "layui-icon layui-icon-username",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "view/system/user.html",
+				"spread": true
+			},
+			{
 				"id": 42,
 				"title": "角色管理",
 				"icon": "layui-icon layui-icon-user",
@@ -263,6 +272,4 @@
 
 		]
 	}
-
-
 ]
