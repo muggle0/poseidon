@@ -14,6 +14,9 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class OaUserVO {
+    @NotNull(message="请选择性别")
+    private Integer gender;
+
     @NotNull(message="请输入用户名")
     @Pattern(regexp = "^[A-Za-z_@.]{6,10}$",message = "用户名必须是6-10位之间的字母、下划线、@、.，并且不能以数字开头")
     private String username;
@@ -24,9 +27,6 @@ public class OaUserVO {
 
     @Email(message="邮箱格式错误")
     private String email;
-
-    @NotNull(message="请选择性别")
-    private int gender;
 
     private String imgUrl;
 }

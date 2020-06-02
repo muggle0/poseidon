@@ -5,6 +5,7 @@ import com.muggle.code.SimpleCodeTemplate;
 import com.muggle.code.TableMessage;
 import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.entity.oa.OaUrlInfo;
 import com.muggle.poseidon.entity.oa.OaUserInfo;
 import com.muggle.poseidon.entity.oa.vo.OaUserVO;
 import com.muggle.poseidon.service.oa.IOaUserInfoService;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -29,10 +31,15 @@ public class UserController {
 
 
     @PostMapping("/regester.json")
-
     public ResultBean<OaUserInfo> regester(@RequestBody @Valid OaUserVO userVO){
         OaUserInfo oaUserInfo=userInfoService.regester(userVO);
         return ResultBean.successData(oaUserInfo);
+    }
+
+    @GetMapping("/info.json")// fixme 加入权限控制 登录用户
+    public ResultBean<OaUserInfo> getUserInfo(@NotNull(message = "请输入用户名") String username){
+        OaUserInfo userInfo = userInfoService.getUserInfo(username);
+        return ResultBean.successData(userInfo);
     }
 
 
