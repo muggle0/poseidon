@@ -5,9 +5,14 @@ import com.muggle.code.SimpleCodeTemplate;
 import com.muggle.code.TableMessage;
 import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.entity.oa.OaUserInfo;
+import com.muggle.poseidon.entity.oa.vo.OaUserVO;
+import com.muggle.poseidon.service.oa.IOaUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -17,14 +22,18 @@ import java.util.Map;
  * @Date: 2020/5/21
  **/
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
+    IOaUserInfoService userInfoService;
 
-   @PostMapping("/regester")
-   public ResultBean<String> regester(){
 
-   }
+    @PostMapping("/regester.json")
+
+    public ResultBean<OaUserInfo> regester(@RequestBody @Valid OaUserVO userVO){
+        OaUserInfo oaUserInfo=userInfoService.regester(userVO);
+        return ResultBean.successData(oaUserInfo);
+    }
 
 
 

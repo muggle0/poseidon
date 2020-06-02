@@ -2,6 +2,7 @@ package com.muggle.poseidon.service.oa;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.muggle.poseidon.entity.oa.OaUserInfo;
+import com.muggle.poseidon.entity.oa.vo.OaUserVO;
 
 /**
  * <p>
@@ -13,4 +14,7 @@ import com.muggle.poseidon.entity.oa.OaUserInfo;
  */
 public interface IOaUserInfoService extends IService<OaUserInfo> {
 
+    OaUserInfo regester(OaUserVO userVO);
+
+    OaUserInfo getUserInfo(String username);
 }
