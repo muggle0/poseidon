@@ -5,9 +5,18 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-GET http://localhost:8080/user/info.json
+GET http://localhost:8080/user/info?username=muggle
 Content-Type:application/json
 Cookie:token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
+
+
+
+###
+POST http://localhost:8080/user/regester.json
+Content-Type:application/json
+
+{"username":"muggle","password": "xxxxxx","gender": 1}
+
 ###
 
 

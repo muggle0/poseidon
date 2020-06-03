@@ -61,7 +61,7 @@ public class OATokenServiceImpl implements TokenService {
 
     @Override
     public boolean rooleMatch(Collection<? extends GrantedAuthority> collection, String s) {
-        return false;
+        return true;
     }
 
     @Override
