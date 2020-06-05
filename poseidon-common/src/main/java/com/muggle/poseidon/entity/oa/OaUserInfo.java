@@ -28,7 +28,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value="OaUserInfo对象", description="")
+@ApiModel(value="OaUserInfo对象", description="用户信息")
 public class OaUserInfo extends BaseBean  implements UserDetails {
 
     private static final long serialVersionUID = 1L;

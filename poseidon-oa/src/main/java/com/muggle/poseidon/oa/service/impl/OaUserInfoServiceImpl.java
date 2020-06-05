@@ -58,7 +58,7 @@ public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserI
         OaUserInfo oaUserInfo =UserHelper.newUserInfo(userVO);
         oaUserInfo.setUserId(idGenerator.simpleNextId());
         baseMapper.insert(oaUserInfo);
-        OaRole guest = oaRoleMapper.selectOne(new LambdaQueryWrapper<OaRole>().eq(OaRole::getRoleCode, "GUEST"));
+        OaRole guest = oaRoleMapper.selectOne(new LambdaQueryWrapper<OaRole>().eq(OaRole::getRoleCode, "GUEST").eq(OaRole::getEnabled,1));
         UserRoleRelationDO relationDO = new UserRoleRelationDO();
         relationDO.setRoleId(guest.getRoleId()).setRoleCode(guest.getRoleCode());
         relationDO.setUserId(oaUserInfo.getUserId()).setUserName(oaUserInfo.getUsername());

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -31,10 +32,13 @@ public class OaRole extends BaseBean implements GrantedAuthority {
     @TableId(value = "role_id", type = IdType.AUTO)
     private Long roleId;
 
+    @ApiModelProperty(value = "权限名称")
     private String roleName;
 
+    @ApiModelProperty(value = "权限编号")
     private String roleCode;
 
+    @ApiModelProperty(value = "是否有效")
     private Boolean enabled;
 
     private Date gmtModified;
@@ -45,6 +49,7 @@ public class OaRole extends BaseBean implements GrantedAuthority {
 
     private Long gmtModifier;
 
+    @ApiModelProperty(value = "父行id")
     private Long parentId;
 
 

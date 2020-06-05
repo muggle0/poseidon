@@ -45,9 +45,9 @@ public class UserController {
 
 
     @PostMapping("/regester.json")
-    @ApiOperation(value = "注册用户")
+    @ApiOperation(value = "注册用户",response = OaUserInfo.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "gender", value = "性别", required = false ,dataType = "Integer"),
+            @ApiImplicitParam(name = "gender", value = "性别", required = false ,dataType = "int"),
             @ApiImplicitParam(name = "username", value = "用户名", required = true ,dataType = "string"),
             @ApiImplicitParam(name = "password", value = "密码", required = true ,dataType = "string"),
             @ApiImplicitParam(name = "email", value = "邮箱", required = false ,dataType = "string"),
