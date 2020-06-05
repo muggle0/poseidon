@@ -5,7 +5,7 @@ import com.muggle.poseidon.entity.oa.OaRole;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author muggle
@@ -13,6 +13,6 @@ import com.muggle.poseidon.entity.oa.OaRole;
  */
 public interface IOaRoleService extends IService<OaRole> {
 
-    public OaRole saveU
+    OaRole saveOaRole(OaRole oaRole);
 
 }

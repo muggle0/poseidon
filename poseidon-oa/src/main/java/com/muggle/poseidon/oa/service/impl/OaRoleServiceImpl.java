@@ -18,5 +18,9 @@ import org.springframework.stereotype.Service;
 public class OaRoleServiceImpl extends ServiceImpl<OaRoleMapper, OaRole> implements IOaRoleService {
 
 
+    @Override
+    public OaRole saveOaRole(OaRole oaRole) {
 
+        return null;
+    }
 }
