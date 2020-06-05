@@ -39,7 +39,8 @@ public  abstract class BaseNormalQuery {
     }
 
     public enum  Operator{
-
+        equals,moreThan,lessThan,leftLike,allLike
     }
+
 
 }
