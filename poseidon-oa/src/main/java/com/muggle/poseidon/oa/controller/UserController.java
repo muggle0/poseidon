@@ -12,6 +12,7 @@ import com.muggle.poseidon.util.UserInfoUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/user")
 //@Validated
+@Slf4j
 public class UserController {
 
    /* @Autowired
