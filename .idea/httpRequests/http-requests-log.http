@@ -2,6 +2,55 @@ GET http://localhost:8080/user/info?username=muggle
 Content-Type: application/json
 Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
 
+<> 2020-06-05T110749.200.json
+
+###
+
+GET http://localhost:8080/user/info?username=muggle
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
+
+<> 2020-06-05T110526.200.json
+
+###
+
+GET http://localhost:8080/user/info?username=muggle
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
+
+<> 2020-06-05T110507.200.json
+
+###
+
+POST http://localhost:8080/user/regester.json
+Content-Type: application/json
+
+{"username":"muggle","password": "xxxxxx","gender": 1}
+
+<> 2020-06-05T110158.200.json
+
+###
+
+POST http://localhost:8080/user/regester.json
+Content-Type: application/json
+
+{"username":"muggle","password": "xxxxxx","gender": 1}
+
+<> 2020-06-05T110118.200.json
+
+###
+
+POST http://localhost:8080/user/regester.json
+Content-Type: application/json
+
+{"username":"muggle","password": "xxxxxx","gender": 1}
+
+###
+
+GET http://localhost:8080/user/info?username=muggle
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
+
 <> 2020-06-02T052652.200.json
 
 ###
@@ -355,60 +404,6 @@ Content-Type: application/json
 {"username":"muggle","password":"xxxxxxxxxx"}
 
 <> 2020-06-02T034325.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"xxxxxxxxxx"}
-
-<> 2020-06-02T033915.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"123456"}
-
-<> 2020-06-02T033814.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"123456"}
-
-<> 2020-06-02T033514.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"123456"}
-
-<> 2020-06-02T033033.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"123456"}
-
-<> 2020-06-02T032826.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"123456"}
-
-<> 2020-06-02T025505.200.json
 
 ###
 

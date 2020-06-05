@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/poseidon/oa-url-info")
 public class OaUrlInfoController  {
 
-    @GetMapping("/")
-    public void test(){
 
-    }
 
 }

@@ -12,6 +12,10 @@ import com.muggle.poseidon.entity.oa.OaUserInfo;
 import com.muggle.poseidon.entity.oa.vo.OaUserVO;
 import com.muggle.poseidon.service.oa.IOaUserInfoService;
 import com.muggle.poseidon.util.UserInfoUtils;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.Validator;
@@ -41,19 +45,32 @@ public class UserController {
 
 
     @PostMapping("/regester.json")
+    @ApiOperation(value = "注册用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "gender", value = "性别", required = false ,dataType = "Integer"),
+            @ApiImplicitParam(name = "username", value = "用户名", required = true ,dataType = "string"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true ,dataType = "string"),
+            @ApiImplicitParam(name = "email", value = "邮箱", required = false ,dataType = "string"),
+            @ApiImplicitParam(name = "imgUrl", value = "头像", required = false ,dataType = "string"),
+    })
     public ResultBean<OaUserInfo> regester(@RequestBody @Valid OaUserVO userVO){
         OaUserInfo oaUserInfo=userInfoService.regester(userVO);
         return ResultBean.successData(oaUserInfo);
     }
 
     @GetMapping("/info")
+    @ApiOperation(value = "查询用户信息（受权限控制）")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true ,dataType = "string"),
+    })
     public ResultBean<OaUserInfo> getUserInfo( String username){
         OaUserInfo userInfo = userInfoService.getUserInfo(username);
         return ResultBean.successData(userInfo);
     }
 
 
-    @GetMapping("my_info")
+    @GetMapping("/my_info.json")
+    @ApiOperation(value = "查询当前用户信息（受权限控制）")
     public ResultBean<OaUserInfo> getMyUserInfo() throws BasePoseidonCheckException {
         UserDetails userDetails = UserInfoUtils.getUserInfo();
         if (userDetails==null){
