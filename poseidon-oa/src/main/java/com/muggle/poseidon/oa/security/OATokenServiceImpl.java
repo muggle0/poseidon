@@ -52,7 +52,6 @@ public class OATokenServiceImpl implements TokenService {
     @Autowired
     PoseidonIdGenerator idGenerator;
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public UserDetails getUserById(Long aLong) {
@@ -74,6 +73,7 @@ public class OATokenServiceImpl implements TokenService {
                 iterator.remove();
                 continue;
             }
+
             String url = next.getMethodURL();
             urlSet.add(next.getClassUrl());
             urlSet.add(url);
@@ -140,7 +140,7 @@ public class OATokenServiceImpl implements TokenService {
                 throw new SimplePoseidonCheckException("用户不存在");
             }
             String password = dbUserInfo.getPassword();
-            if (!passwordEncoder.matches(oaUserInfo.getPassword(), password)) {
+            if (!OaUserInfoTool.matches(oaUserInfo.getPassword(), password)) {
                 throw new SimplePoseidonCheckException("密码错误");
             }
             dbUserInfo.setLastLoginIp(RequestUtils.getIP(httpServletRequest));

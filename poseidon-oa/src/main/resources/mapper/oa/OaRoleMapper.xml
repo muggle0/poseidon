@@ -16,4 +16,9 @@
     <select id="selectByUsername" resultMap="baseResult">
          SELECT t.* from oa_role  t LEFT JOIN oa_user_role_relation r on t.role_id=r.role_id WHERE r.username=#{username} and t.enabled=1
     </select>
+    <insert id="insertRelation">
+       insert into oa_user_role_relation (user_id, role_id, relation_code, username) VALUES
+        (#{userId},#{roleId},#{roleCode},#{userName});
+    </insert>
+
 </mapper>

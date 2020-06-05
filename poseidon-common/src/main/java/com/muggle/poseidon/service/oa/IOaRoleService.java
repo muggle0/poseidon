@@ -13,4 +13,6 @@ import com.muggle.poseidon.entity.oa.OaRole;
  */
 public interface IOaRoleService extends IService<OaRole> {
 
+    public OaRole saveU
+
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
  **/
 
 public class OaUserInfoTool extends UserInfoUtils {
+    private static BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 
 
     public  static UserDetails covertToken(String token,String credential) throws BasePoseidonCheckException {
@@ -43,5 +45,13 @@ public class OaUserInfoTool extends UserInfoUtils {
         catch (Exception e){
           throw new SimplePoseidonCheckException("无效的凭证");
         }
+    }
+
+    public static String encode(String password){
+        return encoder.encode(password);
+    }
+
+    public static boolean matches(String rawPassword, String encodedPassword) {
+        return encoder.matches(rawPassword,encodedPassword);
     }
 }
