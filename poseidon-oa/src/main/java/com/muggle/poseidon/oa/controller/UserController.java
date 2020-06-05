@@ -1,32 +1,23 @@
 package com.muggle.poseidon.oa.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.muggle.code.SimpleCodeTemplate;
 import com.muggle.code.TableMessage;
-import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.OAException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
-import com.muggle.poseidon.entity.oa.OaUrlInfo;
 import com.muggle.poseidon.entity.oa.OaUserInfo;
 import com.muggle.poseidon.entity.oa.vo.OaUserVO;
 import com.muggle.poseidon.service.oa.IOaUserInfoService;
 import com.muggle.poseidon.util.UserInfoUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * @Description:
