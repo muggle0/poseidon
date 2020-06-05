@@ -18,6 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/poseidon/oa-url-info")
 public class OaUrlInfoController  {
 
-
+// 全字段查询
 
 }

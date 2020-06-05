@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    @ApiOperation(value = "查询用户信息（受权限控制）")
+    @ApiOperation(value = "查询用户信息（受权限控制）",response = OaUserInfo.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true ,dataType = "string"),
     })
@@ -61,7 +61,7 @@ public class UserController {
 
 
     @GetMapping("/my_info.json")
-    @ApiOperation(value = "查询当前用户信息（受权限控制）")
+    @ApiOperation(value = "查询当前用户信息（受权限控制）",response = OaUserInfo.class)
     public ResultBean<OaUserInfo> getMyUserInfo() throws BasePoseidonCheckException {
         UserDetails userDetails = UserInfoUtils.getUserInfo();
         if (userDetails==null){
