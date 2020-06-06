@@ -13,6 +13,8 @@
 
 2020/04/15 从实用性角度出发对项目进行重构
 
+2020/05/25 弃用vue,改用layui
+
 # 项目说明
 
 项目使用 [poseidon-boot-starter](https://github.com/muggle0/poseidon-boot-starter) 脚手架基于 `springboot 2.0.6.RELEASE` 进行开发 
