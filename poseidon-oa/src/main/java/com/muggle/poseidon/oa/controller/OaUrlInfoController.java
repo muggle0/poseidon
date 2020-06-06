@@ -6,8 +6,10 @@ import com.github.pagehelper.Page;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.base.query.BaseNormalQuery;
 import com.muggle.poseidon.entity.oa.OaUrlInfo;
+import com.muggle.poseidon.entity.oa.OaUserInfo;
 import com.muggle.poseidon.entity.oa.query.OaUrlInfoQuery;
 import com.muggle.poseidon.service.oa.IOaUrlInfoService;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,7 @@ import static com.muggle.poseidon.base.ResultBean.successData;
  */
 @RestController
 @RequestMapping("/poseidon/oa-url-info")
+@Api(value="URL信息接口")
 public class OaUrlInfoController  {
 
     @Autowired
@@ -34,22 +37,9 @@ public class OaUrlInfoController  {
 // 全字段查询
 
     @PostMapping("/query_url")
-    public ResultBean<Page<OaUrlInfo>> getUrlInfo(@RequestBody OaUrlInfoQuery oaUrlInfoQuery){
+    @ApiOperation(value = "查询url  该查询接口后端使用的是查询组件 （查询组件使用方式请看文档）",response = OaUrlInfo.class)
+    public ResultBean<Page<OaUrlInfo>> getUrlInfo(@ApiParam(name="url对象",value="传入json格式",required=true) @RequestBody OaUrlInfoQuery oaUrlInfoQuery){
         return ResultBean.successData(urlInfoService.getUrlInfo(oaUrlInfoQuery));
     }
 
-    @PostMapping("/test")
-    public ResultBean<Page<OaUrlInfo>> test(){
-        return successData(urlInfoService.test());
-    }
-
-    public static void main(String[] args) {
-        OaUrlInfoQuery oaUrlInfoQuery = new OaUrlInfoQuery();
-        oaUrlInfoQuery.setUrl("/query_url");
-        Map<String, BaseNormalQuery.Operator> op=new HashMap<>();
-        op.put("url", BaseNormalQuery.Operator.equals);
-        oaUrlInfoQuery.setOperatorMap(op);
-        String s= JSON.toJSONString(oaUrlInfoQuery);
-        System.out.println(s);
-    }
 }

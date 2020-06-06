@@ -32,10 +32,5 @@ public class OaRoleController  {
         OaRole result = oaRoleService.saveOaRole(oaRole);
         return ResultBean.successData(result);
     }
-
-    public static void main(String[] args) {
-        OaRoleController oaRoleController = new OaRoleController();
-    }
-
 }
 

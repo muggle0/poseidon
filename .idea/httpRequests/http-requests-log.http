@@ -1,3 +1,304 @@
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-06T060041.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-06T055359.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-06T055308.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-06T055216.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-06T055111.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-06T054900.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-06T053858.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T053834.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T053812.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T053737.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T053715.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T050846.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T050819.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T050600.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T050512.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T050324.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T050251.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T050231.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T045922.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T045325.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-06T045256.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T044944.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T044634.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T044554.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T044418.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T044205.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T044103.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T043909.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T043726.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T043324.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T043147.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T043052.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T042900.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T042852.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/query_url"}
+
+<> 2020-06-06T042839.200.json
+
+###
+
 GET http://localhost:8080/user/info?username=muggle
 Content-Type: application/json
 Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
@@ -102,308 +403,6 @@ Content-Type: application/json
 Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
 
 <> 2020-06-02T051157.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T051132.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T050653.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T050450.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T050405.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T045750.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T045413.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T044955.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T044808.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T044350.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T044209.200.json
-
-###
-
-GET http://localhost:8080/user/info.json?username=muggle
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T044144.200.json
-
-###
-
-GET http://localhost:8080/user/info.json?username=muggle
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T043741.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T043715.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T043301.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T043250.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T043025.200.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T042945.404.json
-
-###
-
-GET http://localhost:8080/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T042820.404.json
-
-###
-
-GET http://localhost:8080/oa/user/info.json
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T042807.404.json
-
-###
-
-GET http://localhost:8080/oa/user/info
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T042755.200.json
-
-###
-
-GET http://localhost:8080/oa/user/info
-Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIkdVRVNUIl0sInZlcnNpb24iOjE1OTEwNjM4MjUwMDAsInVzZXJuYW1lIjoibXVnZ2xlIn0.XdT0Qn7gbD8BIX9U6TfvL5_MK96S5zZ76QML-erH6H6xQAjdQr85lDUpMM9HiqUsjkuDEkQT3zYU1ARy46KcPg
-
-<> 2020-06-02T042728.200.json
-
-###
-
-GET http://localhost:8080/oa/user/info
-Content-Type: application/json
-
-<> 2020-06-02T042514.200.json
-
-###
-
-GET http://localhost:8080/oa/user/info
-Content-Type: application/json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-02T041427.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-02T041225.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-02T041058.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","gender": 1,"password": "xxxxxx"}
-
-<> 2020-06-02T041048.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","gender": 1,"password": "xxx"}
-
-<> 2020-06-02T041036.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","gender": 1}
-
-<> 2020-06-02T041012.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle"}
-
-<> 2020-06-02T040917.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle"}
-
-<> 2020-06-02T040719.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle"}
-
-<> 2020-06-02T035022.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"xxxxxxxxxx"}
-
-<> 2020-06-02T035005.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"xxxxxxxxxx"}
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"xxxxxxxxxx"}
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"xxxxxxxxxx"}
-
-<> 2020-06-02T034420.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password":"xxxxxxxxxx"}
-
-<> 2020-06-02T034325.200.json
 
 ###
 
