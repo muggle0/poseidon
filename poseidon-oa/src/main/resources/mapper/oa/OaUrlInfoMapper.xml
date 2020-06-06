@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.muggle.poseidon.oa.mapper.OaUrlInfoMapper">
 
+    <resultMap id="base" type="com.muggle.poseidon.entity.oa.OaUrlInfo">
+
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="description" property="description"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="enable" property="enable"/>
+        <result column="request_type" property="requestType"/>
+        <result column="class_name" property="className"/>
+        <result column="method_name" property="methodName"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="parent_url" property="parentUrl"/>
+    </resultMap>
+    <select id="getUrlInfo" resultMap="base">
+        select  * from oa_url_info
+       where  1=1
+        <if test="finalSql !=null ">
+          and  ${finalSql}
+        </if>
+
+    </select>
+    <select id="test" resultMap="base">
+        select  * from oa_url_info
+    </select>
 </mapper>

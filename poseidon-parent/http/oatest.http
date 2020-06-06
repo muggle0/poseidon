@@ -18,5 +18,13 @@ Content-Type:application/json
 {"username":"muggle","password": "xxxxxx","gender": 1}
 
 ###
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type:application/json
 
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
 
+###
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type:application/json
+
+###

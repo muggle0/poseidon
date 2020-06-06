@@ -4,6 +4,7 @@ package com.muggle.poseidon.config;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 //@SuppressWarnings("all")
@@ -64,8 +66,15 @@ public class MybatisPlusConfig {
         log.info("初始化SqlSessionFactory");
         MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        Interceptor[] interceptor = {new PaginationInterceptor()};
-        sqlSessionFactoryBean.setPlugins(interceptor);
+
+        PageInterceptor pageInterceptor = new PageInterceptor();
+        Properties properties = new Properties();
+        properties.setProperty("helperDialect", "mysql");
+        properties.setProperty("offsetAsPageNum", "true");
+        properties.setProperty("rowBoundsWithCount", "true");
+        pageInterceptor.setProperties(properties);
+
+        sqlSessionFactoryBean.setPlugins(new Interceptor[]{pageInterceptor});
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 //        sqlSessionFactoryBean.setTypeHandlers(new TypeHandler[]{new MybatisDataHandler()});
         try {
