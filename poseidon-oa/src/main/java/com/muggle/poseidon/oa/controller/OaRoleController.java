@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.jar.Attributes;
+
 /**
  * <p>
  *  前端控制器
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/poseidon/oa-role")
 public class OaRoleController  {
+    public String msg;
+    {this.msg="";}
 
     @Autowired
     IOaRoleService oaRoleService;
@@ -27,6 +31,10 @@ public class OaRoleController  {
     public ResultBean<OaRole> addRole(OaRole oaRole){
         OaRole result = oaRoleService.saveOaRole(oaRole);
         return ResultBean.successData(result);
+    }
+
+    public static void main(String[] args) {
+        OaRoleController oaRoleController = new OaRoleController();
     }
 
 }
