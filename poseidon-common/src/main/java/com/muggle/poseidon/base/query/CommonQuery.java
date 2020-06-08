@@ -1,5 +1,6 @@
 package com.muggle.poseidon.base.query;
 
+import com.muggle.poseidon.base.BaseNormalQuery;
 import com.muggle.poseidon.base.OAException;
 import org.springframework.util.CollectionUtils;
 

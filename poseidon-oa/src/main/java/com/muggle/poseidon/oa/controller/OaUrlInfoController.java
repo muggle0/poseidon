@@ -1,22 +1,14 @@
 package com.muggle.poseidon.oa.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.base.query.BaseNormalQuery;
 import com.muggle.poseidon.entity.oa.OaUrlInfo;
-import com.muggle.poseidon.entity.oa.OaUserInfo;
 import com.muggle.poseidon.entity.oa.query.OaUrlInfoQuery;
 import com.muggle.poseidon.service.oa.IOaUrlInfoService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.muggle.poseidon.base.ResultBean.successData;
 
 /**
  * <p>

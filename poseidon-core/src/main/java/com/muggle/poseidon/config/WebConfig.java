@@ -3,6 +3,8 @@ package com.muggle.poseidon.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.muggle.poseidon.aop.QueryAspect;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -49,5 +51,10 @@ public class WebConfig implements WebMvcConfigurer {
       /*  registry.addInterceptor(new UserInfoInterceptor())//添加拦截器
                 .addPathPatterns("/**") //拦截所有请求
                 .excludePathPatterns("/sign_in", "/", "/index.html");//对应的不拦截的请求*/
+    }
+
+    @Bean
+    QueryAspect getQueryAspect(){
+        return new QueryAspect();
     }
 }
