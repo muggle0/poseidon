@@ -1,7 +1,7 @@
 package com.muggle.poseidon.config;
 
 import com.muggle.poseidon.base.ResultBean;
-import com.muggle.poseidon.handler.WebResultHandler;
+import com.muggle.poseidon.handler.web.WebResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
 package com.muggle.poseidon.base.query;
 
-import com.muggle.poseidon.base.BaseNormalQuery;
+import com.muggle.poseidon.base.BaseQuery;
 import com.muggle.poseidon.base.OAException;
 import org.springframework.util.CollectionUtils;
 
@@ -14,13 +14,13 @@ import java.util.Map;
  * @Author: muggle
  * @Date: 2020/6/6
  **/
-public class CommonQuery extends BaseNormalQuery {
+public class CommonQuery extends BaseQuery {
 
     private String finalSql;
 
     @Override
     public void processSql() {
-        Map<String, Operator> operatorMap = this.getOperatorMap();
+        Map<String, BaseQuery.Operator> operatorMap = this.getOperatorMap();
         StringBuilder builder=new StringBuilder();
         if (operatorMap!=null){
             Iterator<String> iterator = operatorMap.keySet().iterator();
