@@ -1,0 +1,43 @@
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-08T031420.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-08T022602.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-08T021316.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+
+<> 2020-06-08T021136.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/test
+Content-Type: application/json
+
+<> 2020-06-08T021131.404.json
+
+###
+

@@ -39,6 +39,8 @@
                     <include>**/*.html</include>
                     <include>**/*.js</include>
                     <include>**/*.css</include>
+                    <include>**/*.sql</include>
+                    <include>**/*.jar</include>
                 </includes>
             </resource>
             <resource>
