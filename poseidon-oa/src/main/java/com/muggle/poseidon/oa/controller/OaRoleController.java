@@ -21,8 +21,6 @@ import java.util.jar.Attributes;
 @RestController
 @RequestMapping("/poseidon/oa-role")
 public class OaRoleController  {
-    public String msg;
-    {this.msg="";}
 
     @Autowired
     IOaRoleService oaRoleService;
