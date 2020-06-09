@@ -21,7 +21,7 @@ Content-Type:application/json
 POST http://localhost:8080/poseidon/oa-url-info/query_url
 Content-Type:application/json
 
-{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info"}
 
 ###
 POST http://localhost:8080/poseidon/oa-url-info/test

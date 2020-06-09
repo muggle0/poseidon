@@ -63,8 +63,9 @@ public class OATokenServiceImpl implements TokenService {
         return true;
     }
 
+
     @Override
-    public void saveUrlInfo(List<AuthUrlPathDO> list) {
+    public void processUrl(List<AuthUrlPathDO> list) {
         Set<String> urlSet = new HashSet<>();
         Iterator<AuthUrlPathDO> iterator = list.iterator();
         while (iterator.hasNext()) {
