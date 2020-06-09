@@ -1,6 +1,7 @@
 package com.muggle.poseidon.oa.controller;
 
 
+import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.entity.oa.OaRole;
 import com.muggle.poseidon.service.oa.IOaRoleService;
@@ -24,6 +25,7 @@ public class OaRoleController  {
 
     @Autowired
     IOaRoleService oaRoleService;
+
 
 
     public ResultBean<OaRole> addRole(OaRole oaRole){

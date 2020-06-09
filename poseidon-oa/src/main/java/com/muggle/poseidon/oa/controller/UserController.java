@@ -2,6 +2,7 @@ package com.muggle.poseidon.oa.controller;
 
 import com.muggle.code.SimpleCodeTemplate;
 import com.muggle.code.TableMessage;
+import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.OAException;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
@@ -46,6 +47,7 @@ public class UserController {
             @ApiImplicitParam(name = "email", value = "邮箱", required = false ,dataType = "string"),
             @ApiImplicitParam(name = "imgUrl", value = "头像", required = false ,dataType = "string"),
     })
+    @InterfaceAction(Idempotent = true,message = "请求太频繁，请稍后再试",expertime = 3L)
     public ResultBean<OaUserInfo> regester(@RequestBody @Valid OaUserVO userVO){
         OaUserInfo oaUserInfo=userInfoService.regester(userVO);
         return ResultBean.successData(oaUserInfo);
