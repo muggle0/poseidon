@@ -21,16 +21,17 @@
 
 项目使用的框架：
 
-- quartz
-- flowable
-- spring-security
-- spring-stateMachine 
-- netty
-- webflux
+- quartz(功能未开发)
+- flowable(功能未开发)
+- spring-security(功能未开发)
+- spring-stateMachine(功能未开发) 
+- netty(功能未开发)
 
 项目结合实用性与学习实践的角度进行开发功能
 
 # 快速开始
+
+该项目重构之中，敬请期待
 
 [线上体验]()
 
