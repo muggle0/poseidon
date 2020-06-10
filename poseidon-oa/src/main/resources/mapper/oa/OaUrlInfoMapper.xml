@@ -19,7 +19,7 @@
         select  * from oa_url_info
        where  1=1
         <if test="finalSql !=null ">
-          and  ${finalSql}
+            ${finalSql}
         </if>
 
     </select>

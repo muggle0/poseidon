@@ -1,6 +1,6 @@
 package com.muggle.poseidon.entity.oa.query;
 
-import com.muggle.poseidon.base.query.CommonQuery;
+import com.muggle.poseidon.base.CommonQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

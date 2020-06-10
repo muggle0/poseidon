@@ -2,6 +2,7 @@ package com.muggle.poseidon.oa.controller;
 
 
 import com.github.pagehelper.Page;
+import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.entity.oa.OaUrlInfo;
 import com.muggle.poseidon.entity.oa.query.OaUrlInfoQuery;
@@ -29,6 +30,7 @@ public class OaUrlInfoController  {
 // 全字段查询
 
     @PostMapping("/query_url")
+    @InterfaceAction
     @ApiOperation(value = "查询url  该查询接口后端使用的是查询组件 （查询组件使用方式请看文档）",response = OaUrlInfo.class)
     public ResultBean<Page<OaUrlInfo>> getUrlInfo(@ApiParam(name="url对象",value="传入json格式",required=true) @RequestBody OaUrlInfoQuery oaUrlInfoQuery){
         return ResultBean.successData(urlInfoService.getUrlInfo(oaUrlInfoQuery));
