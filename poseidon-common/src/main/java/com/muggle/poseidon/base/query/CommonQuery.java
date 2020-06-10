@@ -28,10 +28,11 @@ public class CommonQuery extends BaseQuery {
                 String next = iterator.next();
                 try {
                     Object field=getFieldValue(next);
+                    builder.append("AND");
                     if ((field instanceof Number)){
-                        builder.append(next+operatorMap.get(next).getValue()+field);
+                        builder.append(String.format(next+" "+operatorMap.get(next).getValue(),field));
                     }else {
-                        builder.append(next+operatorMap.get(next).getValue()+"'"+field+"'");
+                        builder.append(String.format(next +" "+operatorMap.get(next).getValue(),"'"+field+"'"));
                     }
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new OAException("查询参数异常："+next);

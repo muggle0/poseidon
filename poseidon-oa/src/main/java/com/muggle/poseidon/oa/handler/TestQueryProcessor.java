@@ -19,6 +19,5 @@ public class TestQueryProcessor implements QuerySqlProcessor {
 
     @Override
     public void beforeQuery(BaseQuery baseQuery) {
-
     }
 }
