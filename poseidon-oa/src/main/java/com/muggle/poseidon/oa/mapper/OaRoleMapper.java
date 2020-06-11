@@ -3,6 +3,7 @@ package com.muggle.poseidon.oa.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.muggle.poseidon.entity.oa.OaRole;
 import com.muggle.poseidon.oa.entity.UserRoleRelationDO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +29,12 @@ public interface OaRoleMapper extends BaseMapper<OaRole> {
      * @param relationDO
      */
     void insertRelation(UserRoleRelationDO relationDO);
+
+    /**
+     * 权限查询
+     * @param roleCodes
+     * @param substring
+     * @return
+     */
+    boolean countAuthByUrl(@Param("roleCodes") List<String> roleCodes, String substring);
 }

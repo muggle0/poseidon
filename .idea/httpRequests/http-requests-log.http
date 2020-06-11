@@ -1,169 +1,153 @@
-POST http://localhost:8080/user/regester.json
+POST http://localhost:8080/poseidon/oa-url-info/query_url
 Content-Type: application/json
 
-{"username":"muggle","password": "xxxxxx","gender": 1}
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
 
-<> 2020-06-09T023019.200.json
-
-###
-
-POST http://crm-test.marking.linshimuye.com:8899/WebAPI/ACT/AppointmentExt/ConfirmVisit
-Content-Type: application/json
-
-{"visitShopCode":"FOSHANLING","auth_time":"2020-05-26 16:49:17","mobile":"13500269279","appointmentCode":"0000D0","auth_token":"E2DCFF197FED708B1D681F8AD4C241E4","app_secret":"ca7129b98aaee3eb3c1c459cecaafcb9"}
-
-<> 2020-06-09T023004.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx","gender": 1}
-
-<> 2020-06-09T022958.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx","gender": 1}
-
-<> 2020-06-09T104148.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx","gender": 1}
-
-<> 2020-06-09T103300.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T103201.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T102757.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T102704.200.json
-
-###
-
-POST http://localhost:8080/user/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T102628.200.json
-
-###
-
-POST http://localhost:8080/xx/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T094120.404.json
-
-###
-
-POST http://localhost:8080/xx/regester
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T094112.404.json
-
-###
-
-POST http://localhost:8080/xx/regester
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T094105.404.json
-
-###
-
-POST http://localhost:8080/xx/regester.json
-Content-Type: application/json
-
-{"username":"muggle","password": "xxxxxx"}
-
-<> 2020-06-09T094055.404.json
+<> 2020-06-10T112906.200.json
 
 ###
 
 POST http://localhost:8080/poseidon/oa-url-info/query_url
 Content-Type: application/json
 
-{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info"}
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
 
-<> 2020-06-08T032906.200.json
-
-###
-
-POST http://localhost:8080/poseidon/oa-url-info/query_url
-Content-Type: application/json
-
-{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
-
-<> 2020-06-08T031420.200.json
+<> 2020-06-10T112207.200.json
 
 ###
 
 POST http://localhost:8080/poseidon/oa-url-info/query_url
 Content-Type: application/json
 
-{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
 
-<> 2020-06-08T022602.200.json
-
-###
-
-POST http://localhost:8080/poseidon/oa-url-info/query_url
-Content-Type: application/json
-
-{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
-
-<> 2020-06-08T021316.200.json
+<> 2020-06-10T112101.200.json
 
 ###
 
 POST http://localhost:8080/poseidon/oa-url-info/query_url
 Content-Type: application/json
 
-{"operatorMap":{"url":"equals"},"pageSize":10,"sort":"DESC","startPage":1,"url":"/user/info.json"}
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
 
-<> 2020-06-08T021136.200.json
+<> 2020-06-10T112022.200.json
 
 ###
 
-POST http://localhost:8080/poseidon/oa-url-info/test
+POST http://localhost:8080/poseidon/oa-url-info/query_url
 Content-Type: application/json
 
-<> 2020-06-08T021131.404.json
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T111228.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T110726.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T100747.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T100706.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T100505.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T095456.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T095329.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T095208.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"url"}
+
+<> 2020-06-10T094522.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"ulr"}
+
+<> 2020-06-10T094457.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"ulr"}
+
+<> 2020-06-10T094441.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"ulr"}
+
+<> 2020-06-10T093828.200.json
+
+###
+
+POST http://localhost:8080/poseidon/oa-url-info/query_url
+Content-Type: application/json
+
+{"operatorMap":{"url":"allLike"},"pageSize":10,"sort":"DESC","startPage":1,"url":"ulr"}
+
+<> 2020-06-10T093135.200.json
 
 ###
 

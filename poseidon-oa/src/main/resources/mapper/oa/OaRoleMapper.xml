@@ -20,5 +20,14 @@
        insert into oa_user_role_relation (user_id, role_id, relation_code, username) VALUES
         (#{userId},#{roleId},#{roleCode},#{userName});
     </insert>
+    <select id="countAuthByUrl" resultType="boolean">
+        select count(*) from  oa_authority where
+        relation_code='OA' AND
+        url=#{param2}
+        and role_code in
+        <foreach item="item" index="index" collection="roleCodes" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
 </mapper>

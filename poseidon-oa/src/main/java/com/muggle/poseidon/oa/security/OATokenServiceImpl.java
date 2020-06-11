@@ -7,6 +7,7 @@ import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
 import com.muggle.poseidon.entity.oa.OaUrlInfo;
 import com.muggle.poseidon.entity.oa.OaUserInfo;
+import com.muggle.poseidon.oa.mapper.OaRoleMapper;
 import com.muggle.poseidon.oa.mapper.OaUrlInfoMapper;
 import com.muggle.poseidon.oa.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.oa.service.impl.OaUrlInfoServiceImpl;
@@ -47,6 +48,8 @@ public class OATokenServiceImpl implements TokenService {
     @Autowired
     OaUrlInfoMapper urlInfoMapper;
     @Autowired
+    OaRoleMapper roleMapper;
+    @Autowired
     IOaUrlInfoService oaUrlInfoService;
 
     @Autowired
@@ -59,8 +62,13 @@ public class OATokenServiceImpl implements TokenService {
     }
 
     @Override
-    public boolean rooleMatch(Collection<? extends GrantedAuthority> collection, String s) {
-        return true;
+    public boolean rooleMatch(Collection<? extends GrantedAuthority> collection, String url) {
+        String substring = url.substring(0, url.indexOf("?"));
+        List<String> roleCodes=new ArrayList<>();
+        for (GrantedAuthority grantedAuthority : collection) {
+            roleCodes.add(grantedAuthority.getAuthority());
+        }
+        return roleMapper.countAuthByUrl(roleCodes,substring);
     }
 
 
