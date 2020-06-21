@@ -17,6 +17,7 @@
     </parent>
 
     <dependencies>
+
         <dependency>
             <groupId>com.muggle</groupId>
             <artifactId>poseidon-generator</artifactId>
