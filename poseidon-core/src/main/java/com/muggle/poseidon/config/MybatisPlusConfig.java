@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -25,6 +26,7 @@ import java.util.Properties;
 @Configuration
 //@SuppressWarnings("all")
 //@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
+
 public class MybatisPlusConfig {
 
     private static final Logger log = LoggerFactory.getLogger(MybatisPlusConfig.class);
@@ -42,6 +44,10 @@ public class MybatisPlusConfig {
     private String typeAliasesPackage;
     @Value("${mybatis-plus.global-config.refresh-mapper}")
     private boolean refreshMapper;
+
+    public MybatisPlusConfig() {
+        log.info("mybatis 配置》》》》》》》》》》》》");
+    }
 
     //mybatis plus 全局配置
     @Bean(name = "globalConfig")

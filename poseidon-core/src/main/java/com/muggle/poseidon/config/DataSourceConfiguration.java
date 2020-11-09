@@ -9,11 +9,14 @@ import io.shardingsphere.api.config.rule.TableRuleConfiguration;
 import io.shardingsphere.api.config.strategy.InlineShardingStrategyConfiguration;
 import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -26,7 +29,9 @@ import java.util.concurrent.ConcurrentHashMap;
 //@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
 @SuppressWarnings("all")
 @MapperScan(basePackages = "com.muggle.poseidon.oa.mapper")
+@Order(1)
 public class DataSourceConfiguration {
+    private static final Logger log = LoggerFactory.getLogger(DataSourceConfiguration.class);
     @Value("${spring.datasource.driver-class-name}")
     private String jdbcDriver;
     @Value("${spring.datasource.url}")
@@ -36,6 +41,9 @@ public class DataSourceConfiguration {
     @Value("${spring.datasource.password}")
     private String jdbcPassword;
 
+    public DataSourceConfiguration() {
+        log.info("数据源配置》》》》》》》》》》》》》》》》》》》");
+    }
 
     /**
      * 生成与spring-dao.xml对应的bean dataSource
@@ -44,7 +52,6 @@ public class DataSourceConfiguration {
      * @throws
      */
     @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() throws SQLException {
         // 配置真实数据源
         Map<String, DataSource> dataSourceMap = new HashMap<>();
