@@ -16,7 +16,7 @@ public class TestController {
         TableMessage tableMessage = new TableMessage();
         tableMessage.setUsername("root");
         tableMessage.setSwagger(true);
-        tableMessage.setTableName(Arrays.asList("oa_dept"));
+        tableMessage.setTableName(Arrays.asList("oa_user_info"));
         tableMessage.setAuthor("muggle");
         tableMessage.setParentPack("com.muggle.poseidon.base");
         tableMessage.setProjectPackage("com.muggle");
