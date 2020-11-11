@@ -14,7 +14,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @Description:
+ * @Description: swagger-ui.html
  * @Author: muggle
  * @Date: 2020/5/21
  **/

@@ -1,11 +1,12 @@
 package com.muggle.poseidon.config;
 
-import com.alibaba.druid.support.http.StatViewServlet;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
-
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
+
+import com.alibaba.druid.support.http.StatViewServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * Druid 的数据源状态监控
@@ -17,7 +18,9 @@ import javax.servlet.annotation.WebServlet;
                 @WebInitParam(name = "loginPassword",value = "123456"),
                 @WebInitParam(name = "resetEnable",value = "false")//禁止html页面上reset All功能
         })
-@Configuration
 public class DruidStatViewServlet extends StatViewServlet {
-    private static final long serialVersionUID = 1L;
+    private static final Logger log = LoggerFactory.getLogger(DruidStatViewServlet.class);
+    public DruidStatViewServlet() {
+        log.info(">>>>>>>>>>>>>>>>>>>> [druid stateViewServlet] <<<<<<<<<<<<<<<<<<<<");
+    }
 }

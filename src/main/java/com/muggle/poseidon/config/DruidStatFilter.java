@@ -1,17 +1,21 @@
 package com.muggle.poseidon.config;
 
-import com.alibaba.druid.support.http.WebStatFilter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
-
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
+
+import com.alibaba.druid.support.http.WebStatFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 @WebFilter(filterName = "druidWebStatFilter", urlPatterns = "/*",
         initParams = {
                 @WebInitParam(name = "exclusions",
                         value = "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*") })
-@Configuration
 public class DruidStatFilter extends WebStatFilter {
-
+    private static final Logger log = LoggerFactory.getLogger(DruidStatFilter.class);
+    public DruidStatFilter() {
+        log.info(">>>>>>>>>>>>>>>>>>>> [druid statefilter] <<<<<<<<<<<<<<<<<<<<");
+    }
 }
+// http://localhost:9000/druid/webapp.html

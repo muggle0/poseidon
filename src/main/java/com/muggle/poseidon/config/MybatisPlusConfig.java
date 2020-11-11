@@ -43,12 +43,12 @@ public class MybatisPlusConfig {
     private boolean refreshMapper;
 
     public MybatisPlusConfig() {
-        log.info("mybatis 配置》》》》》》》》》》》》");
+        log.info(">>>>>>>>>>>>>>>>>>>> [mybatis 配置] <<<<<<<<<<<<<<<<<<<<");
     }
 
     @Bean(name = "globalConfig")
     public GlobalConfig globalConfiguration() {
-        log.info("初始化GlobalConfiguration");
+        log.info(">>>>>>>>>>>>>>>>>>>> [初始化GlobalConfiguration] <<<<<<<<<<<<<<<<<<<<");
         GlobalConfig config = new GlobalConfig();
         config.setBanner(false);
         return config;
@@ -56,7 +56,7 @@ public class MybatisPlusConfig {
 
     @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory createSqlSessionFactoryBean(@Qualifier(value = "globalConfig") GlobalConfig configuration) throws Exception {
-        log.info("初始化SqlSessionFactory");
+        log.info(">>>>>>>>>>>>>>>>>>>> [初始化SqlSessionFactory] <<<<<<<<<<<<<<<<<<<<");
         MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
 
@@ -82,7 +82,7 @@ public class MybatisPlusConfig {
 
     @Bean(name = "transactionManager")
     public DataSourceTransactionManager transactionManager() {
-        log.info("初始化transactionManager");
+        log.info(">>>>>>>>>>>>>>>>>>>> [初始化transactionManager] <<<<<<<<<<<<<<<<<<<<");
         return new DataSourceTransactionManager(dataSource);
     }
 

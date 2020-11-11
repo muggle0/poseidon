@@ -11,6 +11,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,20 +39,10 @@ public class DataSourceConfiguration {
      * @throws
      */
     @Bean
+    @ConfigurationProperties(prefix="spring.datasource.druid")
     public DataSource dataSource(){
         log.info(">>>>>>>>>>>>>>>>>>>> [数据源注册] <<<<<<<<<<<<<<<<<<<<");
-        // 配置第二个数据源
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(jdbcDriver);
-        dataSource.setUrl(jdbcUrl);
-        dataSource.setUsername(jdbcUsername);
-        dataSource.setPassword(jdbcPassword);
-        dataSource.setProxyFilters(Lists.newArrayList(statFilter()));
-        // 每个分区最大的连接数
-        dataSource.setMaxActive(20);
-        // 每个分区最小的连接数
-        dataSource.setMinIdle(5);
-        return dataSource;
+        return new DruidDataSource();
     }
 
     @Bean
