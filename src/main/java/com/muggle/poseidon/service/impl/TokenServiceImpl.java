@@ -8,9 +8,12 @@ import java.util.List;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
 import com.muggle.poseidon.service.TokenService;
+import com.muggle.poseidon.service.manager.UserInfoManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,8 +23,11 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class TokenServiceImpl implements TokenService {
+    @Autowired
+    UserInfoManager userInfoManager;
     @Override
-    public UserDetails getUserById(Long aLong) {
+    public UserDetails getUserById(Long userId) {
+
         return null;
     }
 
