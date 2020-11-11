@@ -1,7 +1,5 @@
 package com.muggle.poseidon.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
@@ -24,9 +22,6 @@ public class OaUserInfo extends BaseBean {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Long userId;
-
     @ApiModelProperty(value = "地址")
     private String address;
 
@@ -39,9 +34,6 @@ public class OaUserInfo extends BaseBean {
     @ApiModelProperty(value = "邮箱")
     private String eamil;
 
-    @ApiModelProperty(value = "入职时间")
-    private LocalDateTime hireTime;
-
     @ApiModelProperty(value = "身份证号码")
     private String idCard;
 
@@ -50,12 +42,6 @@ public class OaUserInfo extends BaseBean {
 
     @ApiModelProperty(value = "未锁定")
     private Boolean accountNonLocked;
-
-    @ApiModelProperty(value = "上次登录ip")
-    private String lastLoginIp;
-
-    @ApiModelProperty(value = "上次登录时间")
-    private LocalDateTime lastLoginTime;
 
     private LocalDateTime gmtModified;
 
@@ -87,9 +73,6 @@ public class OaUserInfo extends BaseBean {
 
     private String userTel;
 
-    @ApiModelProperty(value = "在职天数")
-    private Integer holiday;
-
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
@@ -102,5 +85,6 @@ public class OaUserInfo extends BaseBean {
     @ApiModelProperty(value = "可用")
     private Boolean enabled;
 
-
+    @ApiModelProperty(value = "用户编码")
+    private String userCode;
 }
