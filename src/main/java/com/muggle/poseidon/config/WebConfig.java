@@ -30,10 +30,6 @@ public class WebConfig implements WebMvcConfigurer {
         // 2.添加fastJson的配置信息,比如，是否需要格式化返回的json数据
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         // 空值特别处理
-        // WriteNullListAsEmpty 将Collection类型字段的字段空值输出为[]
-        // WriteNullStringAsEmpty 将字符串类型字段的空值输出为空字符串 ""
-        // WriteNullNumberAsZero 将数值类型字段的空值输出为0
-        // WriteNullBooleanAsFalse 将Boolean类型字段的空值输出为false
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat, SerializerFeature.WriteNullListAsEmpty,
                 SerializerFeature.WriteNullStringAsEmpty);
         // 处理中文乱码问题

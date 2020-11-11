@@ -24,9 +24,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-//@SuppressWarnings("all")
-//@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
-
 public class MybatisPlusConfig {
 
     private static final Logger log = LoggerFactory.getLogger(MybatisPlusConfig.class);
@@ -49,21 +46,11 @@ public class MybatisPlusConfig {
         log.info("mybatis 配置》》》》》》》》》》》》");
     }
 
-    //mybatis plus 全局配置
     @Bean(name = "globalConfig")
     public GlobalConfig globalConfiguration() {
         log.info("初始化GlobalConfiguration");
         GlobalConfig config = new GlobalConfig();
-        // 控制台打印 plus banner
         config.setBanner(false);
-        /*config.sqlc
-        config.se(refreshMapper);
-        configuration.setIdType(idType);
-        //字段策略
-        config.(fieldStrategy);
-        //数据库大写 下划线转换
-        config.setDbConfig(capitalMode);*/
-
         return config;
     }
 
@@ -82,7 +69,6 @@ public class MybatisPlusConfig {
 
         sqlSessionFactoryBean.setPlugins(new Interceptor[]{pageInterceptor});
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-//        sqlSessionFactoryBean.setTypeHandlers(new TypeHandler[]{new MybatisDataHandler()});
         try {
             sqlSessionFactoryBean.setGlobalConfig(configuration);
             sqlSessionFactoryBean.setMapperLocations(resolver.getResources(mapperLocations));

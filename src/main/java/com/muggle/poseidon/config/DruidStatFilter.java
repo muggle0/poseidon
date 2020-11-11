@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebInitParam;
         initParams = {
                 @WebInitParam(name = "exclusions",
                         value = "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*") })
-//@ConditionalOnProperty(prefix = "poseidon.mybatis",name = "support",havingValue = "normal" )
 @Configuration
 public class DruidStatFilter extends WebStatFilter {
 

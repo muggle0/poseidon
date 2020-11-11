@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 @Configuration
 @MapperScan(basePackages = "com.muggle.poseidon.mapper")
@@ -29,7 +28,7 @@ public class DataSourceConfiguration {
     private String jdbcPassword;
 
     public DataSourceConfiguration() {
-        log.info("数据源配置》》》》》》》》》》》》》》》》》》》");
+        log.info(">>>>>>>>>>>>>>>>>>>> [数据源配置] <<<<<<<<<<<<<<<<<<<<");
     }
 
     /**
@@ -39,7 +38,8 @@ public class DataSourceConfiguration {
      * @throws
      */
     @Bean
-    public DataSource dataSource() throws SQLException {
+    public DataSource dataSource(){
+        log.info(">>>>>>>>>>>>>>>>>>>> [数据源注册] <<<<<<<<<<<<<<<<<<<<");
         // 配置第二个数据源
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(jdbcDriver);
@@ -56,6 +56,7 @@ public class DataSourceConfiguration {
 
     @Bean
     public Filter statFilter(){
+        log.info(">>>>>>>>>>>>>>>>>>>> [druid 过滤器] <<<<<<<<<<<<<<<<<<<<");
         StatFilter filter = new StatFilter();
         filter.setSlowSqlMillis(5000);
         filter.setLogSlowSql(true);
