@@ -11,12 +11,14 @@ import com.muggle.poseidon.service.TokenService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  * @Description:
  * @Author: muggle
  * @Date: 2020/11/11
  **/
+@Service
 public class TokenServiceImpl implements TokenService {
     @Override
     public UserDetails getUserById(Long aLong) {
