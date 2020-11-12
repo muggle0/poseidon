@@ -20,5 +20,5 @@ public interface OaRoleMapper extends BaseMapper<OaRole> {
      * * @param id
      * @return
      */
-    List<OaRole> selectByUserId(Long id);
+    List<String> selectCodeByUserId(Long id);
 }

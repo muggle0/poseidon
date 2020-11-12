@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
-import com.muggle.poseidon.entity.OaRole;
 import com.muggle.poseidon.entity.OaUserInfo;
 import com.muggle.poseidon.mapper.OaRoleMapper;
 import com.muggle.poseidon.service.helper.LoginHelper;
@@ -31,14 +30,15 @@ public class NormalLoginHelper implements LoginHelper {
     @Override
     public UserDetails login(String username, String password) throws SimplePoseidonCheckException {
         OaUserInfo userInfo= ((OaUserInfo) userInfoManager.loadUserByUsername(username));
+        // fixme
         boolean matches = passwordEncoder.matches(password, userInfo.getPassword());
         if (!matches){
             throw new SimplePoseidonCheckException("密码错误");
         }
-        List<OaRole>roles= oaRoleMapper.selectByUserId(userInfo.getId());
+        List<String>roles= oaRoleMapper.selectCodeByUserId(userInfo.getId());
         List<SimpleGrantedAuthority> authorities=new ArrayList<>();
         roles.forEach(role->{
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getRoleCode());
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
             authorities.add(authority);
         });
         userInfo.setAuthorities(authorities);

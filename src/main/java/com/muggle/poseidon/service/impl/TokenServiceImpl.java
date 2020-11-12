@@ -24,6 +24,7 @@ import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.service.helper.LoginHelper;
 import com.muggle.poseidon.service.manager.UserInfoManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -115,10 +116,22 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public UserDetails login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws SimplePoseidonCheckException {
-        // 登录类型
+        //fixme
+        if (! httpServletRequest.getMethod().equals(HttpMethod.POST.name())) {
+            throw new SimplePoseidonCheckException("非法请求");
+        }
         String username = httpServletRequest.getParameter("username");
         String password = httpServletRequest.getParameter("password");
         String loginType = httpServletRequest.getParameter("loginType");
+        if (username==null){
+            throw new SimplePoseidonCheckException("请填写用户名");
+        }
+        if (password==null){
+            throw new SimplePoseidonCheckException("请填写密码");
+        }
+        if (password==null){
+            throw new SimplePoseidonCheckException("请选择登录类型");
+        }
         LoginHelper loginHelper = loginHelperMap.get(loginType);
         UserDetails login = loginHelper.login(username, password);
         if (login==null){
