@@ -1,11 +1,18 @@
 package com.muggle.poseidon.entity;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * <p>
@@ -18,9 +25,12 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="OaUserInfo对象", description="")
-public class OaUserInfo extends BaseBean {
+public class OaUserInfo extends BaseBean implements UserDetails {
 
     private static final long serialVersionUID = 1L;
+
+    @TableId
+    private Long id;
 
     @ApiModelProperty(value = "地址")
     private String address;
@@ -41,7 +51,7 @@ public class OaUserInfo extends BaseBean {
     private String imgPath;
 
     @ApiModelProperty(value = "未锁定")
-    private Boolean accountNonLocked;
+    private boolean accountNonLocked;
 
     private LocalDateTime gmtModified;
 
@@ -77,14 +87,17 @@ public class OaUserInfo extends BaseBean {
     private String nickname;
 
     @ApiModelProperty(value = "未过期")
-    private Boolean accountNonExpired;
+    private boolean accountNonExpired;
 
     @ApiModelProperty(value = "凭证有效")
-    private Boolean credentialsNonExpired;
+    private boolean credentialsNonExpired;
 
     @ApiModelProperty(value = "可用")
-    private Boolean enabled;
+    private boolean enabled;
 
     @ApiModelProperty(value = "用户编码")
     private String userCode;
+
+    private List<SimpleGrantedAuthority> authorities;
+
 }

@@ -39,7 +39,7 @@ public class DataSourceConfiguration {
      * @throws
      */
     @Bean
-    @ConfigurationProperties(prefix="spring.datasource.druid")
+    @ConfigurationProperties(prefix="spring.datasource")
     public DataSource dataSource(){
         log.info(">>>>>>>>>>>>>>>>>>>> [数据源注册] <<<<<<<<<<<<<<<<<<<<");
         return new DruidDataSource();

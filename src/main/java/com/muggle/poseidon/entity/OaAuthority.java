@@ -1,6 +1,8 @@
 package com.muggle.poseidon.entity;
 
 import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +23,9 @@ import lombok.EqualsAndHashCode;
 public class OaAuthority extends BaseBean {
 
     private static final long serialVersionUID = 1L;
+
+    @TableId
+    private Long id;
 
     private LocalDateTime gmtCreated;
 
