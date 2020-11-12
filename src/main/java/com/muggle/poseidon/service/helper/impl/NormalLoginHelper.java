@@ -19,7 +19,7 @@ public class NormalLoginHelper implements LoginHelper {
     UserInfoManager userInfoManager;
     @Override
     public UserDetails login(String username, String password) throws SimplePoseidonCheckException {
-        OaUserInfo userInfo=userInfoManager.login(username,password);
+        OaUserInfo userInfo= ((OaUserInfo) userInfoManager.loadUserByUsername(username));
         return null;
     }
 }

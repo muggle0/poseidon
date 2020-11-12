@@ -1,9 +1,12 @@
 package com.muggle.poseidon.service.manager;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.muggle.poseidon.entity.OaUserInfo;
 import com.muggle.poseidon.mapper.OaUrlInfoMapper;
 import com.muggle.poseidon.mapper.OaUserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,15 +18,18 @@ import org.springframework.stereotype.Service;
 public class UserInfoManager {
     @Autowired
     private OaUserInfoMapper oaUserInfoMapper;
-//    @Autowired
-//    private
 
 
     public OaUserInfoMapper getOaUserInfoMapper() {
         return oaUserInfoMapper;
     }
 
-    public OaUserInfo login(String username, String password) {
-        return null;
+
+
+    public UserDetails loadUserByUsername(String username) {
+        QueryWrapper<OaUserInfo> oaUserInfoQueryWrapper = new QueryWrapper<>();
+        oaUserInfoQueryWrapper.lambda().eq(OaUserInfo::getNickname,username);
+        OaUserInfo oaUserInfo = oaUserInfoMapper.selectOne(oaUserInfoQueryWrapper);
+        return oaUserInfo;
     }
 }

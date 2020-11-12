@@ -124,15 +124,11 @@ public class TokenServiceImpl implements TokenService {
         if (login==null){
             throw new SimplePoseidonCheckException("用户信息不存在");
         }
-
         return login;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        QueryWrapper<OaUserInfo> oaUserInfoQueryWrapper = new QueryWrapper<>();
-        oaUserInfoQueryWrapper.lambda().eq(OaUserInfo::getNickname,username);
-        OaUserInfo oaUserInfo = userInfoManager.getOaUserInfoMapper().selectOne(oaUserInfoQueryWrapper);
-        return oaUserInfo;
+        return userInfoManager.loadUserByUsername(username);
     }
 }
