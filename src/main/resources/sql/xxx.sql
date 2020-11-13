@@ -2,11 +2,10 @@
 SQLyog Ultimate v12.08 (64 bit)
 MySQL - 5.7.29-log : Database - p_oa
 *********************************************************************
-*/
+*/
 
-/*!40101 SET NAMES utf8 */;
 
-/*!40101 SET SQL_MODE=''*/;
+
 
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
