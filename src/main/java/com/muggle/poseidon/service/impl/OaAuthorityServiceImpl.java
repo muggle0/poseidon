@@ -29,17 +29,18 @@ public class OaAuthorityServiceImpl extends ServiceImpl<OaAuthorityMapper, OaAut
     OaAuthorityManager authorityManager;
     @Override
     public Boolean addAuthority(OaAuthority authority) {
-        OaUserInfo userInfo = UserInfoTool.getUserInfo();
         OaAuthorityMapper oaAuthorityMapper = authorityManager.getOaAuthorityMapper();
         QueryWrapper<OaAuthority> queryWrapper = new QueryWrapper<>();
         OaAuthority oaAuthority = oaAuthorityMapper.selectOne(queryWrapper);
         if (oaAuthority!=null){
             throw new OaBusinessException("该权限编码已存在",OaExceptionEnum.OaCheckError.getCode());
         }
+        OaUserInfo userInfo = UserInfoTool.getUserInfo();
         authority.setGmtCreated(LocalDateTime.now());
         authority.setGmtCreatorName(userInfo.getUsername());
         authority.setGmtCreator(userInfo.getId());
         oaAuthorityMapper.insert(authority);
         return true;
     }
+
 }

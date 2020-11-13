@@ -66,7 +66,7 @@ public class UserInfoTool {
             return null;
         }
         Object details = authentication.getDetails();
-        if (details==null){
+        if (details==null||!(details instanceof OaUserInfo)){
             return null;
         }
         return (OaUserInfo) details;

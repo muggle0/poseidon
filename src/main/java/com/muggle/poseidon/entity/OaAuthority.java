@@ -37,11 +37,11 @@ public class OaAuthority extends BaseBean {
     private Long gmtModifitor;
 
     @ApiModelProperty(value = "权限编码")
-    @NotNull
+    @NotNull(message = "请填写权限编码")
     private String authCode;
 
     @ApiModelProperty(value = "权限名称")
-    @NotNull
+    @NotNull(message = "请填写权限名称")
     private String authName;
 
     @ApiModelProperty(value = "权限描述")
