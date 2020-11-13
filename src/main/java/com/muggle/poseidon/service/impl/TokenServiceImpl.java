@@ -17,8 +17,8 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
 import com.muggle.poseidon.entity.OaUrlInfo;
-import com.muggle.poseidon.entity.OaUserInfo;
 import com.muggle.poseidon.mapper.OaUrlInfoMapper;
+import com.muggle.poseidon.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.service.IOaUrlInfoService;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.service.helper.LoginHelper;
@@ -28,8 +28,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.util.AntPathMatcher;
 
 /**
  * @Description:
@@ -39,14 +39,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenServiceImpl implements TokenService {
     @Autowired
-    UserInfoManager userInfoManager;
+    private UserInfoManager userInfoManager;
     @Autowired
-    OaUrlInfoMapper urlInfoMapper;
+    private OaUrlInfoMapper urlInfoMapper;
     @Autowired
-    Map<String, LoginHelper> loginHelperMap;
+    private Map<String, LoginHelper> loginHelperMap;
+
+    private AntPathMatcher antPathMatcher=new AntPathMatcher();
 
     @Autowired
     IOaUrlInfoService oaUrlInfoService;
+
     @Override
     public UserDetails getUserById(Long userId) {
 
@@ -54,8 +57,15 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public boolean rooleMatch(Collection<? extends GrantedAuthority> collection, String s) {
-        return false;
+    public boolean rooleMatch(Collection<? extends GrantedAuthority> roles, String url) {
+        OaUserInfoMapper oaUserInfoMapper = userInfoManager.getOaUserInfoMapper();
+        List<String> collect = roles.stream().map(role -> role.getAuthority()).collect(Collectors.toList());
+        List<String> auths = oaUserInfoMapper.findAuths(collect);
+        boolean result=false;
+        for (String auth : auths) {
+            result=antPathMatcher.match(auth,url);
+        }
+        return result;
     }
 
     @Override
@@ -116,27 +126,26 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public UserDetails login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws SimplePoseidonCheckException {
-        //fixme
-        if (! httpServletRequest.getMethod().equals(HttpMethod.POST.name())) {
+        if (!httpServletRequest.getMethod().equals(HttpMethod.POST.name())) {
             throw new SimplePoseidonCheckException("非法请求");
         }
         String username = httpServletRequest.getParameter("username");
         String password = httpServletRequest.getParameter("password");
         String loginType = httpServletRequest.getParameter("loginType");
-        if (username==null){
+        if (username == null) {
             throw new SimplePoseidonCheckException("请填写用户名");
         }
-        if (password==null){
+        if (password == null) {
             throw new SimplePoseidonCheckException("请填写密码");
         }
-        if (password==null){
+        if (password == null) {
             throw new SimplePoseidonCheckException("请选择登录类型");
         }
-        LoginHelper loginHelper = loginHelperMap.get(loginType);
-        UserDetails login = loginHelper.login(username, password);
-        if (login==null){
-            throw new SimplePoseidonCheckException("用户信息不存在");
+        LoginHelper loginHelper = loginHelperMap.get(loginType.concat("Helper"));
+        if (loginHelper == null) {
+            throw new SimplePoseidonCheckException("登录类型错误");
         }
+        UserDetails login = loginHelper.login(username, password);
         return login;
     }
 

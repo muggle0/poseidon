@@ -1,10 +1,10 @@
 package com.muggle.poseidon.config;
 
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
-import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
+import com.muggle.poseidon.entity.OaUserInfo;
 import com.muggle.poseidon.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.store.SecurityStore;
-import org.redisson.api.RBucket;
+import com.muggle.poseidon.tool.UserInfoTool;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,19 +24,15 @@ public class SecurityStoreImpl implements SecurityStore {
 
 
     @Override
-    public UserDetails getUserdetail(String key) throws BasePoseidonCheckException {
-        RBucket<UserDetails> bucket = redissonClient.getBucket(key);
-        UserDetails userDetails = bucket.get();
-        if (userDetails==null){
-            throw new SimplePoseidonCheckException("用户未登陆");
-        }
-
-        return null;
+    public UserDetails getUserdetail(String token) throws BasePoseidonCheckException {
+        OaUserInfo userInfo= UserInfoTool.parserToken(token);
+        return userInfo;
     }
 
     @Override
     public String signUserMessage(UserDetails userDetails) {
-        return null;
+        String s = UserInfoTool.creakeToken((OaUserInfo) userDetails);
+        return s;
     }
 
     @Override

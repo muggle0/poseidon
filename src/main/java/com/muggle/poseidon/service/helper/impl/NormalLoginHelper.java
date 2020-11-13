@@ -30,7 +30,9 @@ public class NormalLoginHelper implements LoginHelper {
     @Override
     public UserDetails login(String username, String password) throws SimplePoseidonCheckException {
         OaUserInfo userInfo= ((OaUserInfo) userInfoManager.loadUserByUsername(username));
-        // fixme
+        if (userInfo==null){
+            throw new SimplePoseidonCheckException("用户信息不存在");
+        }
         boolean matches = passwordEncoder.matches(password, userInfo.getPassword());
         if (!matches){
             throw new SimplePoseidonCheckException("密码错误");

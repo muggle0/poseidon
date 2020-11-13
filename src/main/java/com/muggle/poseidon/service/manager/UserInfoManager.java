@@ -28,7 +28,7 @@ public class UserInfoManager {
 
     public UserDetails loadUserByUsername(String username) {
         QueryWrapper<OaUserInfo> oaUserInfoQueryWrapper = new QueryWrapper<>();
-        oaUserInfoQueryWrapper.lambda().eq(OaUserInfo::getNickname,username);
+        oaUserInfoQueryWrapper.lambda().eq(OaUserInfo::getUsername,username);
         OaUserInfo oaUserInfo = oaUserInfoMapper.selectOne(oaUserInfoQueryWrapper);
         return oaUserInfo;
     }
