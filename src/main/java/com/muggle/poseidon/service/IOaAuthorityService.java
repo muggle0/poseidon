@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOaAuthorityService extends IService<OaAuthority> {
 
+    Boolean addAuthority(OaAuthority authority);
 }

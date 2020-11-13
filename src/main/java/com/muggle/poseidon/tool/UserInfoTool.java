@@ -11,7 +11,9 @@ import com.muggle.poseidon.entity.OaUserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -56,5 +58,17 @@ public class UserInfoTool {
         userInfo.setAccountNonExpired(true);
         userInfo.setAccountNonLocked(true);
         return userInfo;
+    }
+
+    public static OaUserInfo getUserInfo(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication==null){
+            return null;
+        }
+        Object details = authentication.getDetails();
+        if (details==null){
+            return null;
+        }
+        return (OaUserInfo) details;
     }
 }

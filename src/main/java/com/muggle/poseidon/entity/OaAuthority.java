@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -36,13 +37,17 @@ public class OaAuthority extends BaseBean {
     private Long gmtModifitor;
 
     @ApiModelProperty(value = "权限编码")
+    @NotNull
     private String authCode;
 
     @ApiModelProperty(value = "权限名称")
+    @NotNull
     private String authName;
 
     @ApiModelProperty(value = "权限描述")
     private String authDesc;
 
+    private String gmtModifitorName;
 
+    private String gmtCreatorName;
 }
