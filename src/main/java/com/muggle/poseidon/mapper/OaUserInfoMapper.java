@@ -1,11 +1,9 @@
 package com.muggle.poseidon.mapper;
 
-import java.util.Collection;
 import java.util.List;
 
-import com.muggle.poseidon.entity.OaUserInfo;
+import com.muggle.poseidon.entity.pojo.OaUserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.security.core.GrantedAuthority;
 
 /**
  * <p>

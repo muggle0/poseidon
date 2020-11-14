@@ -1,7 +1,7 @@
 package com.muggle.poseidon.config;
 
 import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
-import com.muggle.poseidon.entity.OaUserInfo;
+import com.muggle.poseidon.entity.pojo.OaUserInfo;
 import com.muggle.poseidon.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.store.SecurityStore;
 import com.muggle.poseidon.tool.UserInfoTool;

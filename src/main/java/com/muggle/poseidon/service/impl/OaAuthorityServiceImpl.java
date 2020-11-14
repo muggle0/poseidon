@@ -5,8 +5,9 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.muggle.poseidon.base.OaBusinessException;
 import com.muggle.poseidon.base.OaExceptionEnum;
-import com.muggle.poseidon.entity.OaAuthority;
-import com.muggle.poseidon.entity.OaUserInfo;
+import com.muggle.poseidon.entity.form.AuthorityForm;
+import com.muggle.poseidon.entity.pojo.OaAuthority;
+import com.muggle.poseidon.entity.pojo.OaUserInfo;
 import com.muggle.poseidon.mapper.OaAuthorityMapper;
 import com.muggle.poseidon.service.IOaAuthorityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -27,13 +28,18 @@ import org.springframework.stereotype.Service;
 public class OaAuthorityServiceImpl extends ServiceImpl<OaAuthorityMapper, OaAuthority> implements IOaAuthorityService {
     @Autowired
     OaAuthorityManager authorityManager;
+
+    /**
+     * @param authority
+     * @return
+     */
     @Override
     public Boolean addAuthority(OaAuthority authority) {
         OaAuthorityMapper oaAuthorityMapper = authorityManager.getOaAuthorityMapper();
         QueryWrapper<OaAuthority> queryWrapper = new QueryWrapper<>();
         OaAuthority oaAuthority = oaAuthorityMapper.selectOne(queryWrapper);
-        if (oaAuthority!=null){
-            throw new OaBusinessException("该权限编码已存在",OaExceptionEnum.OaCheckError.getCode());
+        if (oaAuthority != null) {
+            throw new OaBusinessException("该权限编码已存在", OaExceptionEnum.OaCheckError.getCode());
         }
         OaUserInfo userInfo = UserInfoTool.getUserInfo();
         authority.setGmtCreated(LocalDateTime.now());
@@ -41,6 +47,16 @@ public class OaAuthorityServiceImpl extends ServiceImpl<OaAuthorityMapper, OaAut
         authority.setGmtCreator(userInfo.getId());
         oaAuthorityMapper.insert(authority);
         return true;
+    }
+
+    /**
+     * @param authorityForm
+     * @return
+     */
+    @Override
+    public Boolean addRoleAuth(AuthorityForm authorityForm) {
+
+        return null;
     }
 
 }

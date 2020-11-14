@@ -1,4 +1,4 @@
-package com.muggle.poseidon.entity;
+package com.muggle.poseidon.entity.pojo;
 
 import java.util.Date;
 

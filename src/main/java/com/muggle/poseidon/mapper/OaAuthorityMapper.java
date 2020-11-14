@@ -1,6 +1,6 @@
 package com.muggle.poseidon.mapper;
 
-import com.muggle.poseidon.entity.OaAuthority;
+import com.muggle.poseidon.entity.pojo.OaAuthority;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

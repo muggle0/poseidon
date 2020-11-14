@@ -2,7 +2,7 @@ package com.muggle.poseidon.mapper;
 
 import java.util.List;
 
-import com.muggle.poseidon.entity.OaRole;
+import com.muggle.poseidon.entity.pojo.OaRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

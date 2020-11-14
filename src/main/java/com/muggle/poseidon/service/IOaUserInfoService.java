@@ -1,6 +1,6 @@
 package com.muggle.poseidon.service;
 
-import com.muggle.poseidon.entity.OaUserInfo;
+import com.muggle.poseidon.entity.pojo.OaUserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

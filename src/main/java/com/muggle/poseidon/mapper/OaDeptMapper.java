@@ -1,6 +1,6 @@
 package com.muggle.poseidon.mapper;
 
-import com.muggle.poseidon.entity.OaDept;
+import com.muggle.poseidon.entity.pojo.OaDept;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

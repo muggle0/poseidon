@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
-import com.muggle.poseidon.entity.OaUrlInfo;
+import com.muggle.poseidon.entity.pojo.OaUrlInfo;
 import com.muggle.poseidon.mapper.OaUrlInfoMapper;
 import com.muggle.poseidon.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.service.IOaUrlInfoService;

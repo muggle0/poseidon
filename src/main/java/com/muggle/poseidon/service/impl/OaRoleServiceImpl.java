@@ -1,6 +1,6 @@
 package com.muggle.poseidon.service.impl;
 
-import com.muggle.poseidon.entity.OaRole;
+import com.muggle.poseidon.entity.pojo.OaRole;
 import com.muggle.poseidon.mapper.OaRoleMapper;
 import com.muggle.poseidon.service.IOaRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

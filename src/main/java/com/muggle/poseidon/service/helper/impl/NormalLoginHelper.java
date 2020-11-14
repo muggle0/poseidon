@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
-import com.muggle.poseidon.entity.OaUserInfo;
+import com.muggle.poseidon.entity.pojo.OaUserInfo;
 import com.muggle.poseidon.mapper.OaRoleMapper;
 import com.muggle.poseidon.service.helper.LoginHelper;
 import com.muggle.poseidon.service.manager.UserInfoManager;

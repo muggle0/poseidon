@@ -1,6 +1,7 @@
 package com.muggle.poseidon.service;
 
-import com.muggle.poseidon.entity.OaAuthority;
+import com.muggle.poseidon.entity.form.AuthorityForm;
+import com.muggle.poseidon.entity.pojo.OaAuthority;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -14,4 +15,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IOaAuthorityService extends IService<OaAuthority> {
 
     Boolean addAuthority(OaAuthority authority);
+
+    /**
+     *
+     * @param authorityForm
+     * @return
+     */
+    Boolean addRoleAuth(AuthorityForm authorityForm);
 }
