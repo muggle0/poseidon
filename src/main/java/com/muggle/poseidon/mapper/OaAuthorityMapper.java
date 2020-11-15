@@ -1,5 +1,6 @@
 package com.muggle.poseidon.mapper;
 
+import com.muggle.poseidon.entity.dto.OaAuthorityDTO;
 import com.muggle.poseidon.entity.pojo.OaAuthority;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface OaAuthorityMapper extends BaseMapper<OaAuthority> {
 
+    void insertRelation(OaAuthorityDTO oaAuthorityDTO);
 }

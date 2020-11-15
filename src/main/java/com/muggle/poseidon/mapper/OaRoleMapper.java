@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.muggle.poseidon.entity.pojo.OaRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -13,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author muggle
  * @since 2020-11-12
  */
+@Repository
 public interface OaRoleMapper extends BaseMapper<OaRole> {
 
     /**
