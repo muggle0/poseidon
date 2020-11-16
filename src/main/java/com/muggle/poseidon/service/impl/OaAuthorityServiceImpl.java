@@ -1,6 +1,7 @@
 package com.muggle.poseidon.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.muggle.poseidon.base.OaBusinessException;
@@ -44,6 +45,7 @@ public class OaAuthorityServiceImpl extends ServiceImpl<OaAuthorityMapper, OaAut
     public Boolean addAuthority(OaAuthority authority) {
         OaAuthorityMapper oaAuthorityMapper = authorityManager.getOaAuthorityMapper();
         QueryWrapper<OaAuthority> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(OaAuthority::getAuthCode,authority.getAuthCode());
         OaAuthority oaAuthority = oaAuthorityMapper.selectOne(queryWrapper);
         if (oaAuthority != null) {
             throw new OaBusinessException("该权限编码已存在", OaExceptionEnum.OaCheckError.getCode());
@@ -64,11 +66,18 @@ public class OaAuthorityServiceImpl extends ServiceImpl<OaAuthorityMapper, OaAut
     public Boolean addRoleAuth(AuthorityForm authorityForm) {
         OaAuthorityMapper oaAuthorityMapper = authorityManager.getOaAuthorityMapper();
         OaAuthority oaAuthority = oaAuthorityMapper.selectById(authorityForm.getAuthId());
+        if (oaAuthority==null){
+            throw new OaBusinessException("找不到该权限",OaExceptionEnum.OaCheckError.getCode());
+        }
         OaRole oaRole = roleMapper.selectById(authorityForm.getRoleId());
+        if (oaRole==null||oaRole.getEnabled()){
+            throw new OaBusinessException("角色不可用",OaExceptionEnum.OaCheckError.getCode());
+        }
         OaAuthorityDTO oaAuthorityDTO = new OaAuthorityDTO();
         BeanUtils.copyProperties(oaAuthority,oaAuthorityDTO);
-        oaAuthorityMapper.insertRelation(oaAuthorityDTO);
-        return null;
+        oaAuthorityDTO.setRoleId(oaRole.getId());
+        oaAuthorityDTO.setRoleCode(oaRole.getRoleCode());
+        return oaAuthorityMapper.insertRelation(Arrays.asList(oaAuthorityDTO))==1;
     }
 
 }

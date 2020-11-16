@@ -16,7 +16,7 @@ public class OaBusinessException extends BasePoseidonException {
 
     @Override
     public Integer getCode() {
-        return null;
+        return code;
     }
 
     public OaBusinessException(OaExceptionEnum oaExceptionEnum) {

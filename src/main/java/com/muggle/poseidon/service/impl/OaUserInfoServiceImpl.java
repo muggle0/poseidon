@@ -1,6 +1,7 @@
 package com.muggle.poseidon.service.impl;
 
 import com.muggle.poseidon.entity.pojo.OaUserInfo;
+import com.muggle.poseidon.entity.vo.OaUserVO;
 import com.muggle.poseidon.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.service.IOaUserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -17,4 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserInfo> implements IOaUserInfoService {
 
+    @Override
+    public OaUserVO save(OaUserVO oaUserVO) {
+
+        return null;
+    }
 }

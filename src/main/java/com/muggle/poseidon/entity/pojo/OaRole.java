@@ -1,6 +1,8 @@
 package com.muggle.poseidon.entity.pojo;
 
 import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.muggle.poseidon.base.BaseBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +24,9 @@ public class OaRole extends BaseBean {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId
+    private Long id;
+
     @ApiModelProperty(value = "角色名称")
     private String roleName;
 
@@ -41,6 +46,8 @@ public class OaRole extends BaseBean {
 
     @ApiModelProperty(value = "父角色id")
     private Long parentId;
+
+    private String pathCode;
 
 
 }

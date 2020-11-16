@@ -43,4 +43,6 @@ public class OaAuthorityController extends BaseController {
         return result?success():error("新增权限失败");
     }
 
+
+
 }

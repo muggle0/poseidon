@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.muggle.poseidon.mapper.OaAuthorityMapper">
 
+    <select id="insertRelation" resultType="int">
+        insert into (auth_id,role_id,role_code,auth_code) values
+         <foreach collection="list" item="item"  separator=",">
+             (#{item.id},#{item.roleId},#{item.roleCode},#{item.authCode})
+         </foreach>
+    </select>
 </mapper>
