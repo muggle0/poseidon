@@ -167,6 +167,7 @@ public class TokenServiceImpl implements TokenService {
             throw new SimplePoseidonCheckException("登录类型错误");
         }
         UserDetails login = loginHelper.login(username.toString(), password.toString());
+
         return login;
     }
 

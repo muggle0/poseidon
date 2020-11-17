@@ -28,7 +28,6 @@ public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserI
     UserInfoMapstruct userInfoMapstruct;
     @Override
     public OaUserVO save(OaUserVO oaUserVO) {
-
         return null;
     }
 
