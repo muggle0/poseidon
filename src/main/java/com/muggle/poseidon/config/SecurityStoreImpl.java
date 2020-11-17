@@ -36,7 +36,7 @@ public class SecurityStoreImpl implements SecurityStore {
     }
 
     @Override
-    public Boolean cleanToken(String s) {
-        return null;
+    public Boolean cleanToken(String username) {
+        return true;
     }
 }

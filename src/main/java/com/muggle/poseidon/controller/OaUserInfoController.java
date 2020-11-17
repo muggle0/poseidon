@@ -27,9 +27,10 @@ public class OaUserInfoController extends BaseController {
     @Autowired
     IOaUserInfoService oaUserInfoService;
 
-    @GetMapping("/xx")
-    public String test(){
-        return ">";
+    @GetMapping("/")
+    public ResultBean<OaUserVO> test(){
+        OaUserVO oaUserVO=oaUserInfoService.getUserInfo();
+        return ResultBean.successData(oaUserVO);
     }
 
     @PostMapping("/save")

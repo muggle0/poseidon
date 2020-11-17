@@ -15,4 +15,7 @@ import com.muggle.poseidon.entity.vo.OaUserVO;
 public interface IOaUserInfoService extends IService<OaUserInfo> {
 
     OaUserVO save(OaUserVO oaUserVO);
+
+    OaUserVO getUserInfo();
+
 }
