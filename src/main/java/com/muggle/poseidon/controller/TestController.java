@@ -1,9 +1,14 @@
 package com.muggle.poseidon.controller;
 
 import java.util.Arrays;
+import java.util.Map;
 
+import com.muggle.poseidon.base.ResultBean;
 import com.muggle.psf.SimpleCodeGenerator;
 import com.muggle.psf.TableMessage;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -11,6 +16,7 @@ import com.muggle.psf.TableMessage;
  * @Author: muggle
  * @Date: 2020/11/11
  **/
+@RestController
 public class TestController {
     public static void main(String[] args) {
         TableMessage tableMessage = new TableMessage();
@@ -28,5 +34,10 @@ public class TestController {
         tableMessage.setSwagger(true);
         SimpleCodeGenerator simpleCodeGeneratorTemplate = new SimpleCodeGenerator(tableMessage);
         simpleCodeGeneratorTemplate.createCode();
+    }
+    @PostMapping("/test.json")
+    public ResultBean test(@RequestBody Map<String,String> map){
+        System.out.println(map);
+        return ResultBean.success();
     }
 }

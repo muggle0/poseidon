@@ -2,6 +2,9 @@ package com.muggle.poseidon.service.impl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -12,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
@@ -23,6 +27,8 @@ import com.muggle.poseidon.service.IOaUrlInfoService;
 import com.muggle.poseidon.service.TokenService;
 import com.muggle.poseidon.service.helper.LoginHelper;
 import com.muggle.poseidon.service.manager.UserInfoManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +44,7 @@ import org.springframework.util.AntPathMatcher;
  **/
 @Service
 public class TokenServiceImpl implements TokenService {
+    private static final Logger log = LoggerFactory.getLogger(TokenServiceImpl.class);
     @Autowired
     private UserInfoManager userInfoManager;
     @Autowired
@@ -129,23 +136,37 @@ public class TokenServiceImpl implements TokenService {
         if (!httpServletRequest.getMethod().equals(HttpMethod.POST.name())) {
             throw new SimplePoseidonCheckException("非法请求");
         }
-        String username = httpServletRequest.getParameter("username");
-        String password = httpServletRequest.getParameter("password");
-        String loginType = httpServletRequest.getParameter("loginType");
+        Object username =null;
+        Object password = null;
+        Object loginType = null;
+        try ( BufferedReader streamReader = new BufferedReader( new InputStreamReader(httpServletRequest.getInputStream(), "UTF-8"))){
+            StringBuilder responseStrBuilder = new StringBuilder();
+            String inputStr;
+            while ((inputStr = streamReader.readLine()) != null){
+                responseStrBuilder.append(inputStr);
+            }
+            JSONObject jsonObject = JSONObject.parseObject(responseStrBuilder.toString());
+            username=jsonObject.get("username");
+            password=jsonObject.get("password");
+            loginType=jsonObject.get("loginType");
+        } catch (IOException e) {
+            log.error("登录异常",e);
+           throw new SimplePoseidonCheckException("数据读取异常");
+        }
         if (username == null) {
             throw new SimplePoseidonCheckException("请填写用户名");
         }
         if (password == null) {
             throw new SimplePoseidonCheckException("请填写密码");
         }
-        if (password == null) {
+        if (loginType == null) {
             throw new SimplePoseidonCheckException("请选择登录类型");
         }
-        LoginHelper loginHelper = loginHelperMap.get(loginType.concat("Helper"));
+        LoginHelper loginHelper = loginHelperMap.get(loginType.toString().concat("Helper"));
         if (loginHelper == null) {
             throw new SimplePoseidonCheckException("登录类型错误");
         }
-        UserDetails login = loginHelper.login(username, password);
+        UserDetails login = loginHelper.login(username.toString(), password.toString());
         return login;
     }
 
