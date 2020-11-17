@@ -3,6 +3,7 @@ package com.muggle.poseidon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.psf.SimpleCodeGenerator;
 import com.muggle.psf.TableMessage;
@@ -36,6 +37,7 @@ public class TestController {
         simpleCodeGeneratorTemplate.createCode();
     }
     @PostMapping("/test.json")
+    @InterfaceAction
     public ResultBean test(@RequestBody Map<String,String> map){
         System.out.println(map);
         return ResultBean.success();
