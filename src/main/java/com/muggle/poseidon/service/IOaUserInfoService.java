@@ -1,5 +1,6 @@
 package com.muggle.poseidon.service;
 
+import com.muggle.poseidon.entity.form.OaUserForm;
 import com.muggle.poseidon.entity.pojo.OaUserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.muggle.poseidon.entity.vo.OaUserVO;
@@ -14,7 +15,7 @@ import com.muggle.poseidon.entity.vo.OaUserVO;
  */
 public interface IOaUserInfoService extends IService<OaUserInfo> {
 
-    OaUserVO save(OaUserVO oaUserVO);
+    OaUserVO save(OaUserForm userForm);
 
     OaUserVO getUserInfo();
 
