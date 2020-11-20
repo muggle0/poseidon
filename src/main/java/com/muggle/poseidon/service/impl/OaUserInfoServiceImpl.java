@@ -73,6 +73,9 @@ public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserI
     @Override
     public OaUserVO getUserInfo() {
         OaUserInfo userInfo = UserInfoTool.getUserInfo();
+        if (userInfo==null){
+            return null;
+        }
         OaUserInfo dbUserInfo = userInfoMapper.selectById(userInfo.getId());
         dbUserInfo.setAuthorities(userInfo.getAuthorities());
         OaUserVO oaUserVO = userInfoMapstruct.getUserVO(dbUserInfo);

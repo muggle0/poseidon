@@ -1,6 +1,7 @@
 package com.muggle.poseidon.controller;
 
 
+import static com.muggle.poseidon.base.ResultBean.success;
 import static com.muggle.poseidon.base.ResultBean.successData;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.entity.form.OaUserForm;
@@ -38,6 +39,11 @@ public class OaUserInfoController extends BaseController {
     public ResultBean<OaUserVO> save(OaUserForm userForm){
         OaUserVO save = oaUserInfoService.save(userForm);
         return successData(save);
+    }
+
+    @PostMapping("/update")
+    public ResultBean<OaUserVO> update(){
+        return success();
     }
 
 }
