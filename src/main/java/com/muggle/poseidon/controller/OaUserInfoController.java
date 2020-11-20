@@ -29,7 +29,7 @@ public class OaUserInfoController extends BaseController {
     @Autowired
     IOaUserInfoService oaUserInfoService;
 
-    @GetMapping("/")
+    @GetMapping("/user.json")
     public ResultBean<OaUserVO> getUserInfo(){
         OaUserVO oaUserVO=oaUserInfoService.getUserInfo();
         return ResultBean.successData(oaUserVO);
@@ -42,8 +42,9 @@ public class OaUserInfoController extends BaseController {
     }
 
     @PostMapping("/update")
-    public ResultBean<OaUserVO> update(){
-        return success();
+    public ResultBean<OaUserVO> update(OaUserForm userForm){
+        OaUserVO update = oaUserInfoService.update(userForm);
+        return successData(update);
     }
 
 }

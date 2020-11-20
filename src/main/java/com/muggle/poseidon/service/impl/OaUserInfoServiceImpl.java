@@ -81,4 +81,9 @@ public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserI
         OaUserVO oaUserVO = userInfoMapstruct.getUserVO(dbUserInfo);
         return oaUserVO;
     }
+
+    @Override
+    public OaUserVO update(OaUserForm userForm) {
+        return null;
+    }
 }

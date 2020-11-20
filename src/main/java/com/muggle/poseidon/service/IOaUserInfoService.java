@@ -15,8 +15,23 @@ import com.muggle.poseidon.entity.vo.OaUserVO;
  */
 public interface IOaUserInfoService extends IService<OaUserInfo> {
 
+    /**
+     * 保存用户信息
+     * @param userForm
+     * @return
+     */
     OaUserVO save(OaUserForm userForm);
 
+    /**
+     * 获取用户信息
+     * @return
+     */
     OaUserVO getUserInfo();
 
+    /**
+     * 更新用户信息
+     * @param userForm
+     * @return
+     */
+    OaUserVO update(OaUserForm userForm);
 }
