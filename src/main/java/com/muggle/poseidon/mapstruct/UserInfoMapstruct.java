@@ -49,4 +49,21 @@ public interface UserInfoMapstruct {
         oaUserInfo.setCredentialsNonExpired(true);
         return oaUserInfo;
     }
+
+    default OaUserInfo UserinfouserFormToUser(OaUserForm userForm){
+        OaUserInfo oaUserInfo = new OaUserInfo();
+        oaUserInfo.setAddress(userForm.getAddress());
+        oaUserInfo.setBank(userForm.getBank());
+        oaUserInfo.setBirth(userForm.getBirth());
+        oaUserInfo.setEamil(userForm.getEamil());
+        oaUserInfo.setIdCard(userForm.getIdCard());
+        oaUserInfo.setImgPath(userForm.getImgPath());
+        oaUserInfo.setRealName(userForm.getRealName());
+        oaUserInfo.setUserSchool(userForm.getUserSchool());
+        oaUserInfo.setUserEdu(userForm.getUserEdu());
+        oaUserInfo.setUserSign(userForm.getUserSign());
+        oaUserInfo.setUserTel(userForm.getUserTel());
+        oaUserInfo.setNickname(userForm.getUserTel());
+        return oaUserInfo;
+    }
 }

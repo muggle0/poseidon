@@ -1,5 +1,6 @@
 package com.muggle.poseidon.entity.pojo;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;

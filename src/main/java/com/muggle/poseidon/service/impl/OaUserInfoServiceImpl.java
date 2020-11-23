@@ -15,6 +15,7 @@ import com.muggle.poseidon.mapper.OaUserInfoMapper;
 import com.muggle.poseidon.mapstruct.UserInfoMapstruct;
 import com.muggle.poseidon.service.IOaUserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.muggle.poseidon.tool.SerialNumberTool;
 import com.muggle.poseidon.tool.UserInfoTool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserI
     private OaRoleMapper roleMapper;
     @Autowired
     private UserInfoMapstruct userInfoMapstruct;
+    @Autowired
+    private SerialNumberTool serialNumberTool;
 
 
     /**
@@ -52,6 +55,7 @@ public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserI
         List<OaRoleDTO> roleDTOList=new ArrayList<>();
         OaUserInfo localUser = UserInfoTool.getUserInfo();
         OaUserInfo userInfo=userInfoMapstruct.geUserInfo(userForm,localUser);
+        userInfo.setUserCode(serialNumberTool.getSerialNumber("USER:CODE"));
         /** 账号被注册，但被锁定，需要激活*/
         userInfoMapper.insert(userInfo);
         /** 保存用户角色 */
@@ -84,6 +88,8 @@ public class OaUserInfoServiceImpl extends ServiceImpl<OaUserInfoMapper, OaUserI
 
     @Override
     public OaUserVO update(OaUserForm userForm) {
+
+//        userInfoMapper.updateById()
         return null;
     }
 }
