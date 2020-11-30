@@ -1,5 +1,6 @@
 package com.muggle.poseidon.entity.pojo;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -71,7 +72,7 @@ public class OaUserInfo extends BaseBean implements UserDetails {
     private String userSchool;
 
     @ApiModelProperty(value = "性别")
-    private Boolean gender;
+    private Integer gender;
 
     @ApiModelProperty(value = "学历")
     private String userEdu;

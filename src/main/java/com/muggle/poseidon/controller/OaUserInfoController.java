@@ -1,8 +1,10 @@
 package com.muggle.poseidon.controller;
 
 
+import static com.muggle.poseidon.base.ResultBean.success;
 import static com.muggle.poseidon.base.ResultBean.successData;
 import com.muggle.poseidon.base.ResultBean;
+import com.muggle.poseidon.entity.form.OaUserForm;
 import com.muggle.poseidon.entity.vo.OaUserVO;
 import com.muggle.poseidon.service.IOaUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +29,22 @@ public class OaUserInfoController extends BaseController {
     @Autowired
     IOaUserInfoService oaUserInfoService;
 
-    @GetMapping("/")
-    public ResultBean<OaUserVO> test(){
+    @GetMapping("/user.json")
+    public ResultBean<OaUserVO> getUserInfo(){
         OaUserVO oaUserVO=oaUserInfoService.getUserInfo();
         return ResultBean.successData(oaUserVO);
     }
 
     @PostMapping("/save")
-    public ResultBean<OaUserVO> save(OaUserVO oaUserVO){
-        OaUserVO save = oaUserInfoService.save(oaUserVO);
+    public ResultBean<OaUserVO> save(OaUserForm userForm){
+        OaUserVO save = oaUserInfoService.save(userForm);
         return successData(save);
+    }
+
+    @PostMapping("/update")
+    public ResultBean<OaUserVO> update(OaUserForm userForm){
+        OaUserVO update = oaUserInfoService.update(userForm);
+        return successData(update);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.muggle.poseidon.mapstruct;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.muggle.poseidon.entity.form.OaUserForm;
 import com.muggle.poseidon.entity.pojo.OaUserInfo;
 import com.muggle.poseidon.entity.vo.OaUserVO;
 import org.mapstruct.Mapper;
@@ -19,7 +21,7 @@ import org.springframework.util.CollectionUtils;
  * @Author: muggle
  * @Date: 2020/11/17
  **/
-@Mapper(componentModel="spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel="spring")
 @Repository
 public interface UserInfoMapstruct {
     @Mappings({
@@ -36,5 +38,32 @@ public interface UserInfoMapstruct {
        }
        return authorities.stream().map(SimpleGrantedAuthority::getAuthority).collect(Collectors.toList());
    }
+    OaUserInfo formToUserInfo(OaUserForm oaUserForm);
+    default OaUserInfo geUserInfo(OaUserForm userForm,OaUserInfo localUser){
+        OaUserInfo oaUserInfo = formToUserInfo(userForm);
+        oaUserInfo.setModifyUserId(localUser.getModifyUserId());
+        oaUserInfo.setGmtModified(LocalDateTime.now());
+        oaUserInfo.setEnabled(true);
+        oaUserInfo.setAccountNonExpired(true);
+        oaUserInfo.setAccountNonLocked(false);
+        oaUserInfo.setCredentialsNonExpired(true);
+        return oaUserInfo;
+    }
 
+    default OaUserInfo UserinfouserFormToUser(OaUserForm userForm){
+        OaUserInfo oaUserInfo = new OaUserInfo();
+        oaUserInfo.setAddress(userForm.getAddress());
+        oaUserInfo.setBank(userForm.getBank());
+        oaUserInfo.setBirth(userForm.getBirth());
+        oaUserInfo.setEamil(userForm.getEamil());
+        oaUserInfo.setIdCard(userForm.getIdCard());
+        oaUserInfo.setImgPath(userForm.getImgPath());
+        oaUserInfo.setRealName(userForm.getRealName());
+        oaUserInfo.setUserSchool(userForm.getUserSchool());
+        oaUserInfo.setUserEdu(userForm.getUserEdu());
+        oaUserInfo.setUserSign(userForm.getUserSign());
+        oaUserInfo.setUserTel(userForm.getUserTel());
+        oaUserInfo.setNickname(userForm.getUserTel());
+        return oaUserInfo;
+    }
 }

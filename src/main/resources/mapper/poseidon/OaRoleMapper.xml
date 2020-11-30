@@ -6,4 +6,7 @@
     <select id="selectCodeByUserId" resultType="java.lang.String">
         SELECT ur.`relation_code` FROM p_oa.`oa_user_role_relation` ur WHERE ur.`user_id`=#{id}
     </select>
+    <insert id="insertRelation">
+
+    </insert>
 </mapper>
