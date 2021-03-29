@@ -3,6 +3,8 @@ package com.muggle.poseidon.controller;
 
 import static com.muggle.poseidon.base.ResultBean.error;
 import static com.muggle.poseidon.base.ResultBean.success;
+
+import com.muggle.poseidon.annotation.InterfaceAction;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.entity.form.AuthorityForm;
 import com.muggle.poseidon.entity.pojo.OaAuthority;
@@ -32,6 +34,7 @@ public class OaAuthorityController extends BaseController {
     IOaAuthorityService authorityService;
 
     @PostMapping(value = "/save",produces ={"application/json"} )
+    @InterfaceAction(Idempotent = true)
     public ResultBean addAuthority(@Validated @RequestBody OaAuthority authority){
         Boolean result=authorityService.addAuthority(authority);
         return result?success():error("新增权限失败");

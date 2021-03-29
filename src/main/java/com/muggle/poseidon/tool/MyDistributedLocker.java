@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 
 import com.muggle.poseidon.base.DistributedLocker;
-import com.muggle.poseidon.base.exception.BasePoseidonCheckException;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,7 @@ public class MyDistributedLocker implements DistributedLocker {
 
     @Override
     public boolean tryLock(String key, long l) throws InterruptedException {
-        return redissonClient.getLock(key).tryLock(l,TimeUnit.MILLISECONDS);
+        return redissonClient.getLock(key).tryLock(l,TimeUnit.SECONDS);
     }
 
     @Override
