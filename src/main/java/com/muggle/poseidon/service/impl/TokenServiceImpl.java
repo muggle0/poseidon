@@ -20,13 +20,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
 import com.muggle.poseidon.entity.AuthUrlPathDO;
-import com.muggle.poseidon.entity.pojo.OaUrlInfo;
-import com.muggle.poseidon.mapper.OaUrlInfoMapper;
-import com.muggle.poseidon.mapper.OaUserInfoMapper;
-import com.muggle.poseidon.service.IOaUrlInfoService;
+import com.muggle.poseidon.entity.pojo.SysUrlInfo;
+import com.muggle.poseidon.entity.pojo.SysUser;
+import com.muggle.poseidon.mapper.SysUrlInfoMapper;
+import com.muggle.poseidon.mapper.SysUserMapper;
+import com.muggle.poseidon.service.SysUrlInfoService;
 import com.muggle.poseidon.service.TokenService;
-import com.muggle.poseidon.service.helper.LoginHelper;
-import com.muggle.poseidon.service.manager.UserInfoManager;
+import com.muggle.poseidon.helper.LoginHelper;
+import com.muggle.poseidon.manager.UserInfoManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,31 +49,34 @@ public class TokenServiceImpl implements TokenService {
     @Autowired
     private UserInfoManager userInfoManager;
     @Autowired
-    private OaUrlInfoMapper urlInfoMapper;
+    private SysUrlInfoMapper urlInfoMapper;
     @Autowired
     private Map<String, LoginHelper> loginHelperMap;
 
     private AntPathMatcher antPathMatcher=new AntPathMatcher();
 
     @Autowired
-    IOaUrlInfoService oaUrlInfoService;
+    SysUrlInfoService oaUrlInfoService;
 
     @Override
     public UserDetails getUserById(Long userId) {
-
+        final SysUserMapper userMapper = userInfoManager.getUserMapper();
+        final SysUser sysUser = userMapper.selectById(userId);
+        final String promissionCodes = userInfoManager.getPermissionByUserId(sysUser.getId());
+        sysUser.setRoleCodes(promissionCodes);
         return null;
     }
 
+    /**
+     *
+     * @param roles
+     * @param url
+     * @return
+     */
     @Override
     public boolean rooleMatch(Collection<? extends GrantedAuthority> roles, String url) {
-        OaUserInfoMapper oaUserInfoMapper = userInfoManager.getOaUserInfoMapper();
-        List<String> collect = roles.stream().map(role -> role.getAuthority()).collect(Collectors.toList());
-        List<String> auths = oaUserInfoMapper.findAuths(collect);
-        boolean result=false;
-        for (String auth : auths) {
-            result=antPathMatcher.match(auth,url);
-        }
-        return result;
+        // todo
+        return true;
     }
 
     @Override
@@ -90,20 +94,20 @@ public class TokenServiceImpl implements TokenService {
             urlSet.add(next.getClassUrl());
             urlSet.add(url);
         }
-        QueryWrapper<OaUrlInfo> urlInfoQuery = new QueryWrapper<>();
+        QueryWrapper<SysUrlInfo> urlInfoQuery = new QueryWrapper<>();
         urlInfoQuery.in("url", urlSet);
-        List<OaUrlInfo> oaUrlInfos = urlInfoMapper.selectList(urlInfoQuery);
-        Map<String, OaUrlInfo> urlMap = oaUrlInfos.stream().collect(Collectors.toMap(OaUrlInfo::getUrl, bean -> bean));
-        List<OaUrlInfo> oaUrlInfoList = new ArrayList<>();
+        List<SysUrlInfo> sysUrlInfos = urlInfoMapper.selectList(urlInfoQuery);
+        Map<String, SysUrlInfo> urlMap = sysUrlInfos.stream().collect(Collectors.toMap(SysUrlInfo::getUrl, bean -> bean));
+        List<SysUrlInfo> sysUrlInfoList = new ArrayList<>();
         for (AuthUrlPathDO authUrlPathDO : list) {
             String url = authUrlPathDO.getMethodURL();
-            OaUrlInfo dbOaUrlInfo = urlMap.get(url);
-            if (dbOaUrlInfo != null) {
+            SysUrlInfo dbSysUrlInfo = urlMap.get(url);
+            if (dbSysUrlInfo != null) {
                 continue;
             }
-            OaUrlInfo parent = urlMap.get(authUrlPathDO.getClassUrl());
+            SysUrlInfo parent = urlMap.get(authUrlPathDO.getClassUrl());
             if (parent == null) {
-                OaUrlInfo parentOaurl = new OaUrlInfo();
+                SysUrlInfo parentOaurl = new SysUrlInfo();
                 parentOaurl.setUrl(authUrlPathDO.getClassUrl());
                 parentOaurl.setDescription(authUrlPathDO.getClassDesc());
                 parentOaurl.setGmtCreate(new Date());
@@ -111,24 +115,24 @@ public class TokenServiceImpl implements TokenService {
                 parentOaurl.setRequestType(authUrlPathDO.getRequestType());
                 parentOaurl.setClassName(authUrlPathDO.getClassName());
                 parentOaurl.setId(IdWorker.getId());
-                oaUrlInfoList.add(parentOaurl);
+                sysUrlInfoList.add(parentOaurl);
                 urlMap.put(authUrlPathDO.getClassUrl(), parentOaurl);
                 parent = parentOaurl;
             }
-            OaUrlInfo oaUrlInfo = new OaUrlInfo();
-            oaUrlInfo.setUrl(url);
-            oaUrlInfo.setDescription(authUrlPathDO.getMethodDesc());
-            oaUrlInfo.setGmtCreate(new Date());
-            oaUrlInfo.setEnable(true);
-            oaUrlInfo.setRequestType(authUrlPathDO.getRequestType());
-            oaUrlInfo.setClassName(authUrlPathDO.getClassName());
-            oaUrlInfo.setMethodName(authUrlPathDO.getMethodName());
-            oaUrlInfo.setId(IdWorker.getId());
-            oaUrlInfo.setParentId(parent.getId());
-            oaUrlInfo.setParentUrl(parent.getUrl());
-            oaUrlInfoList.add(oaUrlInfo);
+            SysUrlInfo sysUrlInfo = new SysUrlInfo();
+            sysUrlInfo.setUrl(url);
+            sysUrlInfo.setDescription(authUrlPathDO.getMethodDesc());
+            sysUrlInfo.setGmtCreate(new Date());
+            sysUrlInfo.setEnable(true);
+            sysUrlInfo.setRequestType(authUrlPathDO.getRequestType());
+            sysUrlInfo.setClassName(authUrlPathDO.getClassName());
+            sysUrlInfo.setMethodName(authUrlPathDO.getMethodName());
+            sysUrlInfo.setId(IdWorker.getId());
+            sysUrlInfo.setParentId(parent.getId());
+            sysUrlInfo.setParentUrl(parent.getUrl());
+            sysUrlInfoList.add(sysUrlInfo);
         }
-        oaUrlInfoService.saveBatch(oaUrlInfoList);
+        oaUrlInfoService.saveBatch(sysUrlInfoList);
     }
 
     @Override
@@ -167,7 +171,6 @@ public class TokenServiceImpl implements TokenService {
             throw new SimplePoseidonCheckException("登录类型错误");
         }
         UserDetails login = loginHelper.login(username.toString(), password.toString());
-
         return login;
     }
 

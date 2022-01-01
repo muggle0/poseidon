@@ -1,45 +1,26 @@
 package com.muggle.poseidon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import com.muggle.poseidon.annotation.InterfaceAction;
-import com.muggle.poseidon.base.ResultBean;
-import com.muggle.psf.SimpleCodeGenerator;
-import com.muggle.psf.TableMessage;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
- * @Description:
- * @Author: muggle
- * @Date: 2020/11/11
- **/
+ * Description
+ * Date 2021/11/4
+ * Created by muggle
+ */
 @RestController
+@RequestMapping("/test")
 public class TestController {
-    public static void main(String[] args) {
-        TableMessage tableMessage = new TableMessage();
-        tableMessage.setUsername("root");
-        tableMessage.setSwagger(true);
-        tableMessage.setTableName(Arrays.asList("oa_user_record"));
-        tableMessage.setAuthor("muggle");
-        tableMessage.setParentPack("com.muggle.poseidon.base");
-        tableMessage.setProjectPackage("com.muggle");
-        tableMessage.setDriver("com.mysql.jdbc.Driver");
-        tableMessage.setJdbcUrl("jdbc:mysql:///p_oa?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC");
-        tableMessage.setModule("poseidon");
-        tableMessage.setPerfix("");
-        tableMessage.setPassword("root");
-        tableMessage.setSwagger(true);
-        SimpleCodeGenerator simpleCodeGeneratorTemplate = new SimpleCodeGenerator(tableMessage);
-        simpleCodeGeneratorTemplate.createCode();
-    }
-    @PostMapping("/test.json")
-    @InterfaceAction
-    public ResultBean test(@RequestBody Map<String,String> map){
-        System.out.println(map);
-        return ResultBean.success();
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @GetMapping("/encode")
+    @PreAuthorize("hasAuthority('sys:menu:list')")
+    public String getEncode(String code){
+        return passwordEncoder.encode(code);
     }
 }

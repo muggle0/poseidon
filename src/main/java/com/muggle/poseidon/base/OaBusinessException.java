@@ -23,4 +23,10 @@ public class OaBusinessException extends BasePoseidonException {
         super(oaExceptionEnum.getMessage());
         this.code=oaExceptionEnum.getCode();
     }
+
+    public OaBusinessException(OaExceptionEnum exceptionEnum,Throwable e){
+        super(exceptionEnum.getMessage(),e);
+        this.code=exceptionEnum.getCode();
+    }
+
 }

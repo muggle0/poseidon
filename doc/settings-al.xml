@@ -5,23 +5,13 @@
     <mirrors>
         <mirror>
             <id>mirror</id>
-            <mirrorOf>central,jcenter,!rdc-releases,!rdc-snapshots</mirrorOf>
+            <mirrorOf>central,snapshots</mirrorOf>
             <name>mirror</name>
             <url>https://maven.aliyun.com/nexus/content/groups/public</url>
         </mirror>
 
     </mirrors>
     <servers>
-        <server>
-            <id>rdc-releases</id>
-            <username>VF8ZQ4</username>
-            <password>oGkU5jjmi5</password>
-        </server>
-        <server>
-            <id>rdc-snapshots</id>
-            <username>VF8ZQ4</username>
-            <password>oGkU5jjmi5</password>
-        </server>
     </servers>
     <profiles>
         <profile>
@@ -55,26 +45,6 @@
                         <enabled>true</enabled>
                     </snapshots>
                 </repository>
-                <repository>
-                    <id>rdc-releases</id>
-                    <url>https://repo.rdc.aliyun.com/repository/135664-release-agaluw/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>rdc-snapshots</id>
-                    <url>https://repo.rdc.aliyun.com/repository/135664-snapshot-iPvOFe/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
@@ -90,26 +60,6 @@
                 <pluginRepository>
                     <id>snapshots</id>
                     <url>https://maven.aliyun.com/nexus/content/groups/public</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>rdc-releases</id>
-                    <url>https://repo.rdc.aliyun.com/repository/135664-release-agaluw/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>rdc-snapshots</id>
-                    <url>https://repo.rdc.aliyun.com/repository/135664-snapshot-iPvOFe/</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.muggle.poseidon.entity.pojo.OaUserInfo;
+import com.muggle.poseidon.entity.pojo.SysUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -26,7 +26,7 @@ public class UserInfoTool {
         signingKey= UUID.randomUUID().toString();
     }
 
-    public static String creakeToken(OaUserInfo userInfo){
+    public static String creakeToken(SysUser userInfo){
         List<String> collect = userInfo.getAuthorities().stream()
                 .map(SimpleGrantedAuthority::getAuthority).collect(Collectors.toList());
         Map<String, Object> claims=new HashMap<>();
@@ -41,11 +41,11 @@ public class UserInfoTool {
         return compact;
     }
 
-    public static OaUserInfo parserToken(String token) {
+    public static SysUser parserToken(String token) {
         Claims body = Jwts.parser().setSigningKey(signingKey)
                 .parseClaimsJws(token)
                 .getBody();
-        OaUserInfo userInfo = new OaUserInfo();
+        SysUser userInfo = new SysUser();
         userInfo.setId(((Long) body.get("id")));
         userInfo.setUsername(body.get("username").toString());
         List<String> strings = (List<String>) body.get("role");
@@ -59,15 +59,15 @@ public class UserInfoTool {
         return userInfo;
     }
 
-    public static OaUserInfo getUserInfo(){
+    public static SysUser getUserInfo(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication==null){
             return null;
         }
         Object details = authentication.getDetails();
-        if (details==null||!(details instanceof OaUserInfo)){
+        if (details==null||!(details instanceof SysUser)){
             return null;
         }
-        return (OaUserInfo) details;
+        return (SysUser) details;
     }
 }
