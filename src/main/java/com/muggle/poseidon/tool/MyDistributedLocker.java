@@ -1,5 +1,6 @@
 package com.muggle.poseidon.tool;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 
@@ -47,6 +48,21 @@ public class MyDistributedLocker implements DistributedLocker {
     @Override
     public void unlock(String key) {
         redissonClient.getLock(key).unlock();
+    }
+
+    @Override
+    public boolean compareLock(Map<String, String> map) {
+        return false;
+    }
+
+    @Override
+    public boolean tryLock(String s, String s1, int i, TimeUnit timeUnit) {
+        return false;
+    }
+
+    @Override
+    public boolean unlock(String s, String s1) {
+        return false;
     }
 
     @Override

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  **/
 @Mapper(componentModel="spring")
 @Repository
-public class RoleMapstruct {
+public interface RoleMapstruct {
 }

@@ -27,36 +27,12 @@ public class UserInfoTool {
     }
 
     public static String creakeToken(SysUser userInfo){
-        List<String> collect = userInfo.getAuthorities().stream()
-                .map(SimpleGrantedAuthority::getAuthority).collect(Collectors.toList());
-        Map<String, Object> claims=new HashMap<>();
-        claims.put("id",userInfo.getId());
-        claims.put("username",userInfo.getUsername());
-        claims.put("role",collect);
-        String compact = Jwts.builder()
-                .signWith(SignatureAlgorithm.HS512, signingKey)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 12 * 3600000L))
-                .setClaims(claims).compact();
-        return compact;
+
+        return null;
     }
 
     public static SysUser parserToken(String token) {
-        Claims body = Jwts.parser().setSigningKey(signingKey)
-                .parseClaimsJws(token)
-                .getBody();
-        SysUser userInfo = new SysUser();
-        userInfo.setId(((Long) body.get("id")));
-        userInfo.setUsername(body.get("username").toString());
-        List<String> strings = (List<String>) body.get("role");
-        List<SimpleGrantedAuthority> collect = strings.stream().map(role ->
-                new SimpleGrantedAuthority(role)
-        ).collect(Collectors.toList());
-        userInfo.setAuthorities(collect);
-        userInfo.setEnabled(true);
-        userInfo.setAccountNonExpired(true);
-        userInfo.setAccountNonLocked(true);
-        return userInfo;
+        return null;
     }
 
     public static SysUser getUserInfo(){
