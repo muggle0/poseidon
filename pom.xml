@@ -10,7 +10,7 @@
         <version>2.3.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.muggle</groupId>
+    <groupId>com.sofia</groupId>
     <artifactId>poseidon</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>poseidon</name>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>ding-sdk</artifactId>
-            <version>1.0.0.RELEASE</version>
+            <version>1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
