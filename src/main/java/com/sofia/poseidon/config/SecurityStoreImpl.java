@@ -30,7 +30,7 @@ public class SecurityStoreImpl implements SecurityStore {
 
     public SecurityStoreImpl() {
         log.info(">>>>>>>>>>>>>>>>>>>>>>> SecurityStoreImpl 初始化 <<<<<<<<<<<<<<<<<<<<<");
-        SecurityStore.saveAccessPath(Arrays.asList("/auth/api/captcha"));
+        SecurityStore.saveAccessPath(Arrays.asList("/auth/api/captcha","/**/*.json"));
     }
 
     @Override

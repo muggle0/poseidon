@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.alibaba.fastjson.JSONObject;
@@ -28,6 +29,8 @@ import com.sofia.poseidon.service.SysUrlInfoService;
 import com.muggle.poseidon.service.TokenService;
 import com.sofia.poseidon.helper.LoginHelper;
 import com.sofia.poseidon.manager.UserInfoManager;
+import com.sofia.poseidon.tool.MyDistributedLocker;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,7 @@ import org.springframework.util.AntPathMatcher;
 @Service
 public class TokenServiceImpl implements TokenService {
     private static final Logger log = LoggerFactory.getLogger(TokenServiceImpl.class);
+    public static final String URL_SYNC_LOCK = "poseidon:flyway:processUrl:count";
     @Autowired
     private UserInfoManager userInfoManager;
     @Autowired
@@ -53,10 +57,18 @@ public class TokenServiceImpl implements TokenService {
     @Autowired
     private Map<String, LoginHelper> loginHelperMap;
 
-    private AntPathMatcher antPathMatcher=new AntPathMatcher();
+    private RedissonClient redissonClient;
+
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Autowired
     SysUrlInfoService oaUrlInfoService;
+
+    @Autowired
+    public TokenServiceImpl(RedissonClient redissonClient) {
+        this.redissonClient=redissonClient;
+        redissonClient.getCountDownLatch(URL_SYNC_LOCK).trySetCount(1);
+    }
 
     @Override
     public UserDetails getUserById(Long userId) {
@@ -81,6 +93,12 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void processUrl(List<AuthUrlPathDO> list) {
+        try {
+            redissonClient.getCountDownLatch(URL_SYNC_LOCK).await(3, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            log.error(e.getMessage(), e);
+            return;
+        }
         Set<String> urlSet = new HashSet<>();
         Iterator<AuthUrlPathDO> iterator = list.iterator();
         while (iterator.hasNext()) {
