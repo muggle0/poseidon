@@ -184,7 +184,7 @@ public class TokenServiceImpl implements TokenService {
         if (loginType == null) {
             throw new SimplePoseidonCheckException("请选择登录类型");
         }
-        LoginHelper loginHelper = loginHelperMap.get(loginType.toString().concat("Helper"));
+        LoginHelper loginHelper = loginHelperMap.get(loginType.toString().concat("LoginHelper"));
         if (loginHelper == null) {
             throw new SimplePoseidonCheckException("登录类型错误");
         }
