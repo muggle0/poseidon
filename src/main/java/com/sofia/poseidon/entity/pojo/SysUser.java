@@ -46,7 +46,10 @@ public class SysUser extends BaseBean implements UserDetails {
 
     private boolean enabled;
 
+    @TableField(exist = false)
     private String roleCodes;
+
+    private Integer statu;
 
     private Long id;
 
