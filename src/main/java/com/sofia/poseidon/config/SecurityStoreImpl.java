@@ -6,6 +6,7 @@ import com.sofia.poseidon.mapper.SysUserMapper;
 import com.muggle.poseidon.store.SecurityStore;
 import com.sofia.poseidon.tool.UserInfoTool;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -42,6 +43,9 @@ public class SecurityStoreImpl implements SecurityStore {
     @Override
     public String signUserMessage(UserDetails userDetails) {
         String s = UserInfoTool.creakeToken((SysUser) userDetails);
+        final RMap<Object, Object> users = redissonClient.getMap("poseidon:user:");
+        users.ex
+        users.put()
         return s;
     }
 

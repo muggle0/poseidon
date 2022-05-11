@@ -1,7 +1,10 @@
 package com.sofia.poseidon.tool;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
+import com.muggle.poseidon.util.JwtTokenUtils;
 import com.sofia.poseidon.entity.pojo.SysUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +21,10 @@ public class UserInfoTool {
     }
 
     public static String creakeToken(SysUser userInfo){
-
-        return null;
+        Map<String, Object> body=new HashMap<>();
+        body.put("id",userInfo.getId());
+        final String token = JwtTokenUtils.createToken(body, signingKey);
+        return token;
     }
 
     public static SysUser parserToken(String token) {

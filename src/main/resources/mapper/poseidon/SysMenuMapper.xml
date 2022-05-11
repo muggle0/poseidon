@@ -7,7 +7,7 @@
     </sql>
 
     <select id="getPermissionByUserId" resultType="java.lang.String">
-        select m.permission
+        select rm.permission
         from sys_role_menu rm
         left join sys_user_role ur on ur.role_id = rm.role_id
         where ur.user_id=#{id}

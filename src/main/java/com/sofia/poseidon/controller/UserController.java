@@ -38,7 +38,7 @@ public class UserController {
         return passwordEncoder.encode(code);
     }
     @Autowired
-    RedissonClient redissonClient;
+    private RedissonClient redissonClient;
 
     /**
      * 获取验证码,通过key存入redis
@@ -49,7 +49,7 @@ public class UserController {
     public ResultBean<Map<String,String>> captcha() throws IOException {
         String key = UUID.randomUUID().toString();
         final String code = IStringUtils.getCode(5);
-        final RMap<Object, Object> captcha = redissonClient.getMap("captcha");
+        final RMap<Object, Object> captcha = redissonClient.getMap("poseidon:captcha:");
         captcha.put(key,code);
         captcha.expire(5, TimeUnit.MINUTES);
         Map<String, String> result=new HashMap<>();

@@ -1,5 +1,31 @@
 package com.sofia.poseidon.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
+import com.muggle.poseidon.entity.AuthUrlPathDO;
+import com.muggle.poseidon.service.TokenService;
+import com.sofia.poseidon.entity.pojo.SysUrlInfo;
+import com.sofia.poseidon.entity.pojo.SysUser;
+import com.sofia.poseidon.helper.LoginHelper;
+import com.sofia.poseidon.manager.UserInfoManager;
+import com.sofia.poseidon.mapper.SysUrlInfoMapper;
+import com.sofia.poseidon.mapper.SysUserMapper;
+import com.sofia.poseidon.service.SysUrlInfoService;
+import org.redisson.api.RMap;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -15,31 +41,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.muggle.poseidon.base.exception.SimplePoseidonCheckException;
-import com.muggle.poseidon.entity.AuthUrlPathDO;
-import com.sofia.poseidon.entity.pojo.SysUrlInfo;
-import com.sofia.poseidon.entity.pojo.SysUser;
-import com.sofia.poseidon.mapper.SysUrlInfoMapper;
-import com.sofia.poseidon.mapper.SysUserMapper;
-import com.sofia.poseidon.service.SysUrlInfoService;
-import com.muggle.poseidon.service.TokenService;
-import com.sofia.poseidon.helper.LoginHelper;
-import com.sofia.poseidon.manager.UserInfoManager;
-import com.sofia.poseidon.tool.MyDistributedLocker;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.util.AntPathMatcher;
 
 /**
  * @Description:
@@ -158,6 +159,7 @@ public class TokenServiceImpl implements TokenService {
         if (!httpServletRequest.getMethod().equals(HttpMethod.POST.name())) {
             throw new SimplePoseidonCheckException("非法请求");
         }
+        JSONObject jsonObject =null;
         Object username =null;
         Object password = null;
         Object loginType = null;
@@ -167,7 +169,7 @@ public class TokenServiceImpl implements TokenService {
             while ((inputStr = streamReader.readLine()) != null){
                 responseStrBuilder.append(inputStr);
             }
-            JSONObject jsonObject = JSONObject.parseObject(responseStrBuilder.toString());
+            jsonObject=JSONObject.parseObject(responseStrBuilder.toString());
             username=jsonObject.get("username");
             password=jsonObject.get("password");
             loginType=jsonObject.get("loginType");
@@ -187,9 +189,24 @@ public class TokenServiceImpl implements TokenService {
         LoginHelper loginHelper = loginHelperMap.get(loginType.toString().concat("LoginHelper"));
         if (loginHelper == null) {
             throw new SimplePoseidonCheckException("登录类型错误");
+        }else if (loginType.equals("normal")){
+            volatileCode(jsonObject);
         }
         UserDetails login = loginHelper.login(username.toString(), password.toString());
         return login;
+    }
+
+    private void volatileCode(JSONObject jsonObject) throws SimplePoseidonCheckException {
+        final Object code = jsonObject.get("code");
+        final Object uuid = jsonObject.get("uuid");
+        if (StringUtils.isEmpty(code)||StringUtils.isEmpty(uuid)){
+            throw new SimplePoseidonCheckException("请填写验证码");
+        }
+        final RMap<Object, Object> map = redissonClient.getMap("poseidon:captcha:");
+        final Object remove = map.remove(uuid);
+        if (!code.equals(remove)){
+            throw new SimplePoseidonCheckException("验证码错误");
+        }
     }
 
     @Override
