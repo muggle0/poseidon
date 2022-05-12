@@ -27,8 +27,9 @@ public class UserInfoTool {
         return token;
     }
 
-    public static SysUser parserToken(String token) {
-        return null;
+    public static String parserToken(String token) {
+        final Object id = JwtTokenUtils.getBody(token, signingKey, "id");
+        return id.toString();
     }
 
     public static SysUser getUserInfo(){

@@ -202,7 +202,7 @@ public class TokenServiceImpl implements TokenService {
         if (StringUtils.isEmpty(code)||StringUtils.isEmpty(uuid)){
             throw new SimplePoseidonCheckException("请填写验证码");
         }
-        final RMap<Object, Object> map = redissonClient.getMap("poseidon:captcha:");
+        final RMap<Object, Object> map = redissonClient.getMap("poseidon:captcha");
         final Object remove = map.remove(uuid);
         if (!code.equals(remove)){
             throw new SimplePoseidonCheckException("验证码错误");

@@ -49,7 +49,7 @@ public class UserController {
     public ResultBean<Map<String,String>> captcha() throws IOException {
         String key = UUID.randomUUID().toString();
         final String code = IStringUtils.getCode(5);
-        final RMap<Object, Object> captcha = redissonClient.getMap("poseidon:captcha:");
+        final RMap<Object, Object> captcha = redissonClient.getMap("poseidon:captcha");
         captcha.put(key,code);
         captcha.expire(5, TimeUnit.MINUTES);
         Map<String, String> result=new HashMap<>();
