@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.muggle.poseidon.base.BaseBean;
@@ -51,6 +52,7 @@ public class SysUser extends BaseBean implements UserDetails {
 
     private Integer statu;
 
+    @TableId(value="id",type= IdType.ASSIGN_ID)
     private Long id;
 
 

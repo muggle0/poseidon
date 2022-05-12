@@ -97,8 +97,8 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$KzgwFkx9u4yasxHTkvP3j.XdZD5XvaDvecJ8YHHX6t8Nohj9LeN9K', 'https://image-1300566513.cos.ap-guangzhou.myqcloud.com/upload/images/5a9f48118166308daba8b6da7e466aab.jpg', '123@qq.com', '广州', '2021-01-12 22:13:53', '2021-01-16 16:57:32', '2020-12-30 08:38:37', 1, 1);
-INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$0ilP4ZD1kLugYwLCs4pmb.ZT9cFqzOZTNaMiHxrBnVIQUGUwEvBIO', 'https://image-1300566513.cos.ap-guangzhou.myqcloud.com/upload/images/5a9f48118166308daba8b6da7e466aab.jpg', 'test@qq.com', NULL, '2021-01-30 08:20:22', '2021-01-30 08:55:57', NULL, 1, 1);
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$KzgwFkx9u4yasxHTkvP3j.XdZD5XvaDvecJ8YHHX6t8Nohj9LeN9K', 'https://raw.githubusercontent.com/muggle0/poseidon-cloud/master/project-document/png/factory.jpg', '123@qq.com', '广州', '2021-01-12 22:13:53', '2021-01-16 16:57:32', '2020-12-30 08:38:37', 1, 1);
+INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$0ilP4ZD1kLugYwLCs4pmb.ZT9cFqzOZTNaMiHxrBnVIQUGUwEvBIO', 'https://raw.githubusercontent.com/muggle0/poseidon-cloud/master/project-document/png/factory.jpg', 'test@qq.com', NULL, '2021-01-30 08:20:22', '2021-01-30 08:55:57', NULL, 1, 1);
 
 -- ----------------------------
 -- Table structure for sys_user_role

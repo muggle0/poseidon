@@ -204,7 +204,10 @@ public class TokenServiceImpl implements TokenService {
         }
         final RMap<Object, Object> map = redissonClient.getMap("poseidon:captcha");
         final Object remove = map.remove(uuid);
-        if (!code.equals(remove)){
+        if (remove==null){
+            throw new SimplePoseidonCheckException("验证码已过期");
+        }
+        if (!code.toString().equalsIgnoreCase(remove.toString())){
             throw new SimplePoseidonCheckException("验证码错误");
         }
     }

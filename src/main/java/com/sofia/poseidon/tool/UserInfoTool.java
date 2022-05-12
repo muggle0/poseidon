@@ -17,7 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class UserInfoTool {
     private static String signingKey;
     static {
-        signingKey= UUID.randomUUID().toString();
+//        signingKey= UUID.randomUUID().toString();
+        signingKey="xxxxxxxxxxxx";
     }
 
     public static String creakeToken(SysUser userInfo){

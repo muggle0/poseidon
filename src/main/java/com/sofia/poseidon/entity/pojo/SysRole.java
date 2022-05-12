@@ -1,6 +1,8 @@
 package com.sofia.poseidon.entity.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.muggle.poseidon.base.BaseBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +30,11 @@ public class SysRole extends BaseBean {
 
 
     private String remark;
+
+    private Integer statu;
+
+    @TableId(value="id",type= IdType.ASSIGN_ID)
+    private Long id;
 
 
 }

@@ -10,7 +10,9 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +41,17 @@ public class UserInfoManager {
     public String getPermissionByUserId(Long id) {
         List<String> result=menuMapper.getPermissionByUserId(id);
         final List<SysRole> roles = sysRoleMapper.getRoleByUserId(id);
-        final String content = String.join(",", result).concat(",").concat(roles.stream()
-            .map(r -> "ROLE_".concat(r.getCode())).collect(Collectors.joining(",")));
-        return content;
+        final List<String> collect = roles.stream()
+            .map(r -> "ROLE_".concat(r.getCode())).collect(Collectors.toList());
+        collect.addAll(result);
+        final String join = String.join(",", collect);
+        return join;
+    }
+
+    public static void main(String[] args) {
+        List<String> test =new ArrayList<>();
+        test.add("x1");
+        test.add("x2");
+        System.out.println(test.stream().collect(Collectors.joining(",")));
     }
 }
