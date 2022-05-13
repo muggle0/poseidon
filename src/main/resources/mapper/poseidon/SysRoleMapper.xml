@@ -14,6 +14,12 @@
         </foreach>
     </insert>
 
+    <select id="getRoleCode" resultType="java.lang.String">
+        select distinct r.code
+        from sys_role r right join sys_user_role ur on r.id=ur.role_id
+        right join sys_user u on ur.user_id=u.id
+        where u.username=#{username} and r.statu = 1;
+    </select>
 
 
 </mapper>

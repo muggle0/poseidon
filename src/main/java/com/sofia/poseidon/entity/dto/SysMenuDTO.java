@@ -22,6 +22,7 @@ public class SysMenuDTO implements Serializable {
 	private Long id;
 	private String name;
 	private String title;
+	private Long parentId;
 	private String icon;
 	private String path;
 	private String component;

@@ -21,7 +21,7 @@ public class SysUserVO {
 
     private LocalDateTime created;
 
-    private List<SysMenuDTO> nav;
+    private List<SysMenuDTO> menus;
 
     private List<String> authoritys;
 }

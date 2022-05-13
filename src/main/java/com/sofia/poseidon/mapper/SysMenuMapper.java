@@ -15,4 +15,18 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @return
      */
     List<String> getPermissionByUserId(Long id);
+
+    /**
+     * 根据用户名查询菜单
+     * @param name
+     * @return
+     */
+    List<SysMenu> getUserMenu(String name);
+
+    /**
+     * 获取菜单编码
+     * @param username
+     * @return
+     */
+    List<String> getUserPerms(String username);
 }

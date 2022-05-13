@@ -26,8 +26,8 @@ public class MenuController {
      * @param principal
      * @return
      */
-    @GetMapping("/user/info")
-    public ResultBean<SysUserVO> userInfo(Principal principal) {
+    @GetMapping("/user/UserMenu")
+    public ResultBean<SysUserVO> getUserMenu(Principal principal) {
         SysUserVO userMenu = sysMenuService.getUserMenu(principal.getName());
         return ResultBean.successData(userMenu);
     }

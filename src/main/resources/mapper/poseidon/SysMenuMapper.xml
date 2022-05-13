@@ -12,5 +12,23 @@
         left join sys_user_role ur on ur.role_id = rm.role_id
         where ur.user_id=#{id}
     </select>
+    <select id="getUserMenu" resultType="com.sofia.poseidon.entity.pojo.SysMenu">
+
+        select <include refid="selectInfo" />
+        from sys_menu m
+                 left join sys_role_menu rm on m.id = rm.menu_id
+                 left join sys_user_role ur on ur.role_id = rm.role_id
+                 LEFT JOIN sys_user u on u.id = ur.user_id
+        where  m.enabled = 1 and u.username = #{name} order by m.orderNum
+    </select>
+
+    <select id="getUserPerms" resultType="java.lang.String">
+        select m.permission
+        from sys_menu m
+        left join sys_role_menu rm on m.id = rm.menu_id
+        left join sys_user_role ur on ur.role_id = rm.role_id
+        LEFT JOIN sys_user u on u.id = ur.user_id
+        where m.enabled = 1 and u.username = #{username} order by m.orderNum
+    </select>
 
 </mapper>

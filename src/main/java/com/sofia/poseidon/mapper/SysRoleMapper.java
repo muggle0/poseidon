@@ -16,5 +16,18 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      */
     List<SysRole> getRoleByUserId(Long id);
 
+    /**
+     * 添加用户权限
+     * @param id
+     * @param asList
+     */
     void addRoleRelation(@Param("id") Long id, @Param("list") List<Long> asList);
+
+    /**
+     * 根据用户名获取角色code
+     * @param username
+     * @return
+     */
+    List<String> getRoleCode(String username);
+
 }

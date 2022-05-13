@@ -37,7 +37,7 @@ public class SysMenu extends BaseBean {
      * 授权(多个用逗号分隔，如：user:list,user:create)
      */
     @NotBlank(message = "菜单授权码不能为空")
-    private String perms;
+    private String permission;
 
     private String component;
 
@@ -57,6 +57,8 @@ public class SysMenu extends BaseBean {
      */
     @TableField("orderNum")
     private Integer orderNum;
+
+    private Long id;
 
     @TableField(exist = false)
     private List<SysMenu> children = new ArrayList<>();
