@@ -2,8 +2,11 @@ package com.sofia.poseidon.controller;
 
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.util.IStringUtils;
+import com.sofia.poseidon.entity.vo.SysUserVO;
+import com.sofia.poseidon.service.SysUserService;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +19,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -32,13 +36,19 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RedissonClient redissonClient;
+
+    @Autowired
+    private SysUserService sysUserService;
+
     @GetMapping("/encode")
     @PreAuthorize("hasAuthority('sys:menu:list')")
     public String getEncode(String code){
         return passwordEncoder.encode(code);
     }
-    @Autowired
-    private RedissonClient redissonClient;
+
+
 
     /**
      * 获取验证码,通过key存入redis
@@ -56,6 +66,12 @@ public class UserController {
         result.put("code",code);
         result.put("key",key);
         return ResultBean.successData(result);
+    }
+
+    @GetMapping("/userInfo")
+    public ResultBean<SysUserVO> userInfo(Principal principal) {
+        SysUserVO sysUserVO=sysUserService.getUserInfo(principal.getName());
+        return ResultBean.successData(sysUserVO);
     }
 
 }

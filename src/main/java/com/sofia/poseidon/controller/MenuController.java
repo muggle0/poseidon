@@ -5,6 +5,7 @@ import com.sofia.poseidon.entity.vo.SysUserVO;
 import com.sofia.poseidon.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,4 +32,6 @@ public class MenuController {
         SysUserVO userMenu = sysMenuService.getUserMenu(principal.getName());
         return ResultBean.successData(userMenu);
     }
+
+//    @PostMapping("/")
 }

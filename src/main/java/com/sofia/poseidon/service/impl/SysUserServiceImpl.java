@@ -7,6 +7,7 @@ import com.muggle.poseidon.base.exception.SimplePoseidonException;
 import com.sofia.poseidon.entity.dto.SysUserDTO;
 import com.sofia.poseidon.entity.pojo.SysRole;
 import com.sofia.poseidon.entity.pojo.SysUser;
+import com.sofia.poseidon.entity.vo.SysUserVO;
 import com.sofia.poseidon.manager.UserInfoManager;
 import com.sofia.poseidon.mapper.SysRoleMapper;
 import com.sofia.poseidon.mapper.SysUserMapper;
@@ -50,5 +51,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         final SysRole sysRole = sysRoleMapper.selectOne(roleQuery);
         sysRoleMapper.addRoleRelation(user.getId(), Arrays.asList(sysRole.getId()));
         sysUser.setId(user.getId());
+    }
+
+    @Override
+    public SysUserVO getUserInfo(String name) {
+        SysUser sysUser = (SysUser) userInfoManager.loadUserByUsername(name);
+        final SysUserVO sysUserVO = new SysUserVO();
+        BeanUtils.copyProperties(sysUser,sysUserVO);
+        return sysUserVO;
     }
 }

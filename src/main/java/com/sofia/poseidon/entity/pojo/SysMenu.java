@@ -60,6 +60,8 @@ public class SysMenu extends BaseBean {
 
     private Long id;
 
+    private String title;
+
     @TableField(exist = false)
     private List<SysMenu> children = new ArrayList<>();
 }
