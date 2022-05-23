@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sofia.poseidon.mapper.SysUserMapper">
 
+    <select id="findAll" resultType="com.sofia.poseidon.entity.pojo.SysUser">
+
+    </select>
 </mapper>

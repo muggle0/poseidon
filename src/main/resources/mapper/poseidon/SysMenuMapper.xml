@@ -3,7 +3,7 @@
 <mapper namespace="com.sofia.poseidon.mapper.SysMenuMapper">
     <sql id="selectInfo">
         distinct m.id, m.parent_id as parentId, m.name, m.path,
-        m.permission, m.component, m.icon, m.orderNum,m.type,m.title
+        m.permission, m.component, m.icon, m.order_num,m.type,m.title
     </sql>
 
     <select id="getPermissionByUserId" resultType="java.lang.String">
@@ -19,7 +19,7 @@
                  left join sys_role_menu rm on m.id = rm.menu_id
                  left join sys_user_role ur on ur.role_id = rm.role_id
                  LEFT JOIN sys_user u on u.id = ur.user_id
-        where  m.enabled = 1 and u.username = #{name} order by m.orderNum
+        where  m.enabled = 1 and u.username = #{name} order by m.order_num
     </select>
 
     <select id="getUserPerms" resultType="java.lang.String">

@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +32,6 @@ import java.util.concurrent.TimeUnit;
  * Created by muggle
  */
 @RestController
-@RequestMapping("/user")
 public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -42,7 +42,7 @@ public class UserController {
     @Autowired
     private SysUserService sysUserService;
 
-    @GetMapping("/encode")
+    @GetMapping("/user/encode")
     @PreAuthorize("hasAuthority('sys:menu:list')")
     public String getEncode(String code){
         return passwordEncoder.encode(code);
@@ -55,7 +55,7 @@ public class UserController {
      * @return
      * @throws IOException
      */
-    @GetMapping("/captcha.json")
+    @GetMapping("/user/captcha.json")
     public ResultBean<Map<String,String>> captcha() throws IOException {
         String key = UUID.randomUUID().toString();
         final String code = IStringUtils.getCode(5);
@@ -68,10 +68,16 @@ public class UserController {
         return ResultBean.successData(result);
     }
 
-    @GetMapping("/userInfo")
+    @GetMapping("/user/userInfo")
     public ResultBean<SysUserVO> userInfo(Principal principal) {
         SysUserVO sysUserVO=sysUserService.getUserInfo(principal.getName());
         return ResultBean.successData(sysUserVO);
+    }
+
+    @GetMapping("/system/user/list")
+    public ResultBean<List<SysUserVO>> userInfo(String username, Long current, Long size) {
+        List<SysUserVO> sysUsers=sysUserService.getUserList(username,current,size);
+        return ResultBean.successData(sysUsers);
     }
 
 }

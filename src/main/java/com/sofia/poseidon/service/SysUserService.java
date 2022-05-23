@@ -5,6 +5,8 @@ import com.sofia.poseidon.entity.dto.SysUserDTO;
 import com.sofia.poseidon.entity.pojo.SysUser;
 import com.sofia.poseidon.entity.vo.SysUserVO;
 
+import java.util.List;
+
 public interface SysUserService extends IService<SysUser> {
 
     /**
@@ -19,4 +21,13 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     SysUserVO getUserInfo(String name);
+
+    /**
+     * 查询用户列表
+     * @param username
+     * @param current
+     * @param size
+     * @return
+     */
+    List<SysUserVO> getUserList(String username, Long current, Long size);
 }

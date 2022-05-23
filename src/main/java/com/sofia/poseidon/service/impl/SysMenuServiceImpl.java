@@ -22,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -87,18 +88,41 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public int insertMenu(SysMenuDTO sysMenu) {
-        return 0;
+        final QueryWrapper<SysMenu> query = new QueryWrapper<>();
+        query.lambda().eq(SysMenu::getName,sysMenu.getName()).or().eq(SysMenu::getPermission,sysMenu.getPermission());
+        final SysMenu dbMenu = sysMenuMapper.selectOne(query);
+        if (dbMenu!=null){
+            throw new SimplePoseidonException("菜单编码重复");
+        }
+        final SysMenu save = new SysMenu();
+        BeanUtils.copyProperties(sysMenu,save);
+        save.setCreated(new Date());
+        save.setUpdated(new Date());
+        save.setTitle(sysMenu.getName());
+        save.setEnabled(1);
+        return sysMenuMapper.insert(save);
     }
 
     @Override
-    public void deleteByid(Long id) {
-        sysMenuMapper.deleteById(id);
+    public void deleteByid(String id) {
+        final int i = sysMenuMapper.deleteById(id);
         final QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(SysMenu::getParentId,id);
         final List<SysMenu> sysMenus = sysMenuMapper.selectList(queryWrapper);
         for (SysMenu sysMenu : sysMenus) {
-            deleteByid(sysMenu.getId());
+            deleteByid(sysMenu.getId().toString());
         }
+    }
+
+    @Override
+    public int updateMenu(SysMenu sysMenu) {
+        final QueryWrapper<SysMenu> query = new QueryWrapper<>();
+        query.lambda().eq(SysMenu::getName,sysMenu.getName()).or().eq(SysMenu::getPermission,sysMenu.getPermission());
+        final SysMenu dbMenu = sysMenuMapper.selectOne(query);
+        if (dbMenu!=null&&!sysMenu.getId().equals(dbMenu.getId())){
+            throw new SimplePoseidonException("菜单编码重复");
+        }
+        return  sysMenuMapper.updateById(sysMenu);
     }
 
     private List<String> getRoleCode(String username) {
@@ -116,13 +140,14 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         final List<SysMenuDTO> collect = menus.stream().filter(bean-> bean.getType()==0||bean.getType()==1).map(bean -> {
                 final SysMenuDTO sysMenuDTO = new SysMenuDTO();
                 BeanUtils.copyProperties(bean, sysMenuDTO);
+                sysMenuDTO.setTitle(bean.getTitle());
                 sysMenuDTO.setChildren(new ArrayList<>());
                 return sysMenuDTO;
             }).collect(Collectors.toList());
         List<SysMenuDTO> result =new ArrayList<>();
-        final Map<Long, SysMenuDTO> maps = collect.stream().collect(Collectors.toMap(SysMenuDTO::getId, Function.identity(), (v1, v2) -> v1));
+        final Map<String, SysMenuDTO> maps = collect.stream().collect(Collectors.toMap(SysMenuDTO::getId, Function.identity(), (v1, v2) -> v1));
         for (SysMenuDTO sysMenuDTO : collect) {
-                if (sysMenuDTO.getParentId()==null||sysMenuDTO.getParentId()==0L){
+                if (sysMenuDTO.getParentId()==null||sysMenuDTO.getParentId().equals("0")){
                 result.add(sysMenuDTO);
                 continue;
             }
@@ -131,7 +156,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return result;
     }
 
-    private SysMenuDTO setChild(Map<Long, SysMenuDTO> collect, SysMenuDTO menu) {
+    private SysMenuDTO setChild(Map<String, SysMenuDTO> collect, SysMenuDTO menu) {
         SysMenuDTO sysMenuDTO = collect.get(menu.getParentId());
         if (sysMenuDTO.getChildren()==null) {
             List<SysMenuDTO> childrens =new ArrayList<>();

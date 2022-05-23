@@ -48,10 +48,4 @@ public class UserInfoManager {
         return join;
     }
 
-    public static void main(String[] args) {
-        List<String> test =new ArrayList<>();
-        test.add("x1");
-        test.add("x2");
-        System.out.println(test.stream().collect(Collectors.joining(",")));
-    }
 }

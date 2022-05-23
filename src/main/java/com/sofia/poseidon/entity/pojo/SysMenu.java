@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,8 +23,7 @@ public class SysMenu extends BaseBean {
     /**
      * 父菜单ID，一级菜单为0
      */
-    @NotNull(message = "上级菜单不能为空")
-    private Long parentId;
+    private String parentId;
 
     @NotBlank(message = "菜单名称不能为空")
     private String name;
@@ -41,6 +41,12 @@ public class SysMenu extends BaseBean {
 
     private String component;
 
+    private Date created;
+
+    private Date updated;
+
+    private Integer enabled;
+
     /**
      * 类型     0：目录   1：菜单   2：按钮
      */
@@ -55,10 +61,12 @@ public class SysMenu extends BaseBean {
     /**
      * 排序
      */
-    @TableField("orderNum")
+    @TableField("order_num")
     private Integer orderNum;
 
-    private Long id;
+    private String id;
+
+    private Integer statu;
 
     private String title;
 

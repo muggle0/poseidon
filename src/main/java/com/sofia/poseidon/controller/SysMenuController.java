@@ -4,6 +4,7 @@ package com.sofia.poseidon.controller;
 import com.muggle.poseidon.base.BaseController;
 import com.muggle.poseidon.base.ResultBean;
 import com.sofia.poseidon.entity.dto.SysMenuDTO;
+import com.sofia.poseidon.entity.pojo.SysMenu;
 import com.sofia.poseidon.service.SysMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,6 @@ public class SysMenuController extends BaseController {
 	@PostMapping("/save")
 	public ResultBean<SysMenuDTO> save(@Validated @RequestBody SysMenuDTO sysMenu) {
         int row = sysMenuService.insertMenu(sysMenu);
-        log.info("新增{}条菜单信息, 菜单信息：{}", row, sysMenu);
         return ResultBean.successData(sysMenu);
 	}
 
@@ -66,22 +66,20 @@ public class SysMenuController extends BaseController {
 	 * 更新按钮
 	 * @param sysMenu
 	 * @return
-	 *//*
+	 */
 	@PostMapping("/update")
-	@PreAuthorize("hasAuthority('sys:menu:update')")
 	public ResultBean<SysMenu> update(@Validated @RequestBody SysMenu sysMenu) {
         int row = sysMenuService.updateMenu(sysMenu);
-        log.info("更新{}条菜单数据，菜单信息：{}", row, sysMenu);
         return ResultBean.successData(sysMenu);
 	}
 
-	*//**
+	/**
 	 * 删除按钮
 	 * @param id
 	 * @return
 	 */
 	@PostMapping("/delete/{id}")
-	public ResultBean delete(@PathVariable("id") Long id) {
+	public ResultBean delete(@PathVariable("id") String id) {
 		sysMenuService.deleteByid(id);
 		return ResultBean.success();
 	}
