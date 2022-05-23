@@ -36,29 +36,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Autowired
     private SysMenuMapper sysMenuMapper;
 
-    @Autowired
-    private SysRoleMapper sysRoleMapper;
 
     @Autowired
     private UserInfoManager userInfoManager;
 
     @Override
     public SysUserVO getUserMenu(String name) {
-        List<SysMenu> userMenuList = sysMenuMapper.getUserMenu(name);
-        List<String> authoritys = getRoleCode(name);
-        for (SysMenu sysMenu : userMenuList) {
-            authoritys.add(sysMenu.getPermission());
-        }
-        SysUser sysUser = (SysUser) userInfoManager.loadUserByUsername(name);
-        SysUserVO userVO = new SysUserVO();
-        userVO.setAuthoritys(authoritys);
-        final List<SysMenuDTO> sysMenuDTOS = covertMenu(userMenuList);
-        userVO.setMenus(sysMenuDTOS);
-        userVO.setId(sysUser.getId());
-        userVO.setUsername(sysUser.getUsername());
-        userVO.setAvatar(sysUser.getAvatar());
-        userVO.setCreated(LocalDateTime.now());
-        return  userVO;
+        return  userInfoManager.getUserMenu(name);
     }
 
     @Override
@@ -75,14 +59,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if (userDetails==null||!userDetails.isEnabled()){
             throw new SimplePoseidonException("账号已冻结");
         }
-//        final List<SysMenu> userMenus = sysMenuMapper.getUserMenu(username);
         final QueryWrapper<SysMenu> query = new QueryWrapper<>();
         query.lambda().in(SysMenu::getType,0,1);
         final List<SysMenu> userMenus = sysMenuMapper.selectList(query);
         if (CollectionUtils.isEmpty(userMenus)){
             return Collections.emptyList();
         }
-        final List<SysMenuDTO> menuDTOS = covertMenu(userMenus);
+        final List<SysMenuDTO> menuDTOS = userInfoManager.covertMenu(userMenus);
         return menuDTOS;
     }
 
@@ -110,7 +93,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         queryWrapper.lambda().eq(SysMenu::getParentId,id);
         final List<SysMenu> sysMenus = sysMenuMapper.selectList(queryWrapper);
         for (SysMenu sysMenu : sysMenus) {
-            deleteByid(sysMenu.getId().toString());
+            deleteByid(sysMenu.getId());
         }
     }
 
@@ -125,46 +108,5 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return  sysMenuMapper.updateById(sysMenu);
     }
 
-    private List<String> getRoleCode(String username) {
-        List<String> roleList = sysRoleMapper.getRoleCode(username);
-        List<String> list = roleList.stream().map(r -> "ROLE_" + r).collect(Collectors.toList());
-        return list;
-    }
 
-    /**
-     * 获取父级菜单--用户管理
-     * @param menus
-     * @return
-     */
-    private List<SysMenuDTO> covertMenu(List<SysMenu> menus) {
-        final List<SysMenuDTO> collect = menus.stream().filter(bean-> bean.getType()==0||bean.getType()==1).map(bean -> {
-                final SysMenuDTO sysMenuDTO = new SysMenuDTO();
-                BeanUtils.copyProperties(bean, sysMenuDTO);
-                sysMenuDTO.setTitle(bean.getTitle());
-                sysMenuDTO.setChildren(new ArrayList<>());
-                return sysMenuDTO;
-            }).collect(Collectors.toList());
-        List<SysMenuDTO> result =new ArrayList<>();
-        final Map<String, SysMenuDTO> maps = collect.stream().collect(Collectors.toMap(SysMenuDTO::getId, Function.identity(), (v1, v2) -> v1));
-        for (SysMenuDTO sysMenuDTO : collect) {
-                if (sysMenuDTO.getParentId()==null||sysMenuDTO.getParentId().equals("0")){
-                result.add(sysMenuDTO);
-                continue;
-            }
-            setChild(maps,sysMenuDTO);
-        }
-        return result;
-    }
-
-    private SysMenuDTO setChild(Map<String, SysMenuDTO> collect, SysMenuDTO menu) {
-        SysMenuDTO sysMenuDTO = collect.get(menu.getParentId());
-        if (sysMenuDTO.getChildren()==null) {
-            List<SysMenuDTO> childrens =new ArrayList<>();
-            childrens.add(sysMenuDTO);
-            sysMenuDTO.setChildren(childrens);
-        }else {
-            sysMenuDTO.getChildren().add(menu);
-        }
-        return sysMenuDTO;
-    }
 }

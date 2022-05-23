@@ -2,8 +2,9 @@ package com.sofia.poseidon.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.Page;
 import com.muggle.poseidon.base.exception.SimplePoseidonException;
 import com.sofia.poseidon.entity.dto.SysUserDTO;
 import com.sofia.poseidon.entity.pojo.SysRole;
@@ -20,7 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static com.sofia.poseidon.base.ErrorCode.USER_ERROR;
 
@@ -64,12 +64,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public List<SysUserVO> getUserList(String username, Long current, Long size) {
-        final Page<SysUser> page = new Page<>(current.intValue(), size.intValue());
-        Page<SysUser> result=sysUserMapper.findAll(username,page);
-        for (SysUser sysUser : result) {
-
+    public IPage<SysUserVO> getUserList(String username, Long current, Long size) {
+        final Page<SysUserVO> page = new Page<>(current.intValue(), size.intValue());
+        IPage<SysUserVO> result=sysUserMapper.findAll(page,username);
+        for (SysUserVO sysUser : result.getRecords()) {
+            final SysUserVO target = userInfoManager.getUserMenu(sysUser.getUsername());
+            sysUser=target;
         }
-        return null;
+        return result;
     }
 }

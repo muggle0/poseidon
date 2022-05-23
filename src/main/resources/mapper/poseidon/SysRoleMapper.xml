@@ -20,6 +20,12 @@
         right join sys_user u on ur.user_id=u.id
         where u.username=#{username} and r.statu = 1;
     </select>
+    <select id="getAllRole" resultType="com.sofia.poseidon.entity.vo.SysRoleVO">
+         select * from sys_role
+    </select>
+    <select id="getMenuId" resultType="java.lang.Long">
+        select menu_id from sys_role_menu where role_id = #{id} order by menu_id
+    </select>
 
 
 </mapper>

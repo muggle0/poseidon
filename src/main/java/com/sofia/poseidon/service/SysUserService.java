@@ -1,11 +1,11 @@
 package com.sofia.poseidon.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sofia.poseidon.entity.dto.SysUserDTO;
 import com.sofia.poseidon.entity.pojo.SysUser;
 import com.sofia.poseidon.entity.vo.SysUserVO;
-
-import java.util.List;
 
 public interface SysUserService extends IService<SysUser> {
 
@@ -29,5 +29,5 @@ public interface SysUserService extends IService<SysUser> {
      * @param size
      * @return
      */
-    List<SysUserVO> getUserList(String username, Long current, Long size);
+    IPage<SysUserVO> getUserList(String username, Long current, Long size);
 }

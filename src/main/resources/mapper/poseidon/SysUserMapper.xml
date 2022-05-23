@@ -2,7 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sofia.poseidon.mapper.SysUserMapper">
 
-    <select id="findAll" resultType="com.sofia.poseidon.entity.pojo.SysUser">
 
+    <select id="findAll" resultType="com.sofia.poseidon.entity.vo.SysUserVO">
+     select distinct id, username, password, avatar, email, city, created, updated, last_login as lastLogin, statu
+            from sys_user
+            <where>
+               enabled = 1
+                <if test="username !=null ">
+                    and username like concat('%',#{username},'%')
+                </if>
+            </where>
     </select>
 </mapper>

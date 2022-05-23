@@ -1,5 +1,7 @@
 package com.sofia.poseidon.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.muggle.poseidon.base.ResultBean;
 import com.muggle.poseidon.util.IStringUtils;
 import com.sofia.poseidon.entity.vo.SysUserVO;
@@ -75,9 +77,15 @@ public class UserController {
     }
 
     @GetMapping("/system/user/list")
-    public ResultBean<List<SysUserVO>> userInfo(String username, Long current, Long size) {
-        List<SysUserVO> sysUsers=sysUserService.getUserList(username,current,size);
-        return ResultBean.successData(sysUsers);
+    public ResultBean<IPage<SysUserVO>> userInfo(String username, Long current, Long size) {
+        if (current==null){
+            current=1L;
+        }
+        if (size==null){
+            size=10L;
+        }
+        final IPage<SysUserVO> userList = sysUserService.getUserList(username, current, size);
+        return ResultBean.successData(userList);
     }
 
 }

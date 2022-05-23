@@ -20,6 +20,12 @@
             <groupId>com.muggle</groupId>
             <artifactId>poseidon-boot-starter</artifactId>
             <version>1.1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>pagehelper</artifactId>
+                    <groupId>com.github.pagehelper</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -51,11 +57,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.1.11</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
