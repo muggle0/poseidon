@@ -18,4 +18,5 @@ public interface SysMenuService extends IService<SysMenu> {
 
     int insertMenu(SysMenuDTO sysMenu);
 
+    void deleteByid(Long id);
 }

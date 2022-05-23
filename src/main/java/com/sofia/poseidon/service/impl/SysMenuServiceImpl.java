@@ -90,6 +90,17 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return 0;
     }
 
+    @Override
+    public void deleteByid(Long id) {
+        sysMenuMapper.deleteById(id);
+        final QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(SysMenu::getParentId,id);
+        final List<SysMenu> sysMenus = sysMenuMapper.selectList(queryWrapper);
+        for (SysMenu sysMenu : sysMenus) {
+            deleteByid(sysMenu.getId());
+        }
+    }
+
     private List<String> getRoleCode(String username) {
         List<String> roleList = sysRoleMapper.getRoleCode(username);
         List<String> list = roleList.stream().map(r -> "ROLE_" + r).collect(Collectors.toList());

@@ -33,7 +33,6 @@ public class SysMenuController extends BaseController {
 	 * @return
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('sys:menu:list')")
 	public ResultBean<SysMenuDTO> info(@PathVariable(name = "id") Long id) {
 		SysMenuDTO menuById = sysMenuService.getMenuById(id);
         log.info("根据ID获取菜单信息:{}", menuById);
@@ -80,10 +79,10 @@ public class SysMenuController extends BaseController {
 	 * 删除按钮
 	 * @param id
 	 * @return
-	 *//*
+	 */
 	@PostMapping("/delete/{id}")
-	@PreAuthorize("hasAuthority('sys:menu:delete')")
 	public ResultBean delete(@PathVariable("id") Long id) {
+		sysMenuService.deleteByid(id);
 		return ResultBean.success();
-	}*/
+	}
 }
