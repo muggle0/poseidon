@@ -40,5 +40,10 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      */
     IPage<SysRoleVO> getAllRole(Page page);
 
+    /**
+     * 查询菜单id
+     * @param id
+     * @return
+     */
     List<Long> getMenuId(@Param("id") Long id);
 }
